@@ -1,0 +1,22 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="cardview_width">200dp</dimen>
+    <dimen name="cardview_height">150dp</dimen>
+    <dimen name="cardview_elevation">1dp</dimen>
+    <dimen name="cardview_textview_size">25sp</dimen>
+    <dimen name="card_radius">5dp</dimen>
+    <dimen name="constraint_layout_padding">20dp</dimen>
+    <dimen name="contact_us_textsize">15sp</dimen>
+    <dimen name="textview_bottom_margin">10dp</dimen>
+    <dimen name="text_location_width">250dp</dimen>
+    <dimen name="cylinder_textsize">15sp</dimen>
+    <dimen name="input_edittext_width">120dp</dimen>
+    <dimen name="spinner_width">40dp</dimen>
+    <dimen name="spinner_height">20dp</dimen>
+    <dimen name="result_area_edit_text_width">80dp</dimen>
+</resources>

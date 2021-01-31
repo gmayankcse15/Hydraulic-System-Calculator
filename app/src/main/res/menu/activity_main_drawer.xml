@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_project"
+            android:icon="@drawable/ic_assignment"
+            android:title="@string/menu_projects" />
+        <item
+            android:id="@+id/nav_formula"
+            android:icon="@drawable/ic_formula"
+            android:title="@string/menu_formula" />
+        <item
+            android:id="@+id/nav_convertor"
+            android:icon="@drawable/ic_functions"
+            android:title="@string/menu_convertor" />
+        <item
+            android:id="@+id/nav_symbols"
+            android:icon="@drawable/ic_convertor"
+            android:title="@string/menu_symbols" />
+        <item
+            android:id="@+id/nav_privacy"
+            android:icon="@drawable/ic_privacy"
+            android:title="@string/menu_privacy" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_share"
+            android:title="@string/menu_share" />
+        <item
+            android:id="@+id/nav_catalogue"
+            android:icon="@drawable/ic_projects"
+            android:title="@string/menu_catalouge" />
+        <item
+            android:id="@+id/nav_website"
+            android:icon="@drawable/ic_web"
+            android:title="@string/menu_website" />
+        <item
+            android:id="@+id/nav_contactUs"
+            android:icon="@drawable/ic_contact"
+            android:title="@string/menu_contact" />
+    </group>
+</menu>

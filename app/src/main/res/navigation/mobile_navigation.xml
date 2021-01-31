@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.uniquespm.hydraulic.ui.home.HomeFragment"
+        android:label="@string/hydraulic_system"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/nav_project"
+        android:name="com.uniquespm.hydraulic.ui.project.ProjectFragment"
+        android:label="@string/menu_projects"
+        tools:layout="@layout/fragment_project"/>
+
+    <action
+        android:id="@+id/action_nav_home_to_nav_project"
+        app:destination="@id/nav_project"
+        app:popUpTo="@id/nav_home"/>
+
+
+    <fragment
+        android:id="@+id/nav_formula"
+        android:name="com.uniquespm.hydraulic.ui.formula.FormulaFragment"
+        android:label="@string/menu_formula"
+        tools:layout="@layout/fragment_formula" />
+
+    <fragment
+        android:id="@+id/nav_convertor"
+        android:name="com.uniquespm.hydraulic.ui.convertor.ConvertorFragment"
+        android:label="@string/menu_convertor"
+        tools:layout="@layout/fragment_convertor" />
+
+    <fragment
+        android:id="@+id/nav_symbols"
+        android:name="com.uniquespm.hydraulic.ui.symbol.SymbolFragment"
+        android:label="@string/menu_symbols"
+        tools:layout="@layout/fragment_symbols" />
+
+    <fragment
+        android:id="@+id/nav_privacy"
+        android:name="com.uniquespm.hydraulic.ui.privacy.PrivacyFragment"
+        android:label="@string/menu_privacy"
+        tools:layout="@layout/fragment_privacy" />
+
+    <fragment
+        android:id="@+id/nav_catalogue"
+        android:name="com.uniquespm.hydraulic.ui.catalogue.CatalogueFragment"
+        android:label="@string/menu_catalouge"
+        tools:layout="@layout/fragment_catalogue" />
+
+    <fragment
+        android:id="@+id/nav_contactUs"
+        android:name="com.uniquespm.hydraulic.ui.contactus.ContactUsFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contactus" />
+
+    <fragment
+        android:id="@+id/cardview_cylinder"
+        android:name="com.uniquespm.hydraulic.ui.cylinder.CylinderFragment"
+        android:label="@string/cylinder"
+        tools:layout="@layout/fragment_cylinder" />
+
+    <fragment
+        android:id="@+id/cardview_powerpack"
+        android:name="com.uniquespm.hydraulic.ui.powerpack.PowerpackFragment"
+        android:label="@string/powerpack"
+        tools:layout="@layout/fragment_powerpack" />
+
+</navigation>

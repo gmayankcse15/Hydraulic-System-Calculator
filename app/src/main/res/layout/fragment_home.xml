@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/home_constraint_layout"
+    tools:context=".ui.home.HomeFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_cylinder"
+        android:layout_width="@dimen/cardview_width"
+        android:layout_height="@dimen/cardview_height"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="0dp"
+        android:foreground="@drawable/ripple_bg"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:layout_constraintBottom_toTopOf="@+id/cardview_powerpack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_cyclinder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/cylinder"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/cardview_textview_size" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_powerpack"
+        android:layout_width="@dimen/cardview_width"
+        android:layout_height="@dimen/cardview_height"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="@drawable/ripple_bg"
+        app:cardCornerRadius="@dimen/card_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardview_cylinder">
+
+        <TextView
+            android:id="@+id/tv_powerpack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/powerpack"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/cardview_textview_size" />
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
