@@ -5,6 +5,6 @@
     <color name="colorAccent">@color/orange</color>
 
     <color name="orange">#d06b12</color>
-    <color name="grey">#e9ecf6</color>
+    <color name="grey">#F3F3F3</color>
     <color name="blue">#212958</color>
 </resources>

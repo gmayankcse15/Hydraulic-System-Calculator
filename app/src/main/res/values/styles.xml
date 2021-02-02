@@ -21,4 +21,28 @@
         <item name="android:textColor">@color/blue</item>
     </style>
 
+    <style name="cylinderTextStyle">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/cylinder_textsize</item>
+    </style>
+
+    <style name="cylinderButtonStyle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/button_drawable</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="editBoxStyle">
+        <item name="android:background">@drawable/edittext_box_style</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAlignment">viewEnd</item>
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">5</item>
+    </style>
+
+    <style name="customSpinnerStyle" parent="@android:style/Widget.ListView.DropDown">
+        <item name="android:background">@drawable/spinner_drawable</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
 </resources>

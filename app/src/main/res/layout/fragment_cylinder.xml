@@ -11,6 +11,7 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/cylinder_result_area"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="0.425">
@@ -18,10 +19,9 @@
 
         <TextView
             android:id="@+id/text_bore_diameter"
+            style="@style/cylinderTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/cylinder_textsize"
             android:text="@string/bore_diameter"
             app:layout_constraintBottom_toTopOf="@+id/text_rod_diameter"
             app:layout_constraintStart_toStartOf="parent"
@@ -29,10 +29,9 @@
 
         <TextView
             android:id="@+id/text_rod_diameter"
+            style="@style/cylinderTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/cylinder_textsize"
             android:text="@string/rod_diameter"
             app:layout_constraintBottom_toTopOf="@+id/text_stroke"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,10 +39,9 @@
 
         <TextView
             android:id="@+id/text_stroke"
+            style="@style/cylinderTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/cylinder_textsize"
             android:text="@string/stroke"
             app:layout_constraintBottom_toTopOf="@+id/text_pressure"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,10 +49,9 @@
 
         <TextView
             android:id="@+id/text_pressure"
+            style="@style/cylinderTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/cylinder_textsize"
             android:text="@string/pressure"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +60,9 @@
         <EditText
             android:id="@+id/bore_edit_text"
             android:layout_width="@dimen/input_edittext_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/spinner_start_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_bore_diameter"
             app:layout_constraintEnd_toStartOf="@id/bore_spinner"
             app:layout_constraintTop_toTopOf="@id/text_bore_diameter" />
@@ -71,7 +70,9 @@
         <EditText
             android:id="@+id/rod_edit_text"
             android:layout_width="@dimen/input_edittext_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/spinner_start_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_rod_diameter"
             app:layout_constraintEnd_toStartOf="@id/rod_spinner"
             app:layout_constraintTop_toTopOf="@id/text_rod_diameter" />
@@ -79,7 +80,9 @@
         <EditText
             android:id="@+id/stroke_edit_text"
             android:layout_width="@dimen/input_edittext_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/spinner_start_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_stroke"
             app:layout_constraintEnd_toStartOf="@id/rod_spinner"
             app:layout_constraintTop_toTopOf="@id/text_stroke" />
@@ -87,42 +90,55 @@
         <EditText
             android:id="@+id/pressure_edit_text"
             android:layout_width="@dimen/input_edittext_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/spinner_start_margin"
             app:layout_constraintBottom_toBottomOf="@id/text_pressure"
             app:layout_constraintEnd_toStartOf="@id/pressure_spinner"
             app:layout_constraintTop_toTopOf="@id/text_pressure" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/bore_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height"
+            android:layout_width="@dimen/spinner_box_width"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/customSpinnerStyle"
             app:layout_constraintBottom_toBottomOf="@+id/text_bore_diameter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_bore_diameter" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/rod_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height"
+            android:layout_width="@dimen/spinner_box_width"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/customSpinnerStyle"
             app:layout_constraintBottom_toBottomOf="@+id/text_rod_diameter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_rod_diameter" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/stroke_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height"
+            android:layout_width="@dimen/spinner_box_width"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/customSpinnerStyle"
             app:layout_constraintBottom_toBottomOf="@+id/text_stroke"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_stroke" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/pressure_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height"
+            android:layout_width="@dimen/spinner_box_width"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/customSpinnerStyle"
             app:layout_constraintBottom_toBottomOf="@+id/text_pressure"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_pressure" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginBottom="@dimen/divider_margin_bottom"
+            android:background="@color/blue"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -140,8 +156,8 @@
             android:id="@+id/text_bore_side"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/cylinder_textsize"
-            android:text="Bore Side"
+            style="@style/cylinderTextStyle"
+            android:text="@string/bore_side"
             app:layout_constraintEnd_toEndOf="@id/area__bore_side_edit_text"
             app:layout_constraintStart_toStartOf="@id/area__bore_side_edit_text"
             app:layout_constraintTop_toTopOf="parent" />
@@ -150,20 +166,18 @@
             android:id="@+id/text_rod_side"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/cylinder_textsize"
-            android:text="Rod Side"
+            style="@style/cylinderTextStyle"
+            android:text="@string/rod_side"
             app:layout_constraintEnd_toEndOf="@+id/area_edit_text"
             app:layout_constraintStart_toStartOf="@+id/area_edit_text"
             app:layout_constraintTop_toTopOf="parent" />
-
-
 
         <TextView
             android:id="@+id/text_area"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="@dimen/cylinder_textsize"
+            style="@style/cylinderTextStyle"
             android:text="@string/area"
             app:layout_constraintBottom_toTopOf="@+id/text_volume"
             app:layout_constraintStart_toStartOf="parent"
@@ -173,8 +187,7 @@
             android:id="@+id/text_volume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/cylinder_textsize"
+            style="@style/cylinderTextStyle"
             android:text="@string/volume"
             app:layout_constraintBottom_toTopOf="@+id/text_force"
             app:layout_constraintStart_toStartOf="parent"
@@ -184,8 +197,7 @@
             android:id="@+id/text_force"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="@dimen/cylinder_textsize"
+            style="@style/cylinderTextStyle"
             android:text="@string/force"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -194,7 +206,9 @@
         <EditText
             android:id="@+id/area_edit_text"
             android:layout_width="@dimen/result_area_edit_text_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/spinner_start_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_area"
             app:layout_constraintEnd_toStartOf="@id/area_spinner"
             app:layout_constraintTop_toTopOf="@id/text_area" />
@@ -202,7 +216,9 @@
         <EditText
             android:id="@+id/volume_edit_text"
             android:layout_width="@dimen/result_area_edit_text_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/spinner_start_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_volume"
             app:layout_constraintEnd_toStartOf="@id/volume_spinner"
             app:layout_constraintTop_toTopOf="@id/text_volume" />
@@ -210,7 +226,9 @@
         <EditText
             android:id="@+id/force_edit_text"
             android:layout_width="@dimen/result_area_edit_text_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/spinner_start_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_force"
             app:layout_constraintEnd_toStartOf="@id/force_spinner"
             app:layout_constraintTop_toTopOf="@id/text_force" />
@@ -218,7 +236,9 @@
         <EditText
             android:id="@+id/area__bore_side_edit_text"
             android:layout_width="@dimen/result_area_edit_text_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/bor_side_box_end_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_area"
             app:layout_constraintEnd_toStartOf="@id/area_edit_text"
             app:layout_constraintTop_toTopOf="@id/text_area" />
@@ -226,7 +246,9 @@
         <EditText
             android:id="@+id/volume_bore_side__edit_text"
             android:layout_width="@dimen/result_area_edit_text_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/bor_side_box_end_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_volume"
             app:layout_constraintEnd_toStartOf="@id/volume_edit_text"
             app:layout_constraintTop_toTopOf="@id/text_volume" />
@@ -234,7 +256,9 @@
         <EditText
             android:id="@+id/force_bore_side_edit_text"
             android:layout_width="@dimen/result_area_edit_text_width"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/editBoxStyle"
+            android:layout_marginEnd="@dimen/bor_side_box_end_margin"
             app:layout_constraintBottom_toBottomOf="@+id/text_force"
             app:layout_constraintEnd_toStartOf="@+id/force_edit_text"
             app:layout_constraintTop_toTopOf="@id/text_force" />
@@ -242,30 +266,34 @@
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/area_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height"
+            android:layout_width="@dimen/spinner_box_width"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/customSpinnerStyle"
             app:layout_constraintBottom_toBottomOf="@+id/text_area"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_area" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/volume_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height"
+            android:layout_width="@dimen/spinner_box_width"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/customSpinnerStyle"
             app:layout_constraintBottom_toBottomOf="@+id/text_volume"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_volume" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/force_spinner"
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="@dimen/spinner_height"
+            android:layout_width="@dimen/spinner_box_width"
+            android:layout_height="@dimen/edit_text_box_height"
+            style="@style/customSpinnerStyle"
             app:layout_constraintBottom_toBottomOf="@+id/text_force"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_force" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/action_button_area"
@@ -281,37 +309,41 @@
             android:id="@+id/calculate_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/cylinderButtonStyle"
             android:text="@string/calculate"
-            android:textAllCaps="false"
+            app:layout_constraintEnd_toStartOf="@+id/reset_button"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/save_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/cylinderButtonStyle"
             android:text="@string/save"
-            android:textAllCaps="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/share_button"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/reset_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/cylinderButtonStyle"
             android:text="@string/reset"
-            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/calculate_button"/>
 
         <Button
             android:id="@+id/share_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/cylinderButtonStyle"
             android:text="@string/share"
-            android:textAllCaps="false"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/save_button"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
