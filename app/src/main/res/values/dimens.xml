@@ -25,4 +25,8 @@
     <dimen name="bor_side_box_end_margin">20dp</dimen>
     <dimen name="spinner_start_margin">10dp</dimen>
     <dimen name="spinner_box_width">55dp</dimen>
+    <dimen name="input_cylinder_editText_width">50dp</dimen>
+    <dimen name="up_down_pressing_end_margin">5dp</dimen>
+    <dimen name="pump_efficiency_edittext_width">60dp</dimen>
+    <dimen name="motor_rpm_edittext_width">60dp</dimen>
 </resources>

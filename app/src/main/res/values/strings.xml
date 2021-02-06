@@ -41,4 +41,15 @@
     <string name="share">Share</string>
     <string name="bore_side">Bore Side</string>
     <string name="rod_side">Rod Side</string>
+    <string name="num_cylinder">Number of Cylinders</string>
+    <string name="string_up">UP</string>
+    <string name="pressing">PRESSING</string>
+    <string name="string_down">DOWN</string>
+    <string name="speed">Speed</string>
+    <string name="flow">flow</string>
+    <string name="motor">motor</string>
+    <string name="pump_efficiency">Pump Efficiency</string>
+    <string name="motor_rpm">Motor RPM</string>
+    <string name="vol_of_oil_stroke">Vol. of Oil / Stroke</string>
+    <string name="tank_capacity">Tank Capacity</string>
 </resources>

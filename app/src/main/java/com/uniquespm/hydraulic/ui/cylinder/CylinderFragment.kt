@@ -101,8 +101,5 @@ class CylinderFragment : Fragment() {
             // Apply the adapter to the spinner
             force_spinner.adapter = adapter
         }
-
-
     }
-
 }
