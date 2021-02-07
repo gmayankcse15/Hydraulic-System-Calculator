@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import com.uniquespm.hydraulic.R
+import kotlinx.android.synthetic.main.cylinder_table_layout.*
 import kotlinx.android.synthetic.main.fragment_powerpack.*
 
 class PowerpackFragment : Fragment() {

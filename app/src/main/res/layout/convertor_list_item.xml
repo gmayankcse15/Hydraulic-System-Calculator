@@ -36,21 +36,25 @@
             android:id="@+id/unitFrom"
             style="@style/editBoxStyle"
             android:layout_width="@dimen/input_edittext_width"
+            android:layout_marginEnd="20dp"
             android:layout_height="@dimen/edit_text_box_height"
             app:layout_constraintBottom_toTopOf="@+id/unitTo"
             app:layout_constraintEnd_toStartOf="@+id/unitFromSpinner"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
 
         <EditText
             android:id="@+id/unitTo"
             style="@style/editBoxStyle"
             android:layout_width="@dimen/input_edittext_width"
             android:layout_height="@dimen/edit_text_box_height"
+            android:layout_marginEnd="20dp"
             app:layout_constraintBottom_toTopOf="@id/calculate_button"
             app:layout_constraintEnd_toStartOf="@+id/unitToSpinner"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/unitFrom" />
+            app:layout_constraintTop_toBottomOf="@id/unitFrom"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
 
         <Spinner
             android:id="@+id/unitFromSpinner"
@@ -60,7 +64,8 @@
             app:layout_constraintTop_toTopOf="@id/unitFrom"
             app:layout_constraintBottom_toBottomOf="@id/unitFrom"
             app:layout_constraintStart_toEndOf="@id/unitFrom"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
 
         <Spinner
             android:id="@+id/unitToSpinner"
@@ -70,13 +75,14 @@
             app:layout_constraintTop_toTopOf="@id/unitTo"
             app:layout_constraintBottom_toBottomOf="@id/unitTo"
             app:layout_constraintStart_toEndOf="@id/unitTo"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"/>
 
         <Button
             android:id="@+id/calculate_button"
             style="@style/cylinderButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
             android:text="@string/calculate"
             app:layout_constraintEnd_toStartOf="@+id/reset_button"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,8 +92,8 @@
         <Button
             android:id="@+id/reset_button"
             style="@style/cylinderButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
             android:text="@string/reset"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/calculate_button"

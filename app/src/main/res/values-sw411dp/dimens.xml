@@ -11,22 +11,22 @@
     <dimen name="cardview_textview_size">25dp</dimen>
     <dimen name="card_radius">5dp</dimen>
     <dimen name="constraint_layout_padding">20dp</dimen>
-    <dimen name="contact_us_textsize">15dp</dimen>
+    <dimen name="contact_us_textsize">18dp</dimen>
     <dimen name="textview_bottom_margin">10dp</dimen>
     <dimen name="text_location_width">250dp</dimen>
     <dimen name="cylinder_textsize">15dp</dimen>
     <dimen name="input_edittext_width">120dp</dimen>
     <dimen name="spinner_width">80dp</dimen>
     <dimen name="spinner_height">20dp</dimen>
-    <dimen name="result_area_edit_text_width">80dp</dimen>
+    <dimen name="result_area_edit_text_width">83dp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="divider_margin_bottom">10dp</dimen>
     <dimen name="edit_text_box_height">42dp</dimen>
     <dimen name="bor_side_box_end_margin">20dp</dimen>
     <dimen name="spinner_start_margin">10dp</dimen>
-    <dimen name="spinner_box_width">60dp</dimen>
+    <dimen name="spinner_box_width">55dp</dimen>
     <dimen name="input_cylinder_editText_width">50dp</dimen>
-    <dimen name="up_down_pressing_end_margin">5dp</dimen>
+    <dimen name="up_down_pressing_end_margin">3dp</dimen>
     <dimen name="pump_efficiency_edittext_width">60dp</dimen>
     <dimen name="motor_rpm_edittext_width">60dp</dimen>
     <dimen name="Convertor_title">20dp</dimen>
@@ -41,5 +41,10 @@
     <dimen name="powerpack_result_area_height">250dp</dimen>
     <dimen name="action_button_area_height">100dp</dimen>
     <dimen name="navigation_textSize">16dp</dimen>
-    <dimen name="button_width">46dp</dimen>
+    <dimen name="button_height">46dp</dimen>
+
+    <dimen name="taglineTextSize">18dp</dimen>
+    <dimen name="icon_size">25dp</dimen>
+
+
 </resources>

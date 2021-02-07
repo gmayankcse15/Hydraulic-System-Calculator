@@ -315,8 +315,8 @@
             <Button
                 android:id="@+id/calculate_button"
                 style="@style/cylinderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_width"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:text="@string/calculate"
                 app:layout_constraintEnd_toStartOf="@+id/reset_button"
                 app:layout_constraintStart_toStartOf="parent"
@@ -325,8 +325,8 @@
             <Button
                 android:id="@+id/save_button"
                 style="@style/cylinderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_width"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/share_button"
@@ -335,8 +335,8 @@
             <Button
                 android:id="@+id/reset_button"
                 style="@style/cylinderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_width"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:text="@string/reset"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/calculate_button"
@@ -345,8 +345,8 @@
             <Button
                 android:id="@+id/share_button"
                 style="@style/cylinderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_width"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:text="@string/share"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

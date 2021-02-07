@@ -18,10 +18,6 @@ class WebsiteFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_formula, container, false)
-        val html = "<a href=\"http://www.uniquespm.com\">www.uniquespm.com</a>"
-        val result = Html.fromHtml(html)
-        text_website.text = result
-        text_website.movementMethod = LinkMovementMethod.getInstance()
         return root
     }
 }

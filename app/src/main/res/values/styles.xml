@@ -50,4 +50,9 @@
         <item name="android:textSize">@dimen/navigation_textSize</item>
     </style>
 
+    <style name="tagline_textStyle">
+        <item name="android:textSize">@dimen/taglineTextSize</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
 </resources>

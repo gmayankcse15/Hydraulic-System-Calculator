@@ -11,7 +11,7 @@
     <dimen name="cardview_textview_size">22dp</dimen>
     <dimen name="card_radius">4dp</dimen>
     <dimen name="constraint_layout_padding">17dp</dimen>
-    <dimen name="contact_us_textsize">13dp</dimen>
+    <dimen name="contact_us_textsize">16dp</dimen>
     <dimen name="textview_bottom_margin">9dp</dimen>
     <dimen name="text_location_width">218dp</dimen>
     <dimen name="cylinder_textsize">13dp</dimen>
@@ -41,6 +41,9 @@
     <dimen name="powerpack_result_area_height">218dp</dimen>
     <dimen name="action_button_area_height">88dp</dimen>
     <dimen name="navigation_textSize">14dp</dimen>
-    <dimen name="button_width">40dp</dimen>
+    <dimen name="button_height">40dp</dimen>
+
+    <dimen name="taglineTextSize">20dp</dimen>
+    <dimen name="icon_size">25dp</dimen>
 
 </resources>

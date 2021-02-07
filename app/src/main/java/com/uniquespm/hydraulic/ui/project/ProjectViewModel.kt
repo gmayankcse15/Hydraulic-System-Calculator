@@ -1,13 +1,24 @@
 package com.uniquespm.hydraulic.ui.project
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.uniquespm.hydraulic.model.Cylinder
+import com.uniquespm.hydraulic.model.DataRepository
 
-class ProjectViewModel : ViewModel() {
+class ProjectViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is gallery Fragment"
+    private val mRepository: DataRepository
+    private val mAllProjects: LiveData<List<Cylinder>>
+
+    init {
+        mRepository = DataRepository(application)
+        mAllProjects = mRepository.getAllCylinderProjects()
     }
-    val text: LiveData<String> = _text
+
+    fun getAllProjects() : LiveData<List<Cylinder>> =  mAllProjects
+
+    fun insert(cylinder: Cylinder)  {
+        mRepository.insert(cylinder)
+    }
 }

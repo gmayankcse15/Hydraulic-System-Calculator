@@ -7,7 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,11 +90,14 @@
                 app:layout_constraintEnd_toStartOf="@id/rod_spinner"
                 app:layout_constraintTop_toTopOf="@id/text_stroke" />
 
-            <EditText
+            <TextView
                 android:id="@+id/cyclinder_edit_text"
-                style="@style/editBoxStyle"
+                android:background="@drawable/convertor_item_drawable"
                 android:layout_width="@dimen/input_cylinder_editText_width"
                 android:layout_height="@dimen/edit_text_box_height"
+                android:text="0"
+                android:gravity="center"
+                android:textSize="20dp"
                 app:layout_constraintBottom_toBottomOf="@id/text_numcylinder"
                 app:layout_constraintEnd_toStartOf="@id/plus"
                 app:layout_constraintStart_toEndOf="@id/minus"
@@ -131,9 +134,11 @@
                 android:id="@+id/minus"
                 android:layout_width="@dimen/spinner_box_width"
                 android:layout_height="@dimen/edit_text_box_height"
-                android:background="@drawable/edittext_box_style"
+                android:background="@drawable/convertor_item_drawable"
                 android:src="@drawable/icons_minus"
                 app:tint="@android:color/black"
+                android:focusable="true"
+                android:clickable="true"
                 app:layout_constraintBottom_toBottomOf="@+id/cyclinder_edit_text"
                 app:layout_constraintEnd_toStartOf="@id/cyclinder_edit_text"
                 app:layout_constraintStart_toStartOf="@+id/bore_edit_text"
@@ -146,7 +151,9 @@
                 android:layout_height="@dimen/edit_text_box_height"
                 android:src="@drawable/ic_add"
                 app:tint="@android:color/black"
-                android:background="@drawable/edittext_box_style"
+                android:focusable="true"
+                android:clickable="true"
+                android:background="@drawable/convertor_item_drawable"
                 app:layout_constraintBottom_toBottomOf="@+id/cyclinder_edit_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cyclinder_edit_text"
@@ -161,293 +168,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/powerpack_table_area"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/powerpack_table_area_height"
-            app:layout_constraintBottom_toTopOf="@id/powerpack_result_area"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/powerpack_input_area">
-
-            <TextView
-                android:id="@+id/text_up"
-                style="@style/cylinderTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/string_up"
-                app:layout_constraintEnd_toEndOf="@id/up_force_edit_text"
-                app:layout_constraintStart_toStartOf="@id/up_force_edit_text"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_down"
-                style="@style/cylinderTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/string_down"
-                app:layout_constraintEnd_toEndOf="@id/down_force_edit_text"
-                app:layout_constraintStart_toStartOf="@id/down_force_edit_text"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_pressing"
-                style="@style/cylinderTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pressing"
-                app:layout_constraintEnd_toEndOf="@+id/pressing_force_edit_text"
-                app:layout_constraintStart_toStartOf="@+id/pressing_force_edit_text"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_force"
-                style="@style/cylinderTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/force"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toTopOf="@+id/text_speed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/text_speed"
-                style="@style/cylinderTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/speed"
-                app:layout_constraintBottom_toTopOf="@+id/text_pressure"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_force" />
-
-            <TextView
-                android:id="@+id/text_pressure"
-                style="@style/cylinderTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pressure"
-                app:layout_constraintBottom_toTopOf="@id/text_flow"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_speed" />
-
-            <TextView
-                android:id="@+id/text_flow"
-                style="@style/cylinderTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/flow"
-                app:layout_constraintBottom_toTopOf="@id/text_motor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_pressure" />
-
-            <TextView
-                android:id="@+id/text_motor"
-                style="@style/cylinderTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/motor"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_flow" />
-
-            <EditText
-                android:id="@+id/pressing_force_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/spinner_start_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_force"
-                app:layout_constraintEnd_toStartOf="@+id/force_spinner"
-                app:layout_constraintTop_toTopOf="@+id/text_force" />
-
-            <EditText
-                android:id="@+id/speed_pressing_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/spinner_start_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_speed"
-                app:layout_constraintEnd_toStartOf="@+id/speed_spinner"
-                app:layout_constraintTop_toTopOf="@+id/text_speed" />
-
-            <EditText
-                android:id="@+id/pressure_pressing_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/spinner_start_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_pressure"
-                app:layout_constraintEnd_toStartOf="@+id/pressure_spinner"
-                app:layout_constraintTop_toTopOf="@+id/text_pressure" />
-
-            <EditText
-                android:id="@+id/down_force_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_force"
-                app:layout_constraintEnd_toStartOf="@+id/pressing_force_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_force" />
-
-            <EditText
-                android:id="@+id/speed_down_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_speed"
-                app:layout_constraintEnd_toStartOf="@+id/speed_pressing_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_speed" />
-
-            <EditText
-                android:id="@+id/up_speed_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_speed"
-                app:layout_constraintEnd_toStartOf="@+id/speed_down_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_speed" />
-
-            <EditText
-                android:id="@+id/pressing_flow_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/spinner_start_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_flow"
-                app:layout_constraintEnd_toStartOf="@+id/flow_spinner"
-                app:layout_constraintTop_toTopOf="@+id/text_flow" />
-
-            <EditText
-                android:id="@+id/down_motor_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_motor"
-                app:layout_constraintEnd_toStartOf="@+id/pressing_motor_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_motor" />
-
-            <EditText
-                android:id="@+id/pressing_motor_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/spinner_start_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_motor"
-                app:layout_constraintEnd_toStartOf="@+id/motor_spinner"
-                app:layout_constraintTop_toTopOf="@+id/text_motor" />
-
-            <EditText
-                android:id="@+id/up_force_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_force"
-                app:layout_constraintEnd_toStartOf="@+id/down_force_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_force" />
-
-            <EditText
-                android:id="@+id/down_pressure_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_pressure"
-                app:layout_constraintEnd_toStartOf="@+id/pressure_pressing_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_pressure" />
-
-            <EditText
-                android:id="@+id/up_pressure_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_pressure"
-                app:layout_constraintEnd_toStartOf="@+id/down_pressure_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_pressure" />
-
-            <EditText
-                android:id="@+id/down_flow_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_flow"
-                app:layout_constraintEnd_toStartOf="@+id/pressing_flow_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_flow" />
-
-            <EditText
-                android:id="@+id/up_flow_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_flow"
-                app:layout_constraintEnd_toStartOf="@+id/down_flow_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_flow" />
-
-            <EditText
-                android:id="@+id/up_motor_edit_text"
-                style="@style/editBoxStyle"
-                android:layout_width="@dimen/result_area_edit_text_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/up_down_pressing_end_margin"
-                app:layout_constraintBottom_toBottomOf="@+id/text_motor"
-                app:layout_constraintEnd_toStartOf="@+id/down_motor_edit_text"
-                app:layout_constraintTop_toTopOf="@+id/text_motor" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/force_spinner"
-                style="@style/customSpinnerStyle"
-                android:layout_width="@dimen/spinner_box_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                app:layout_constraintBottom_toBottomOf="@+id/text_force"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_force" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/speed_spinner"
-                style="@style/customSpinnerStyle"
-                android:layout_width="@dimen/spinner_box_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                app:layout_constraintBottom_toBottomOf="@+id/text_speed"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_speed" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/pressure_spinner"
-                style="@style/customSpinnerStyle"
-                android:layout_width="@dimen/spinner_box_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                app:layout_constraintBottom_toBottomOf="@+id/text_pressure"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_pressure" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/flow_spinner"
-                style="@style/customSpinnerStyle"
-                android:layout_width="@dimen/spinner_box_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                app:layout_constraintBottom_toBottomOf="@+id/text_flow"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_flow" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/motor_spinner"
-                style="@style/customSpinnerStyle"
-                android:layout_width="@dimen/spinner_box_width"
-                android:layout_height="@dimen/edit_text_box_height"
-                app:layout_constraintBottom_toBottomOf="@+id/text_motor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/text_motor" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <include layout="@layout/cylinder_table_layout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/powerpack_result_area"
@@ -498,22 +219,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_oil_stroke" />
 
-            <EditText
+            <TextView
                 android:id="@+id/pump_efficiency_edit_text"
                 android:layout_width="@dimen/pump_efficiency_edittext_width"
                 android:layout_height="@dimen/edit_text_box_height"
-                style="@style/editBoxStyle"
+                android:background="@drawable/convertor_item_detail_bg"
+                android:text="85%"
+                android:textSize="20dp"
+                android:gravity="center"
                 android:layout_marginEnd="@dimen/spinner_start_margin"
                 app:layout_constraintBottom_toBottomOf="@+id/text_pump_efficiency"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/oil_stroke_edit_text"
                 app:layout_constraintTop_toTopOf="@id/text_pump_efficiency" />
 
-            <EditText
+            <TextView
                 android:id="@+id/motor_rpm_edit_text"
                 android:layout_width="@dimen/motor_rpm_edittext_width"
                 android:layout_height="@dimen/edit_text_box_height"
-                style="@style/editBoxStyle"
+                android:background="@drawable/convertor_item_detail_bg"
+                android:text="1440"
+                android:textSize="20dp"
+                android:gravity="center"
                 android:layout_marginEnd="@dimen/spinner_start_margin"
                 app:layout_constraintBottom_toBottomOf="@+id/text_motor_rpm"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -580,8 +307,8 @@
             <Button
                 android:id="@+id/calculate_button"
                 style="@style/cylinderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_width"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:text="@string/calculate"
                 app:layout_constraintEnd_toStartOf="@+id/reset_button"
                 app:layout_constraintStart_toStartOf="parent"
@@ -590,8 +317,8 @@
             <Button
                 android:id="@+id/save_button"
                 style="@style/cylinderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_width"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/share_button"
@@ -600,8 +327,8 @@
             <Button
                 android:id="@+id/reset_button"
                 style="@style/cylinderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_width"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:text="@string/reset"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/calculate_button"
@@ -610,8 +337,8 @@
             <Button
                 android:id="@+id/share_button"
                 style="@style/cylinderButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_width"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:text="@string/share"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
