@@ -30,6 +30,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/button_drawable</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/button_text_size</item>
     </style>
 
     <style name="editBoxStyle">
@@ -43,6 +44,10 @@
     <style name="customSpinnerStyle" parent="@android:style/Widget.ListView.DropDown">
         <item name="android:background">@drawable/spinner_drawable</item>
         <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="navigationViewStyle">
+        <item name="android:textSize">@dimen/navigation_textSize</item>
     </style>
 
 </resources>

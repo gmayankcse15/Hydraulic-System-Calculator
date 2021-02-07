@@ -32,10 +32,10 @@
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_share"
             android:title="@string/menu_share" />
-        <item
-            android:id="@+id/nav_catalogue"
-            android:icon="@drawable/ic_projects"
-            android:title="@string/menu_catalouge" />
+<!--        <item-->
+<!--            android:id="@+id/nav_catalogue"-->
+<!--            android:icon="@drawable/ic_projects"-->
+<!--            android:title="@string/menu_catalouge" />-->
         <item
             android:id="@+id/nav_website"
             android:icon="@drawable/ic_web"

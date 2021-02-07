@@ -15,11 +15,11 @@ class PowerpackFragment : Fragment() {
     private lateinit var powerpackViewModel: PowerpackViewModel
     private lateinit var mContext: Context
     private val unitLength = arrayOf("mm", "cm", "inch")
-    private val unitPressure = arrayOf("bar", "Psi", "Kgcm²")
+    private val unitPressure = arrayOf("bar", "Psi", "kgcm²")
     private val unitSpeed = arrayOf("mm/sec", "m/min")
     private val unitFlow = arrayOf("lpm", "m³/min", "gpm")
-    private val unitMotor = arrayOf("HP", "Kw")
-    private val unitForce = arrayOf("Ton", "Newton")
+    private val unitMotor = arrayOf("HP", "kw")
+    private val unitForce = arrayOf("ton", "newton")
     private val unitVolume = arrayOf("l")
 
     override fun onCreateView(
@@ -40,7 +40,7 @@ class PowerpackFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitLength
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -53,7 +53,7 @@ class PowerpackFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitPressure
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -64,7 +64,7 @@ class PowerpackFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitSpeed
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -75,7 +75,7 @@ class PowerpackFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitSpeed
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -86,7 +86,7 @@ class PowerpackFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitForce
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -97,7 +97,7 @@ class PowerpackFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitFlow
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -108,7 +108,7 @@ class PowerpackFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitMotor
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -119,7 +119,7 @@ class PowerpackFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitVolume
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears

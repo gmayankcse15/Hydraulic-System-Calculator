@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cylinder_input_area"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/cylinder_input_area_height"
             app:layout_constraintBottom_toTopOf="@+id/cylinder_result_area"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -148,7 +148,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cylinder_result_area"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/cylinder_result_area_height"
             app:layout_constraintBottom_toTopOf="@id/action_button_area"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -293,6 +293,12 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/text_force" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/divider_height"
+                android:layout_marginBottom="@dimen/divider_margin_bottom"
+                android:background="@color/blue"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -300,7 +306,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/action_button_area"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="@dimen/action_button_height"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -310,7 +316,7 @@
                 android:id="@+id/calculate_button"
                 style="@style/cylinderButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/button_width"
                 android:text="@string/calculate"
                 app:layout_constraintEnd_toStartOf="@+id/reset_button"
                 app:layout_constraintStart_toStartOf="parent"
@@ -320,7 +326,7 @@
                 android:id="@+id/save_button"
                 style="@style/cylinderButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/button_width"
                 android:text="@string/save"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/share_button"
@@ -330,7 +336,7 @@
                 android:id="@+id/reset_button"
                 style="@style/cylinderButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/button_width"
                 android:text="@string/reset"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/calculate_button"
@@ -340,7 +346,7 @@
                 android:id="@+id/share_button"
                 style="@style/cylinderButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/button_width"
                 android:text="@string/share"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

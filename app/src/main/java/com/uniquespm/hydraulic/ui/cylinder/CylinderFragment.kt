@@ -19,10 +19,10 @@ class CylinderFragment : Fragment() {
     private lateinit var cylinderViewModel: CylinderViewModel
     private lateinit var mContext: Context
     private val unitLength = arrayOf("mm", "cm", "inch")
-    private val unitPressure = arrayOf("bar", "Psi", "Kgcm²")
+    private val unitPressure = arrayOf("bar", "Psi", "kgcm²")
     private val unitArea = arrayOf("mm²", "m²", "ft²")
-    private val unitVolume = arrayOf("Ltr")
-    private val unitForce = arrayOf("Ton", "Newton")
+    private val unitVolume = arrayOf("ltr")
+    private val unitForce = arrayOf("ton", "newton")
 
 
     override fun onCreateView(
@@ -47,7 +47,7 @@ class CylinderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitLength
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -60,7 +60,7 @@ class CylinderFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitPressure
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -71,7 +71,7 @@ class CylinderFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitArea
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -82,7 +82,7 @@ class CylinderFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitVolume
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
@@ -93,7 +93,7 @@ class CylinderFragment : Fragment() {
 
         ArrayAdapter(
             mContext,
-            android.R.layout.simple_spinner_item,
+            R.layout.custom_spinner_item,
             unitForce
         ).also { adapter ->
             // Specify the layout to use when the list of choices appears
