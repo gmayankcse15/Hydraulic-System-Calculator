@@ -65,10 +65,11 @@
                 style="@style/editBoxStyle"
                 android:layout_width="@dimen/input_edittext_width"
                 android:layout_height="@dimen/edit_text_box_height"
-                android:layout_marginEnd="@dimen/spinner_start_margin"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_bore_diameter"
                 app:layout_constraintEnd_toStartOf="@id/bore_spinner"
-                app:layout_constraintTop_toTopOf="@id/text_bore_diameter" />
+                app:layout_constraintTop_toTopOf="@id/text_bore_diameter"
+                app:layout_constraintVertical_bias="0.454" />
 
             <EditText
                 android:id="@+id/rod_edit_text"
@@ -208,9 +209,12 @@
             <EditText
                 android:id="@+id/area_edit_text"
                 style="@style/editBoxStyle"
+                android:background="@drawable/edittext_box_style_grey"
                 android:layout_width="@dimen/result_area_edit_text_width"
                 android:layout_height="@dimen/edit_text_box_height"
                 android:layout_marginEnd="@dimen/spinner_start_margin"
+                android:focusable="false"
+                android:cursorVisible="false"
                 app:layout_constraintBottom_toBottomOf="@+id/text_area"
                 app:layout_constraintEnd_toStartOf="@id/area_spinner"
                 app:layout_constraintTop_toTopOf="@id/text_area" />
@@ -218,9 +222,12 @@
             <EditText
                 android:id="@+id/volume_edit_text"
                 style="@style/editBoxStyle"
+                android:background="@drawable/edittext_box_style_grey"
                 android:layout_width="@dimen/result_area_edit_text_width"
                 android:layout_height="@dimen/edit_text_box_height"
                 android:layout_marginEnd="@dimen/spinner_start_margin"
+                android:focusable="false"
+                android:cursorVisible="false"
                 app:layout_constraintBottom_toBottomOf="@+id/text_volume"
                 app:layout_constraintEnd_toStartOf="@id/volume_spinner"
                 app:layout_constraintTop_toTopOf="@id/text_volume" />
@@ -238,9 +245,12 @@
             <EditText
                 android:id="@+id/area__bore_side_edit_text"
                 style="@style/editBoxStyle"
+                android:background="@drawable/edittext_box_style_grey"
                 android:layout_width="@dimen/result_area_edit_text_width"
                 android:layout_height="@dimen/edit_text_box_height"
                 android:layout_marginEnd="@dimen/bor_side_box_end_margin"
+                android:focusable="false"
+                android:cursorVisible="false"
                 app:layout_constraintBottom_toBottomOf="@+id/text_area"
                 app:layout_constraintEnd_toStartOf="@id/area_edit_text"
                 app:layout_constraintTop_toTopOf="@id/text_area" />
@@ -248,9 +258,12 @@
             <EditText
                 android:id="@+id/volume_bore_side__edit_text"
                 style="@style/editBoxStyle"
+                android:background="@drawable/edittext_box_style_grey"
                 android:layout_width="@dimen/result_area_edit_text_width"
                 android:layout_height="@dimen/edit_text_box_height"
                 android:layout_marginEnd="@dimen/bor_side_box_end_margin"
+                android:focusable="false"
+                android:cursorVisible="false"
                 app:layout_constraintBottom_toBottomOf="@+id/text_volume"
                 app:layout_constraintEnd_toStartOf="@id/volume_edit_text"
                 app:layout_constraintTop_toTopOf="@id/text_volume" />
@@ -318,6 +331,7 @@
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:text="@string/calculate"
+                android:clickable="false"
                 app:layout_constraintEnd_toStartOf="@+id/reset_button"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

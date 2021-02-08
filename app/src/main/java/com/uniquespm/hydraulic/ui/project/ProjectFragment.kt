@@ -48,6 +48,5 @@ class ProjectFragment : Fragment() {
         mProjectList.layoutManager = LinearLayoutManager(mContext)
         mProjectList.adapter = mProjectListAdapter
 
-//        projectViewModel.insert(Cylinder("Cylinder Project 1"))
     }
 }
