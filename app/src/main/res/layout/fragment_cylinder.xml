@@ -8,7 +8,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:padding="10dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cylinder_input_area"
@@ -342,6 +342,7 @@
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:text="@string/save"
+                android:layout_marginBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/share_button"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -362,6 +363,7 @@
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:text="@string/share"
+                android:layout_marginBottom="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/save_button" />

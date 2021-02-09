@@ -35,7 +35,7 @@
     <dimen name="convertor_detail_height">175dp</dimen>
     <dimen name="cylinder_result_area_height">262dp</dimen>
     <dimen name="cylinder_input_area_height">262dp</dimen>
-    <dimen name="action_button_height">88dp</dimen>
+    <dimen name="action_button_height">95dp</dimen>
     <dimen name="powerpack_input_area_height">218dp</dimen>
     <dimen name="powerpack_table_area_height">262dp</dimen>
     <dimen name="powerpack_result_area_height">218dp</dimen>

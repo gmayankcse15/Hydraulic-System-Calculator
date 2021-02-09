@@ -1,11 +1,13 @@
 package com.uniquespm.hydraulic.ui.cylinder
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
 import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
+import android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,8 +16,10 @@ import android.view.View.FOCUSABLE
 import android.view.View.NOT_FOCUSABLE
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.uniquespm.hydraulic.R
 import com.uniquespm.hydraulic.common.CustomSpinnerAdapter
@@ -41,85 +45,174 @@ class CylinderFragment : Fragment() {
     private var mSpinnerEditTextMap: MutableMap<Int, Array<EditText>>? = null
     private var mSpinnerIdCurrentUnitMap: MutableMap<Int, UNIT>? = null
     private var mEditTextSpinnerMap: MutableMap<Int, AppCompatSpinner>? = null
-
-    private val editTextInputWatcher= object : TextWatcher {
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+    private var mEditTextTextWatcherMap: MutableMap<EditText, EditTextInputWatcher>? = null
+    private val mEditTextChangeListener = object : EditTextChangeListener {
+        override fun onTextChangeComplete(editText: EditText) {
+            when(editText) {
+                pressure_edit_text -> {
+                    if (pressure_edit_text.text.isNotEmpty()) {
+                        disableEditText(force_edit_text)
+                        disableEditText(force_bore_side_edit_text)
+                        force_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(force_edit_text))
+                        force_bore_side_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                    } else {
+                        enableEditText(force_edit_text)
+                        enableEditText(force_bore_side_edit_text)
+                        force_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(force_edit_text))
+                        force_bore_side_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                    }
+                    calculateResult(editText)
+                }
+                force_edit_text -> {
+                    if (force_edit_text.text.isNotEmpty()) {
+                        disableEditText(force_bore_side_edit_text)
+                        disableEditText(pressure_edit_text)
+                        pressure_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(pressure_edit_text))
+                        force_bore_side_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                    } else {
+                        enableEditText(force_bore_side_edit_text)
+                        enableEditText(pressure_edit_text)
+                        pressure_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(pressure_edit_text))
+                        force_bore_side_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                    }
+                    calculateResult(editText)
+                }
+                force_bore_side_edit_text -> {
+                    if (force_bore_side_edit_text.text.isNotEmpty()) {
+                        disableEditText(force_edit_text)
+                        disableEditText(pressure_edit_text)
+                        pressure_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(pressure_edit_text))
+                        force_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                    } else {
+                        enableEditText(force_edit_text)
+                        enableEditText(pressure_edit_text)
+                        pressure_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(pressure_edit_text))
+                        force_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                    }
+                    calculateResult(editText)
+                }
+                bore_edit_text -> {
+                    calculateResult(editText)
+                }
+                rod_edit_text -> {
+                    calculateResult(editText)
+                }
+                stroke_edit_text -> {
+                    calculateResult(editText)
+                }
+                else -> {
+                    Log.d(TAG, "DO NOTHING")
+                }
+            }
         }
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        }
-
-        override fun afterTextChanged(s: Editable?) {
-            Log.d(TAG, "text")
-            updateCylinderParameters()
-        }
-
     }
 
-    private fun updateCylinderParameters() {
-        if (pressure_edit_text.text.isNotEmpty()) {
-            force_edit_text.focusable = NOT_FOCUSABLE
-            force_edit_text.background = resources.getDrawable(R.drawable.edittext_box_style_grey, null)
-            force_bore_side_edit_text.focusable = NOT_FOCUSABLE
-            force_bore_side_edit_text.background = resources.getDrawable(R.drawable.edittext_box_style_grey, null)
-        } else {
-            force_edit_text.focusable = FOCUSABLE
-            force_edit_text.isClickable = true
-            force_edit_text.background = resources.getDrawable(R.drawable.edittext_box_style, null)
-            force_bore_side_edit_text.focusable = FOCUSABLE
-            force_bore_side_edit_text.background = resources.getDrawable(R.drawable.edittext_box_style, null)
+    class EditTextInputWatcher (val mEditText: EditText, val mCallBack: EditTextChangeListener): TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        }
+        override fun afterTextChanged(s: Editable?) {
+            mCallBack.onTextChangeComplete(mEditText)
+        }
+    }
+
+    private fun disableEditText(editText: EditText) {
+        editText.isFocusable = false
+        editText.background = ResourcesCompat.getDrawable(resources, R.drawable.edittext_box_style_grey, null)
+    }
+
+    private fun enableEditText(editText: EditText) {
+        editText.isFocusableInTouchMode = true
+        editText.background = ResourcesCompat.getDrawable(resources, R.drawable.edittext_box_style, null)
+    }
+
+    private fun enableButton(button: Button) {
+        button.isClickable = true
+        button.background =  ResourcesCompat.getDrawable(resources, R.drawable.button_drawable, null)
+    }
+
+    private fun disableButton(button: Button) {
+        button.isClickable = false
+        button.background =  ResourcesCompat.getDrawable(resources, R.drawable.button_drawable_grey, null)
+    }
+
+    private fun calculateResult(editText: EditText) {
 
         val boreString = bore_edit_text.text.toString()
         val rodString = rod_edit_text.text.toString()
         val strokeString = stroke_edit_text.text.toString()
         val pressureString = pressure_edit_text.text.toString()
+        val forceRodString = force_edit_text.text.toString()
+        val forceBoreString = force_bore_side_edit_text.text.toString()
 
-        if (boreString.isNotEmpty() && rodString.isNotEmpty() && strokeString.isNotEmpty()) {
-            calculate_button.isClickable = true
-            calculate_button.background = resources.getDrawable(R.drawable.button_drawable, null)
-            reset_button.isClickable = true
-            reset_button.background = resources.getDrawable(R.drawable.button_drawable, null)
-        } else {
-            calculate_button.isClickable = false
-            calculate_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
-            reset_button.isClickable = false
-            reset_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
+//        updating the reset share and copy button
+//        if (boreString.isNotEmpty() && rodString.isNotEmpty() && strokeString.isNotEmpty()) {
+//            calculate_button.isClickable = true
+//            calculate_button.background = resources.getDrawable(R.drawable.button_drawable, null)
+//            reset_button.isClickable = true
+//            reset_button.background = resources.getDrawable(R.drawable.button_drawable, null)
+//        } else {
+//            calculate_button.isClickable = false
+//            calculate_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
+//            reset_button.isClickable = false
+//            reset_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
+//        }
+
+        // calculate area and volume bore side
+        if (boreString.isNotEmpty()) {
+            var res = calculateArea(boreString.toDouble());
+            area__bore_side_edit_text.setText(res.toString())
+
+            if (strokeString.isNotEmpty()) {
+                res = calculateVolume(boreString.toDouble(), strokeString.toDouble())
+                volume_bore_side__edit_text.setText(res.toString())
+            }
         }
 
-//        // calculate area bore side and rod side
-//        if (boreString.isNotEmpty()) {
-//            var res = calculateArea(boreString.toDouble())
-//            area__bore_side_edit_text.setText(res.toString())
-//
-//            if (strokeString.isNotEmpty()) {
-//                res = calculateVolume(boreString.toDouble(), strokeString.toDouble())
-//                volume_edit_text.setText(res.toString())
-//            }
-//        }
-//
-//        // calculate area rod side and bore side
-//        if (boreString.isNotEmpty() && rodString.isNotEmpty()) {
-//            var res = calculateArea(boreString.toDouble(), rodString.toDouble());
-//            area__bore_side_edit_text.setText(res.toString())
-//
-//            if (strokeString.isNotEmpty()) {
-//                res = calculateVolume(boreString.toDouble(), rodString.toDouble(), strokeString.toDouble())
-//                area_edit_text.setText(res.toString())
-//            }
-//        }
-//
-//        //calculate force rod side and bore side
-//        if (boreString.isNotEmpty() && pressureString.isNotEmpty()) {
-//            var res = calculateForce(boreString.toDouble(), pressureString.toDouble())
-//            force_bore_side_edit_text.setText(res.toString())
-//
-//            if (rodString.isNotEmpty()) {
-//                res = calculateForce(boreString.toDouble(), rodString.toDouble(), pressureString.toDouble())
-//                force_edit_text.setText(res.toString())
-//            }
-//        }
+
+
+        // calculate area and volume rod side
+        if (boreString.isNotEmpty() && rodString.isNotEmpty()) {
+            var res = calculateArea(boreString.toDouble(), rodString.toDouble());
+            area_edit_text.setText(res.toString())
+
+            if (strokeString.isNotEmpty()) {
+                res = calculateVolume(boreString.toDouble(), rodString.toDouble(), strokeString.toDouble())
+                volume_edit_text.setText(res.toString())
+            }
+        }
+
+        //calculate force rod side and bore side
+        if (editText != force_edit_text && boreString.isNotEmpty() && pressureString.isNotEmpty()) {
+            var res = calculateForce(boreString.toDouble(), pressureString.toDouble())
+            force_bore_side_edit_text.setText(res.toString())
+
+            if (rodString.isNotEmpty()) {
+                res = calculateForce(boreString.toDouble(), rodString.toDouble(), pressureString.toDouble())
+                force_edit_text.setText(res.toString())
+            }
+        }
+
+        // calculate pressure
+        if (editText != pressure_edit_text && forceBoreString.isNotEmpty() &&  boreString.isNotEmpty()) {
+            var res = calculatePressure(forceBoreString.toDouble(), boreString.toDouble())
+            pressure_edit_text.setText(res.toString())
+        }
+
+        // calculate pressure
+        if (editText != pressure_edit_text && forceRodString.isNotEmpty() && boreString.isNotEmpty() && rodString.isNotEmpty()) {
+            var res = calculatePressure(forceRodString.toDouble(), boreString.toDouble(), rodString.toDouble())
+            pressure_edit_text.setText(res.toString())
+        }
+    }
+
+    private fun calculatePressure(toDouble: Double, toDouble1: Double, toDouble3: Double): Double {
+        return 0.0
+    }
+
+    private fun calculatePressure(toDouble: Double, toDouble1: Double): Double {
+        return 0.0
     }
 
     private fun calculateForce(toDouble: Double, toDouble1: Double): Any {
@@ -206,13 +299,16 @@ class CylinderFragment : Fragment() {
         val editTextViews = arrayOf(bore_edit_text, rod_edit_text, stroke_edit_text, pressure_edit_text, area_edit_text, area__bore_side_edit_text, volume_edit_text,
         volume_bore_side__edit_text, force_edit_text, force_bore_side_edit_text)
 
+        mEditTextTextWatcherMap = mutableMapOf()
         for(v in editTextViews) {
             v.filters = arrayOf<InputFilter>(DecimalDigitInputFilter(5, 5))
+            val editTextInputWatcher = EditTextInputWatcher(v, mEditTextChangeListener)
+            mEditTextTextWatcherMap?.let {
+                it[v] = editTextInputWatcher
+            }
+            v.addTextChangedListener(editTextInputWatcher)
+
         }
-        bore_edit_text.addTextChangedListener(editTextInputWatcher)
-        rod_edit_text.addTextChangedListener(editTextInputWatcher)
-        stroke_edit_text.addTextChangedListener(editTextInputWatcher)
-        pressure_edit_text.addTextChangedListener(editTextInputWatcher)
 
         mSpinnerEditTextMap = mutableMapOf(
             bore_spinner.id to arrayOf(bore_edit_text),
