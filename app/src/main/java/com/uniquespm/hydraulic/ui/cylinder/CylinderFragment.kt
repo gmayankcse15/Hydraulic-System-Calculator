@@ -26,6 +26,7 @@ import com.uniquespm.hydraulic.common.CustomSpinnerAdapter
 import com.uniquespm.hydraulic.common.DecimalDigitInputFilter
 import com.uniquespm.hydraulic.util.*
 import kotlinx.android.synthetic.main.fragment_cylinder.*
+import java.text.Normalizer
 
 class CylinderFragment : Fragment() {
 
@@ -46,59 +47,66 @@ class CylinderFragment : Fragment() {
     private var mSpinnerIdCurrentUnitMap: MutableMap<Int, UNIT>? = null
     private var mEditTextSpinnerMap: MutableMap<Int, AppCompatSpinner>? = null
     private var mEditTextTextWatcherMap: MutableMap<EditText, EditTextInputWatcher>? = null
+    private var inputSet: MutableSet<EditText>? = null
     private val mEditTextChangeListener = object : EditTextChangeListener {
         override fun onTextChangeComplete(editText: EditText) {
+            if (inputSet?.contains(editText) == false) {
+                return
+            }
             when(editText) {
                 pressure_edit_text -> {
                     if (pressure_edit_text.text.isNotEmpty()) {
                         disableEditText(force_edit_text)
                         disableEditText(force_bore_side_edit_text)
-                        force_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(force_edit_text))
-                        force_bore_side_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                        inputSet?.remove(force_edit_text)
+                        inputSet?.remove(force_bore_side_edit_text)
+                        calculateResult()
                     } else {
                         enableEditText(force_edit_text)
                         enableEditText(force_bore_side_edit_text)
-                        force_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(force_edit_text))
-                        force_bore_side_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                        calculateResult()
+                        inputSet?.add(force_edit_text)
+                        inputSet?.add(force_bore_side_edit_text)
                     }
-                    calculateResult(editText)
                 }
                 force_edit_text -> {
                     if (force_edit_text.text.isNotEmpty()) {
                         disableEditText(force_bore_side_edit_text)
                         disableEditText(pressure_edit_text)
-                        pressure_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(pressure_edit_text))
-                        force_bore_side_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                        inputSet?.remove(force_bore_side_edit_text)
+                        inputSet?.remove(pressure_edit_text)
+                        calculateResult()
                     } else {
                         enableEditText(force_bore_side_edit_text)
                         enableEditText(pressure_edit_text)
-                        pressure_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(pressure_edit_text))
-                        force_bore_side_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                        calculateResult()
+                        inputSet?.add(force_bore_side_edit_text)
+                        inputSet?.add(pressure_edit_text)
                     }
-                    calculateResult(editText)
                 }
                 force_bore_side_edit_text -> {
                     if (force_bore_side_edit_text.text.isNotEmpty()) {
                         disableEditText(force_edit_text)
                         disableEditText(pressure_edit_text)
-                        pressure_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(pressure_edit_text))
-                        force_edit_text.removeTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                        inputSet?.remove(force_edit_text)
+                        inputSet?.remove(pressure_edit_text)
+                        calculateResult()
                     } else {
                         enableEditText(force_edit_text)
                         enableEditText(pressure_edit_text)
-                        pressure_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(pressure_edit_text))
-                        force_edit_text.addTextChangedListener(mEditTextTextWatcherMap?.get(force_bore_side_edit_text))
+                        calculateResult()
+                        inputSet?.add(force_edit_text)
+                        inputSet?.add(pressure_edit_text)
                     }
-                    calculateResult(editText)
                 }
                 bore_edit_text -> {
-                    calculateResult(editText)
+                    calculateResult()
                 }
                 rod_edit_text -> {
-                    calculateResult(editText)
+                    calculateResult()
                 }
                 stroke_edit_text -> {
-                    calculateResult(editText)
+                    calculateResult()
                 }
                 else -> {
                     Log.d(TAG, "DO NOTHING")
@@ -137,14 +145,27 @@ class CylinderFragment : Fragment() {
         button.background =  ResourcesCompat.getDrawable(resources, R.drawable.button_drawable_grey, null)
     }
 
-    private fun calculateResult(editText: EditText) {
+    private fun setText(editText: EditText, value: String) {
+        if (inputSet?.contains(editText) == false) {
+            editText.setText(value)
+        }
+    }
 
-        val boreString = bore_edit_text.text.toString()
-        val rodString = rod_edit_text.text.toString()
-        val strokeString = stroke_edit_text.text.toString()
-        val pressureString = pressure_edit_text.text.toString()
-        val forceRodString = force_edit_text.text.toString()
-        val forceBoreString = force_bore_side_edit_text.text.toString()
+    private fun calculateResult() {
+
+        inputSet?.let {inputSet ->
+            val boreString =
+                if (!inputSet.contains(bore_edit_text)) "" else bore_edit_text.text.toString()
+            val rodString =
+                if (!inputSet.contains(rod_edit_text)) "" else rod_edit_text.text.toString()
+            val strokeString =
+                if (!inputSet.contains(stroke_edit_text)) "" else stroke_edit_text.text.toString()
+            val pressureString =
+                if (!inputSet.contains(pressure_edit_text)) "" else pressure_edit_text.text.toString()
+            val forceRodString =
+                if (!inputSet.contains(force_edit_text)) "" else force_edit_text.text.toString()
+            val forceBoreString =
+                if (!inputSet.contains(force_bore_side_edit_text)) "" else force_bore_side_edit_text.text.toString()
 
 //        updating the reset share and copy button
 //        if (boreString.isNotEmpty() && rodString.isNotEmpty() && strokeString.isNotEmpty()) {
@@ -159,84 +180,60 @@ class CylinderFragment : Fragment() {
 //            reset_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
 //        }
 
-        // calculate area and volume bore side
-        if (boreString.isNotEmpty()) {
-            var res = calculateArea(boreString.toDouble());
-            area__bore_side_edit_text.setText(res.toString())
+            setText(
+                force_bore_side_edit_text, FormulaUtil.calculateForceBoreSide(
+                    boreString,
+                    rodString,
+                    pressureString,
+                    forceRodString
+                )
+            )
+            setText(
+                pressure_edit_text, FormulaUtil.calculatePressure(
+                    boreString,
+                    rodString,
+                    forceRodString,
+                    forceBoreString
+                )
+            )
 
-            if (strokeString.isNotEmpty()) {
-                res = calculateVolume(boreString.toDouble(), strokeString.toDouble())
-                volume_bore_side__edit_text.setText(res.toString())
-            }
+            setText(
+                force_edit_text, FormulaUtil.calculateForceRodSide(
+                    boreString,
+                    rodString,
+                    pressureString,
+                    forceBoreString
+                )
+            )
+
+            setText(
+                area__bore_side_edit_text, FormulaUtil.calculateAreaBoreSide(
+                    boreString
+                )
+            )
+
+            setText(
+                area_edit_text, FormulaUtil.calculateAreaRodSide(
+                    boreString,
+                    rodString
+                )
+            )
+
+            setText(
+                volume_bore_side__edit_text, FormulaUtil.calculateVolumeBoreSide(
+                    boreString,
+                    strokeString
+                )
+            )
+
+            setText(
+                volume_edit_text, FormulaUtil.calculateVolumeRodSide(
+                    boreString,
+                    rodString,
+                    strokeString
+                )
+            )
         }
-
-
-
-        // calculate area and volume rod side
-        if (boreString.isNotEmpty() && rodString.isNotEmpty()) {
-            var res = calculateArea(boreString.toDouble(), rodString.toDouble());
-            area_edit_text.setText(res.toString())
-
-            if (strokeString.isNotEmpty()) {
-                res = calculateVolume(boreString.toDouble(), rodString.toDouble(), strokeString.toDouble())
-                volume_edit_text.setText(res.toString())
-            }
-        }
-
-        //calculate force rod side and bore side
-        if (editText != force_edit_text && boreString.isNotEmpty() && pressureString.isNotEmpty()) {
-            var res = calculateForce(boreString.toDouble(), pressureString.toDouble())
-            force_bore_side_edit_text.setText(res.toString())
-
-            if (rodString.isNotEmpty()) {
-                res = calculateForce(boreString.toDouble(), rodString.toDouble(), pressureString.toDouble())
-                force_edit_text.setText(res.toString())
-            }
-        }
-
-        // calculate pressure
-        if (editText != pressure_edit_text && forceBoreString.isNotEmpty() &&  boreString.isNotEmpty()) {
-            var res = calculatePressure(forceBoreString.toDouble(), boreString.toDouble())
-            pressure_edit_text.setText(res.toString())
-        }
-
-        // calculate pressure
-        if (editText != pressure_edit_text && forceRodString.isNotEmpty() && boreString.isNotEmpty() && rodString.isNotEmpty()) {
-            var res = calculatePressure(forceRodString.toDouble(), boreString.toDouble(), rodString.toDouble())
-            pressure_edit_text.setText(res.toString())
-        }
-    }
-
-    private fun calculatePressure(toDouble: Double, toDouble1: Double, toDouble3: Double): Double {
-        return 0.0
-    }
-
-    private fun calculatePressure(toDouble: Double, toDouble1: Double): Double {
-        return 0.0
-    }
-
-    private fun calculateForce(toDouble: Double, toDouble1: Double): Any {
-        return 0.0
-    }
-
-    private fun calculateForce(toDouble: Double, toDouble1: Double, pressure: Double): Any {
-        return 0.0
-    }
-
-    private fun calculateVolume(toDouble: Double, toDouble1: Double): Double {
-        return 0.0
-    }
-
-    private fun calculateVolume(toDouble: Double, toDouble1: Double, stroke: Double): Double {
-        return 0.0
-    }
-
-    private fun calculateArea(boreDiameter: Double): Double {
-        return 0.0
-    }
-
-    private fun calculateArea(boreDiameter: Double, rodDiameter: Double): Double {
-        return 0.0
     }
 
     private val spinnerItemSelectListener  = object: AdapterView.OnItemSelectedListener{
@@ -298,6 +295,8 @@ class CylinderFragment : Fragment() {
         val sViews = arrayOf(bore_spinner, rod_spinner, stroke_spinner, pressure_spinner, area_spinner, volume_spinner, force_spinner)
         val editTextViews = arrayOf(bore_edit_text, rod_edit_text, stroke_edit_text, pressure_edit_text, area_edit_text, area__bore_side_edit_text, volume_edit_text,
         volume_bore_side__edit_text, force_edit_text, force_bore_side_edit_text)
+
+        inputSet = mutableSetOf(bore_edit_text, rod_edit_text, stroke_edit_text, pressure_edit_text, force_edit_text, force_bore_side_edit_text)
 
         mEditTextTextWatcherMap = mutableMapOf()
         for(v in editTextViews) {

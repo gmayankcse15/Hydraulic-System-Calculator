@@ -40,7 +40,7 @@
     <dimen name="powerpack_table_area_height">262dp</dimen>
     <dimen name="powerpack_result_area_height">218dp</dimen>
     <dimen name="action_button_area_height">88dp</dimen>
-    <dimen name="navigation_textSize">14dp</dimen>
+    <dimen name="navigation_textSize">18dp</dimen>
     <dimen name="button_height">40dp</dimen>
 
     <dimen name="taglineTextSize">20dp</dimen>

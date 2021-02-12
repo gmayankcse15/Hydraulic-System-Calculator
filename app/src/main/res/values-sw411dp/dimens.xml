@@ -35,12 +35,12 @@
     <dimen name="convertor_detail_height">200dp</dimen>
     <dimen name="cylinder_result_area_height">300dp</dimen>
     <dimen name="cylinder_input_area_height">300dp</dimen>
-    <dimen name="action_button_height">110dp</dimen>
+    <dimen name="action_button_height">60dp</dimen>
     <dimen name="powerpack_input_area_height">250dp</dimen>
     <dimen name="powerpack_table_area_height">300dp</dimen>
     <dimen name="powerpack_result_area_height">250dp</dimen>
     <dimen name="action_button_area_height">100dp</dimen>
-    <dimen name="navigation_textSize">16dp</dimen>
+    <dimen name="navigation_textSize">20dp</dimen>
     <dimen name="button_height">46dp</dimen>
 
     <dimen name="taglineTextSize">18dp</dimen>

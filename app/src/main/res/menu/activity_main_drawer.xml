@@ -3,43 +3,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/grp1" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="@string/menu_home" />
+    </group>
+    <group android:id="@+id/grp2" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_project"
             android:icon="@drawable/ic_assignment"
             android:title="@string/menu_projects" />
+    </group>
+    <group android:id="@+id/grp3" android:checkableBehavior="single" >
         <item
+
             android:id="@+id/nav_formula"
             android:icon="@drawable/ic_formula"
             android:title="@string/menu_formula" />
+    </group>
+    <group android:id="@+id/grp4" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_convertor"
             android:icon="@drawable/ic_functions"
             android:title="@string/menu_convertor" />
+    </group>
+    <group android:id="@+id/grp5" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_symbols"
             android:icon="@drawable/ic_convertor"
             android:title="@string/menu_symbols" />
+    </group>
+    <group android:id="@+id/grp6" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_privacy"
             android:icon="@drawable/ic_privacy"
             android:title="@string/menu_privacy" />
+    </group>
+    <group android:id="@+id/grp7" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_share"
             android:icon="@drawable/ic_share"
             android:title="@string/menu_share" />
+    </group>
 <!--        <item-->
 <!--            android:id="@+id/nav_catalogue"-->
 <!--            android:icon="@drawable/ic_projects"-->
 <!--            android:title="@string/menu_catalouge" />-->
+    <group android:id="@+id/grp8" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_website"
             android:icon="@drawable/ic_web"
             android:title="@string/menu_website" />
+    </group>
+    <group android:id="@+id/grp9" android:checkableBehavior="single" >
         <item
             android:id="@+id/nav_contactUs"
             android:icon="@drawable/ic_contact"

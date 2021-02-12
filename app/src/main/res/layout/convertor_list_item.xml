@@ -84,6 +84,7 @@
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
             android:text="@string/calculate"
+            android:background="@drawable/button_drawable"
             app:layout_constraintEnd_toStartOf="@+id/reset_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/unitTo"
@@ -92,6 +93,7 @@
         <Button
             android:id="@+id/reset_button"
             style="@style/cylinderButtonStyle"
+            android:background="@drawable/button_drawable"
             android:layout_width="@dimen/button_width"
             android:layout_height="@dimen/button_height"
             android:text="@string/reset"
