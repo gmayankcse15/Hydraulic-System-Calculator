@@ -1,19 +1,18 @@
 package com.uniquespm.hydraulic.ui.cylinder
 
-import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.res.Configuration
 import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
-import android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.FOCUSABLE
-import android.view.View.NOT_FOCUSABLE
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Button
@@ -24,9 +23,14 @@ import androidx.fragment.app.Fragment
 import com.uniquespm.hydraulic.R
 import com.uniquespm.hydraulic.common.CustomSpinnerAdapter
 import com.uniquespm.hydraulic.common.DecimalDigitInputFilter
+import com.uniquespm.hydraulic.common.SaveProjectCallback
+import com.uniquespm.hydraulic.model.Cylinder
+import com.uniquespm.hydraulic.model.DataRepository
 import com.uniquespm.hydraulic.util.*
+import com.uniquespm.hydraulic.util.FormulaUtil.Companion.getValidData
+import com.uniquespm.hydraulic.util.FormulaUtil.Companion.isValid
 import kotlinx.android.synthetic.main.fragment_cylinder.*
-import java.text.Normalizer
+
 
 class CylinderFragment : Fragment() {
 
@@ -42,12 +46,52 @@ class CylinderFragment : Fragment() {
     private val unitVolume : Array<UNIT> = arrayOf(VOLUME.LITRE)
     private val unitForce : Array<UNIT> = arrayOf(FORCE.TON, FORCE.NEWTON)
 
-    private val spinnerDataArray = arrayOf(unitLength, unitLength, unitLength, unitPressure, unitArea, unitVolume, unitForce)
+    private val spinnerDataArray = arrayOf(
+        unitLength,
+        unitLength,
+        unitLength,
+        unitPressure,
+        unitArea,
+        unitVolume,
+        unitForce
+    )
     private var mSpinnerEditTextMap: MutableMap<Int, Array<EditText>>? = null
     private var mSpinnerIdCurrentUnitMap: MutableMap<Int, UNIT>? = null
     private var mEditTextSpinnerMap: MutableMap<Int, AppCompatSpinner>? = null
     private var mEditTextTextWatcherMap: MutableMap<EditText, EditTextInputWatcher>? = null
     private var inputSet: MutableSet<EditText>? = null
+    private var mDataRepository: DataRepository? = null
+
+    private val mSaveProjectListener = object: SaveProjectCallback {
+        override fun onSave(projectName: String) {
+            mDataRepository = DataRepository(mContext.applicationContext)
+            bore_spinner.selectedItemPosition
+            val cylinder = Cylinder(
+                projectName,
+                getValidData(bore_edit_text),
+                bore_spinner.selectedItemPosition,
+                getValidData(rod_edit_text),
+                rod_spinner.selectedItemPosition,
+                getValidData(stroke_edit_text),
+                stroke_spinner.selectedItemPosition,
+                getValidData(pressure_edit_text),
+                pressure_spinner.selectedItemPosition,
+                getValidData(area__bore_side_edit_text),
+                getValidData(area_edit_text),
+                area_spinner.selectedItemPosition,
+                getValidData(volume_bore_side__edit_text),
+                getValidData(volume_edit_text),
+                volume_spinner.selectedItemPosition,
+                getValidData(force_bore_side_edit_text),
+                getValidData(force_edit_text),
+                force_spinner.selectedItemPosition
+                )
+            Log.d(TAG, "Cylinder $cylinder")
+            mDataRepository?.insert(cylinder)
+        }
+
+    }
+
     private val mEditTextChangeListener = object : EditTextChangeListener {
         override fun onTextChangeComplete(editText: EditText) {
             if (inputSet?.contains(editText) == false) {
@@ -115,7 +159,7 @@ class CylinderFragment : Fragment() {
         }
     }
 
-    class EditTextInputWatcher (val mEditText: EditText, val mCallBack: EditTextChangeListener): TextWatcher {
+    class EditTextInputWatcher(val mEditText: EditText, val mCallBack: EditTextChangeListener): TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -127,22 +171,38 @@ class CylinderFragment : Fragment() {
 
     private fun disableEditText(editText: EditText) {
         editText.isFocusable = false
-        editText.background = ResourcesCompat.getDrawable(resources, R.drawable.edittext_box_style_grey, null)
+        editText.background = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.edittext_box_style_grey,
+            null
+        )
     }
 
     private fun enableEditText(editText: EditText) {
         editText.isFocusableInTouchMode = true
-        editText.background = ResourcesCompat.getDrawable(resources, R.drawable.edittext_box_style, null)
+        editText.background = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.edittext_box_style,
+            null
+        )
     }
 
     private fun enableButton(button: Button) {
         button.isClickable = true
-        button.background =  ResourcesCompat.getDrawable(resources, R.drawable.button_drawable, null)
+        button.background =  ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.button_drawable,
+            null
+        )
     }
 
     private fun disableButton(button: Button) {
         button.isClickable = false
-        button.background =  ResourcesCompat.getDrawable(resources, R.drawable.button_drawable_grey, null)
+        button.background =  ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.button_drawable_grey,
+            null
+        )
     }
 
     private fun setText(editText: EditText, value: String) {
@@ -153,7 +213,7 @@ class CylinderFragment : Fragment() {
 
     private fun calculateResult() {
 
-        inputSet?.let {inputSet ->
+        inputSet?.let { inputSet ->
             val boreString =
                 if (!inputSet.contains(bore_edit_text)) "" else bore_edit_text.text.toString()
             val rodString =
@@ -168,17 +228,17 @@ class CylinderFragment : Fragment() {
                 if (!inputSet.contains(force_bore_side_edit_text)) "" else force_bore_side_edit_text.text.toString()
 
 //        updating the reset share and copy button
-//        if (boreString.isNotEmpty() && rodString.isNotEmpty() && strokeString.isNotEmpty()) {
-//            calculate_button.isClickable = true
-//            calculate_button.background = resources.getDrawable(R.drawable.button_drawable, null)
-//            reset_button.isClickable = true
-//            reset_button.background = resources.getDrawable(R.drawable.button_drawable, null)
-//        } else {
-//            calculate_button.isClickable = false
-//            calculate_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
-//            reset_button.isClickable = false
-//            reset_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
-//        }
+        if (isValid(boreString) && isValid(rodString) && isValid(strokeString)) {
+            save_button.isClickable = true
+            save_button.background = resources.getDrawable(R.drawable.button_drawable, null)
+            share_button.isClickable = true
+            share_button.background = resources.getDrawable(R.drawable.button_drawable, null)
+        } else {
+            save_button.isClickable = false
+            save_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
+            save_button.isClickable = false
+            save_button.background = resources.getDrawable(R.drawable.button_drawable_grey, null)
+        }
 
             setText(
                 force_bore_side_edit_text, FormulaUtil.calculateForceBoreSide(
@@ -256,7 +316,7 @@ class CylinderFragment : Fragment() {
                                 it[parent.id]!!,
                                 selectedItem
                             )
-                            val dec = DecimalFormat("######.#####")
+                            val dec = DecimalFormat("#.#####")
                             editText.setText(dec.format(res).toString())
                         }
                     }
@@ -272,9 +332,9 @@ class CylinderFragment : Fragment() {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_cylinder, container, false)
         return root
@@ -292,11 +352,36 @@ class CylinderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val sViews = arrayOf(bore_spinner, rod_spinner, stroke_spinner, pressure_spinner, area_spinner, volume_spinner, force_spinner)
-        val editTextViews = arrayOf(bore_edit_text, rod_edit_text, stroke_edit_text, pressure_edit_text, area_edit_text, area__bore_side_edit_text, volume_edit_text,
-        volume_bore_side__edit_text, force_edit_text, force_bore_side_edit_text)
+        val sViews = arrayOf(
+            bore_spinner,
+            rod_spinner,
+            stroke_spinner,
+            pressure_spinner,
+            area_spinner,
+            volume_spinner,
+            force_spinner
+        )
+        val editTextViews = arrayOf(
+            bore_edit_text,
+            rod_edit_text,
+            stroke_edit_text,
+            pressure_edit_text,
+            area_edit_text,
+            area__bore_side_edit_text,
+            volume_edit_text,
+            volume_bore_side__edit_text,
+            force_edit_text,
+            force_bore_side_edit_text
+        )
 
-        inputSet = mutableSetOf(bore_edit_text, rod_edit_text, stroke_edit_text, pressure_edit_text, force_edit_text, force_bore_side_edit_text)
+        inputSet = mutableSetOf(
+            bore_edit_text,
+            rod_edit_text,
+            stroke_edit_text,
+            pressure_edit_text,
+            force_edit_text,
+            force_bore_side_edit_text
+        )
 
         mEditTextTextWatcherMap = mutableMapOf()
         for(v in editTextViews) {
@@ -316,7 +401,8 @@ class CylinderFragment : Fragment() {
             pressure_spinner.id to arrayOf(pressure_edit_text),
             area_spinner.id to arrayOf(area_edit_text, area__bore_side_edit_text),
             volume_spinner.id to arrayOf(volume_edit_text, volume_bore_side__edit_text),
-            force_spinner.id to arrayOf(force_edit_text, force_bore_side_edit_text))
+            force_spinner.id to arrayOf(force_edit_text, force_bore_side_edit_text)
+        )
 
         mSpinnerIdCurrentUnitMap = mutableMapOf(
             bore_spinner.id to LENGTH.MM,
@@ -339,5 +425,41 @@ class CylinderFragment : Fragment() {
                 }
                 sViews[i].onItemSelectedListener = spinnerItemSelectListener
             }
+
+        save_button.setOnClickListener{
+            val builder = AlertDialog.Builder(mContext)
+            val inflater = requireActivity().layoutInflater
+            val view = inflater.inflate(R.layout.custom_dialog, null)
+            val projectEditText : EditText = view.findViewById(R.id.project_name)
+            builder.setView(view)
+            builder.setView(view)
+                .setNegativeButton(R.string.cancel_text,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.cancel()
+                    })
+                .setPositiveButton(R.string.save_project,
+                    DialogInterface.OnClickListener { dialog, id ->
+                        mSaveProjectListener.onSave(projectEditText.text.toString())
+                    })
+            val alertDialog = builder.create()
+            alertDialog.show()
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = false
+
+            projectEditText.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+                override fun afterTextChanged(s: Editable?) {
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled = !TextUtils.isEmpty(s)
+                }
+
+            })
         }
+    }
 }

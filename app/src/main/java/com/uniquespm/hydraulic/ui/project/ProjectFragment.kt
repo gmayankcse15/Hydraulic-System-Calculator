@@ -47,6 +47,5 @@ class ProjectFragment : Fragment() {
         mProjectList = view.findViewById(R.id.project_list)
         mProjectList.layoutManager = LinearLayoutManager(mContext)
         mProjectList.adapter = mProjectListAdapter
-
     }
 }

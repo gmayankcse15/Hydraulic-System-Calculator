@@ -1,10 +1,11 @@
 package com.uniquespm.hydraulic.model
 
 import android.app.Application
+import android.content.Context
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
 
-class DataRepository(application: Application) {
+class DataRepository(application: Context) {
 
     var  mCylinderDAO : CylinderDAO
     var  mAllCylinderProjects :LiveData<List<Cylinder>>
@@ -26,12 +27,10 @@ class DataRepository(application: Application) {
     companion object {
 
         class insertAsyncTask(private val mAsyncCylinderDao: CylinderDAO) : AsyncTask<Cylinder, Void, Int>() {
-
             override fun doInBackground(vararg params: Cylinder?): Int {
                 mAsyncCylinderDao.insert(params[0]!!)
                 return 0
             }
-
         }
     }
 

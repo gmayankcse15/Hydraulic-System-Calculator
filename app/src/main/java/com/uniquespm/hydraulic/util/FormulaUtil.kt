@@ -1,5 +1,6 @@
 package com.uniquespm.hydraulic.util
 
+import android.widget.EditText
 import java.text.DecimalFormat
 import kotlin.math.PI
 import kotlin.math.pow
@@ -8,10 +9,19 @@ class FormulaUtil {
 
     companion object {
 
-        private fun isValid(boreDiameter: String): Boolean {
+        fun isValid(boreDiameter: String): Boolean {
             return (boreDiameter.isNotEmpty() && boreDiameter != ".")
         }
-        private val decimalFormat: DecimalFormat = DecimalFormat("#####.#####")
+
+
+        fun getValidData(editText: EditText): String {
+            return if (isValid(editText.text.toString())) {
+                editText.text.toString()
+            } else {
+                ""
+            }
+        }
+        private val decimalFormat: DecimalFormat = DecimalFormat("#.#####")
 
         fun calculateForceBoreSide(
             boreDiameter: String,
