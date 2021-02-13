@@ -15,7 +15,11 @@
         android:id="@+id/nav_project"
         android:name="com.uniquespm.hydraulic.ui.project.ProjectFragment"
         android:label="@string/menu_projects"
-        tools:layout="@layout/fragment_project"/>
+        tools:layout="@layout/fragment_project">
+        <action
+            android:id="@+id/action_nav_project_to_cardview_cylinder"
+            app:destination="@id/cardview_cylinder" />
+    </fragment>
 
     <action
         android:id="@+id/action_nav_home_to_nav_project"
@@ -63,7 +67,13 @@
         android:id="@+id/cardview_cylinder"
         android:name="com.uniquespm.hydraulic.ui.cylinder.CylinderFragment"
         android:label="@string/cylinder"
-        tools:layout="@layout/fragment_cylinder" />
+        tools:layout="@layout/fragment_cylinder" >
+        <argument
+            android:name="cylinder_data"
+            app:argType="com.uniquespm.hydraulic.model.Cylinder"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
     <fragment
         android:id="@+id/cardview_powerpack"

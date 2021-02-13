@@ -14,8 +14,8 @@ class FormulaUtil {
         }
 
 
-        fun getValidData(editText: EditText): String {
-            return if (isValid(editText.text.toString())) {
+        fun getValidData(editText: EditText, inputSet: MutableSet<EditText>?): String {
+            return if (isValid(editText.text.toString()) && inputSet?.contains(editText) == true) {
                 editText.text.toString()
             } else {
                 ""

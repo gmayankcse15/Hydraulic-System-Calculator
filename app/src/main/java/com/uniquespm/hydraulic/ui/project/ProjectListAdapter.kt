@@ -11,10 +11,12 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.uniquespm.hydraulic.R
 import com.uniquespm.hydraulic.model.Cylinder
 import com.uniquespm.hydraulic.ui.cylinder.CylinderFragment
+import com.uniquespm.hydraulic.ui.cylinder.CylinderFragmentDirections
 import com.uniquespm.hydraulic.util.Constants.Companion.LOAD_CYLINDER
 
 class ProjectListAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -39,10 +41,8 @@ class ProjectListAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerV
         (holder as ProjectViewHolder).setAdapterData(mProjectList[position])
         holder.itemView.setOnClickListener {
             Log.d(TAG, "Position: $position  Cylinder: ${mProjectList[position]}")
-            val intent = Intent(LOAD_CYLINDER)
-            intent.setClass(mContext, CylinderFragment::class.java)
-            intent.putExtra("CYLINDER", mProjectList[position])
-            mContext.startActivity(intent)
+            val action = ProjectFragmentDirections.actionNavProjectToCardviewCylinder().setCylinderData(mProjectList[position])
+            it.findNavController().navigate(action)
         }
     }
 

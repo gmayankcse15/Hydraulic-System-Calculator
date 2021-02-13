@@ -11,14 +11,15 @@ import com.uniquespm.hydraulic.util.UNIT
 class CustomSpinnerAdapter(
     context: Context,
     textViewResourceId: Int,
-    objects: Array<UNIT>
+    objects: Array<UNIT>,
+    val selectedPos: Int
 ) : ArrayAdapter<UNIT> (context, textViewResourceId, objects) {
     private val mContext = context
     private val mObject = objects
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view =  super.getView(position, convertView, parent)
         val textView: AppCompatTextView = view.findViewById(android.R.id.text1)
-        textView.text = mObject[position].unit
+        textView.text = mObject[selectedPos].unit
         return view
     }
 

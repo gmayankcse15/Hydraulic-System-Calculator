@@ -20,12 +20,14 @@ import android.widget.EditText
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.uniquespm.hydraulic.R
 import com.uniquespm.hydraulic.common.CustomSpinnerAdapter
 import com.uniquespm.hydraulic.common.DecimalDigitInputFilter
 import com.uniquespm.hydraulic.common.SaveProjectCallback
 import com.uniquespm.hydraulic.model.Cylinder
 import com.uniquespm.hydraulic.model.DataRepository
+import com.uniquespm.hydraulic.ui.project.ProjectFragmentDirections
 import com.uniquespm.hydraulic.util.*
 import com.uniquespm.hydraulic.util.FormulaUtil.Companion.getValidData
 import com.uniquespm.hydraulic.util.FormulaUtil.Companion.isValid
@@ -68,22 +70,22 @@ class CylinderFragment : Fragment() {
             bore_spinner.selectedItemPosition
             val cylinder = Cylinder(
                 projectName,
-                getValidData(bore_edit_text),
+                getValidData(bore_edit_text, inputSet),
                 bore_spinner.selectedItemPosition,
-                getValidData(rod_edit_text),
+                getValidData(rod_edit_text, inputSet),
                 rod_spinner.selectedItemPosition,
-                getValidData(stroke_edit_text),
+                getValidData(stroke_edit_text, inputSet),
                 stroke_spinner.selectedItemPosition,
-                getValidData(pressure_edit_text),
+                getValidData(pressure_edit_text, inputSet),
                 pressure_spinner.selectedItemPosition,
-                getValidData(area__bore_side_edit_text),
-                getValidData(area_edit_text),
+                getValidData(area__bore_side_edit_text, inputSet),
+                getValidData(area_edit_text, inputSet),
                 area_spinner.selectedItemPosition,
-                getValidData(volume_bore_side__edit_text),
-                getValidData(volume_edit_text),
+                getValidData(volume_bore_side__edit_text, inputSet),
+                getValidData(volume_edit_text, inputSet),
                 volume_spinner.selectedItemPosition,
-                getValidData(force_bore_side_edit_text),
-                getValidData(force_edit_text),
+                getValidData(force_bore_side_edit_text, inputSet),
+                getValidData(force_edit_text, inputSet),
                 force_spinner.selectedItemPosition
                 )
             Log.d(TAG, "Cylinder $cylinder")
@@ -352,6 +354,9 @@ class CylinderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val args: CylinderFragmentArgs by navArgs()
+        val cylinderData = args.cylinderData
+
         val sViews = arrayOf(
             bore_spinner,
             rod_spinner,
@@ -414,17 +419,50 @@ class CylinderFragment : Fragment() {
             force_spinner.id to FORCE.TON
         )
 
-            for (i in sViews.indices) {
+        val selectedUnitDefault = arrayOf(0, 0, 0, 0, 0, 0, 0)
+        cylinderData?.let {
+
+            selectedUnitDefault[0] = cylinderData.mBoreDiameterUnit
+            selectedUnitDefault[1] = cylinderData.mRodDiameterUnit
+            selectedUnitDefault[2] = cylinderData.mStrokeUnit
+            selectedUnitDefault[3] = cylinderData.mPressureUnit
+            selectedUnitDefault[4] = cylinderData.mAreaSideUnit
+            selectedUnitDefault[5] = cylinderData.mVolumeSideUnit
+            selectedUnitDefault[6] = cylinderData.mForceSideUnit
+
+            if (cylinderData.mBoreDiameter.isNotEmpty()) {
+                bore_edit_text.setText(cylinderData.mBoreDiameter)
+            }
+            if (cylinderData.mRodDiameter.isNotEmpty()) {
+                rod_edit_text.setText(cylinderData.mRodDiameter)
+            }
+            if (cylinderData.mStroke.isNotEmpty()) {
+                stroke_edit_text.setText(cylinderData.mStroke)
+            }
+            if (cylinderData.mPressure.isNotEmpty()) {
+                pressure_edit_text.setText(cylinderData.mPressure)
+            }
+            if (cylinderData.mForceBoreSide.isNotEmpty()) {
+                force_bore_side_edit_text.setText(cylinderData.mForceBoreSide)
+            }
+            if (cylinderData.mForceRodSide.isNotEmpty()) {
+                force_edit_text.setText(cylinderData.mForceRodSide)
+            }
+        }
+
+        for (i in sViews.indices) {
                 CustomSpinnerAdapter(
                     mContext,
                     R.layout.custom_spinner_item,
-                    spinnerDataArray[i]
+                    spinnerDataArray[i],
+                    selectedUnitDefault[i]
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     sViews[i].adapter = adapter
                 }
                 sViews[i].onItemSelectedListener = spinnerItemSelectListener
             }
+
 
         save_button.setOnClickListener{
             val builder = AlertDialog.Builder(mContext)
