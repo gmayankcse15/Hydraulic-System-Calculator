@@ -40,6 +40,7 @@ class CylinderFragment : Fragment() {
         const val TAG = "CylinderFragment"
     }
 
+    private var mCylinderData: Cylinder? = null
     private lateinit var cylinderViewModel: CylinderViewModel
     private lateinit var mContext: Context
     private val unitLength : Array<UNIT> = arrayOf(LENGTH.MM, LENGTH.CM, LENGTH.INCH)
@@ -218,17 +219,23 @@ class CylinderFragment : Fragment() {
         inputSet?.let { inputSet ->
             val boreString =
                 if (!inputSet.contains(bore_edit_text)) "" else bore_edit_text.text.toString()
+            val boreUnit = bore_spinner.selectedItem as UNIT
             val rodString =
                 if (!inputSet.contains(rod_edit_text)) "" else rod_edit_text.text.toString()
+            val rodUnit = rod_spinner.selectedItem as UNIT
             val strokeString =
                 if (!inputSet.contains(stroke_edit_text)) "" else stroke_edit_text.text.toString()
+            val strokeUnit = stroke_spinner.selectedItem as UNIT
             val pressureString =
                 if (!inputSet.contains(pressure_edit_text)) "" else pressure_edit_text.text.toString()
+            val pressureUnit = pressure_spinner.selectedItem as UNIT
             val forceRodString =
                 if (!inputSet.contains(force_edit_text)) "" else force_edit_text.text.toString()
             val forceBoreString =
                 if (!inputSet.contains(force_bore_side_edit_text)) "" else force_bore_side_edit_text.text.toString()
-
+            val forceUnit = force_spinner.selectedItem as UNIT
+            val areaUnit = area_spinner.selectedItem as UNIT
+            val volumeUnit = volume_spinner.selectedItem as UNIT
 //        updating the reset share and copy button
         if (isValid(boreString) && isValid(rodString) && isValid(strokeString)) {
             save_button.isClickable = true
@@ -245,54 +252,80 @@ class CylinderFragment : Fragment() {
             setText(
                 force_bore_side_edit_text, FormulaUtil.calculateForceBoreSide(
                     boreString,
+                    boreUnit,
                     rodString,
+                    rodUnit,
                     pressureString,
-                    forceRodString
+                    pressureUnit,
+                    forceRodString,
+                    forceUnit,
+                    forceUnit
                 )
             )
             setText(
                 pressure_edit_text, FormulaUtil.calculatePressure(
                     boreString,
+                    boreUnit,
                     rodString,
+                    rodUnit,
                     forceRodString,
-                    forceBoreString
-                )
+                    forceBoreString,
+                    forceUnit,
+                    pressureUnit
+                    )
             )
 
             setText(
                 force_edit_text, FormulaUtil.calculateForceRodSide(
                     boreString,
+                    boreUnit,
                     rodString,
+                    rodUnit,
                     pressureString,
-                    forceBoreString
+                    pressureUnit,
+                    forceBoreString,
+                    forceUnit,
+                    forceUnit
                 )
             )
 
             setText(
                 area__bore_side_edit_text, FormulaUtil.calculateAreaBoreSide(
-                    boreString
+                    boreString,
+                    boreUnit,
+                    areaUnit
                 )
             )
 
             setText(
                 area_edit_text, FormulaUtil.calculateAreaRodSide(
                     boreString,
-                    rodString
+                    boreUnit,
+                    rodString,
+                    rodUnit,
+                    areaUnit
                 )
             )
 
             setText(
                 volume_bore_side__edit_text, FormulaUtil.calculateVolumeBoreSide(
                     boreString,
-                    strokeString
+                    boreUnit,
+                    strokeString,
+                    strokeUnit,
+                    volumeUnit
                 )
             )
 
             setText(
                 volume_edit_text, FormulaUtil.calculateVolumeRodSide(
                     boreString,
+                    boreUnit,
                     rodString,
-                    strokeString
+                    rodUnit,
+                    strokeString,
+                    strokeUnit,
+                    volumeUnit
                 )
             )
         }
@@ -320,6 +353,10 @@ class CylinderFragment : Fragment() {
                             )
                             val dec = DecimalFormat("#.#####")
                             editText.setText(dec.format(res).toString())
+                        }
+                    } else {
+                        mCylinderData?.let {
+                            updateEditText(it, editText)
                         }
                     }
                 }
@@ -355,7 +392,7 @@ class CylinderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val args: CylinderFragmentArgs by navArgs()
-        val cylinderData = args.cylinderData
+        mCylinderData = args.cylinderData
 
         val sViews = arrayOf(
             bore_spinner,
@@ -419,43 +456,11 @@ class CylinderFragment : Fragment() {
             force_spinner.id to FORCE.TON
         )
 
-        val selectedUnitDefault = arrayOf(0, 0, 0, 0, 0, 0, 0)
-        cylinderData?.let {
-
-            selectedUnitDefault[0] = cylinderData.mBoreDiameterUnit
-            selectedUnitDefault[1] = cylinderData.mRodDiameterUnit
-            selectedUnitDefault[2] = cylinderData.mStrokeUnit
-            selectedUnitDefault[3] = cylinderData.mPressureUnit
-            selectedUnitDefault[4] = cylinderData.mAreaSideUnit
-            selectedUnitDefault[5] = cylinderData.mVolumeSideUnit
-            selectedUnitDefault[6] = cylinderData.mForceSideUnit
-
-            if (cylinderData.mBoreDiameter.isNotEmpty()) {
-                bore_edit_text.setText(cylinderData.mBoreDiameter)
-            }
-            if (cylinderData.mRodDiameter.isNotEmpty()) {
-                rod_edit_text.setText(cylinderData.mRodDiameter)
-            }
-            if (cylinderData.mStroke.isNotEmpty()) {
-                stroke_edit_text.setText(cylinderData.mStroke)
-            }
-            if (cylinderData.mPressure.isNotEmpty()) {
-                pressure_edit_text.setText(cylinderData.mPressure)
-            }
-            if (cylinderData.mForceBoreSide.isNotEmpty()) {
-                force_bore_side_edit_text.setText(cylinderData.mForceBoreSide)
-            }
-            if (cylinderData.mForceRodSide.isNotEmpty()) {
-                force_edit_text.setText(cylinderData.mForceRodSide)
-            }
-        }
-
         for (i in sViews.indices) {
                 CustomSpinnerAdapter(
                     mContext,
                     R.layout.custom_spinner_item,
-                    spinnerDataArray[i],
-                    selectedUnitDefault[i]
+                    spinnerDataArray[i]
                 ).also { adapter ->
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     sViews[i].adapter = adapter
@@ -463,6 +468,18 @@ class CylinderFragment : Fragment() {
                 sViews[i].onItemSelectedListener = spinnerItemSelectListener
             }
 
+        mCylinderData?.let {cylinderData ->
+
+            bore_spinner.setSelection(cylinderData.mBoreDiameterUnit)
+            rod_spinner.setSelection(cylinderData.mRodDiameterUnit)
+            stroke_spinner.setSelection(cylinderData.mStrokeUnit)
+            pressure_spinner.setSelection(cylinderData.mPressureUnit)
+            area_spinner.setSelection(cylinderData.mAreaSideUnit)
+            volume_spinner.setSelection(cylinderData.mVolumeSideUnit)
+            force_spinner.setSelection(cylinderData.mForceSideUnit)
+
+//            updateEditText(cylinderData)
+        }
 
         save_button.setOnClickListener{
             val builder = AlertDialog.Builder(mContext)
@@ -498,6 +515,35 @@ class CylinderFragment : Fragment() {
                 }
 
             })
+        }
+    }
+
+    private fun updateEditText(cylinderData: Cylinder, editText: EditText) {
+        when (editText) {
+            bore_edit_text -> if (cylinderData.mBoreDiameter.isNotEmpty()) {
+                bore_edit_text.setText(cylinderData.mBoreDiameter)
+                cylinderData.mBoreDiameter = ""
+            }
+            rod_edit_text -> if (cylinderData.mRodDiameter.isNotEmpty()) {
+                rod_edit_text.setText(cylinderData.mRodDiameter)
+                cylinderData.mRodDiameter = ""
+            }
+            stroke_edit_text -> if (cylinderData.mStroke.isNotEmpty()) {
+                stroke_edit_text.setText(cylinderData.mStroke)
+                cylinderData.mStroke = ""
+            }
+            pressure_edit_text -> if (cylinderData.mPressure.isNotEmpty()) {
+                pressure_edit_text.setText(cylinderData.mPressure)
+                cylinderData.mPressure = ""
+            }
+            force_bore_side_edit_text -> if (cylinderData.mForceBoreSide.isNotEmpty()) {
+                force_bore_side_edit_text.setText(cylinderData.mForceBoreSide)
+                cylinderData.mForceBoreSide = ""
+            }
+            force_edit_text -> if (cylinderData.mForceRodSide.isNotEmpty()) {
+                force_edit_text.setText(cylinderData.mForceRodSide)
+                cylinderData.mForceRodSide = ""
+            }
         }
     }
 }
