@@ -44,10 +44,11 @@
     <TextView
         android:id="@+id/text_force"
         style="@style/cylinderTextStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/text_result_parameter_width"
         android:layout_height="wrap_content"
         android:text="@string/force"
-        android:textAlignment="center"
+        android:maxLines="2"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toTopOf="@+id/text_speed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -55,9 +56,11 @@
     <TextView
         android:id="@+id/text_speed"
         style="@style/cylinderTextStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/text_result_parameter_width"
         android:layout_height="wrap_content"
         android:text="@string/speed"
+        android:maxLines="2"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toTopOf="@+id/text_pressure"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_force" />
@@ -65,9 +68,11 @@
     <TextView
         android:id="@+id/text_pressure"
         style="@style/cylinderTextStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/text_result_parameter_width"
         android:layout_height="wrap_content"
         android:text="@string/pressure"
+        android:maxLines="2"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toTopOf="@id/text_flow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_speed" />
@@ -78,6 +83,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/flow"
+        android:maxLines="2"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toTopOf="@id/text_motor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_pressure" />
@@ -85,9 +92,10 @@
     <TextView
         android:id="@+id/text_motor"
         style="@style/cylinderTextStyle"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/text_result_parameter_width"
         android:layout_height="wrap_content"
         android:text="@string/motor"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_flow" />
@@ -97,7 +105,7 @@
         style="@style/editBoxStyle"
         android:layout_width="@dimen/result_area_edit_text_width"
         android:layout_height="@dimen/edit_text_box_height"
-        android:layout_marginEnd="@dimen/spinner_start_margin"
+        android:layout_marginEnd="@dimen/spinner_start_margin_result"
         app:layout_constraintBottom_toBottomOf="@+id/text_force"
         app:layout_constraintEnd_toStartOf="@+id/force_spinner"
         app:layout_constraintTop_toTopOf="@+id/text_force" />
@@ -107,7 +115,7 @@
         style="@style/editBoxStyle"
         android:layout_width="@dimen/result_area_edit_text_width"
         android:layout_height="@dimen/edit_text_box_height"
-        android:layout_marginEnd="@dimen/spinner_start_margin"
+        android:layout_marginEnd="@dimen/spinner_start_margin_result"
         app:layout_constraintBottom_toBottomOf="@+id/text_speed"
         app:layout_constraintEnd_toStartOf="@+id/speed_spinner"
         app:layout_constraintTop_toTopOf="@+id/text_speed" />
@@ -117,7 +125,7 @@
         style="@style/editBoxStyle"
         android:layout_width="@dimen/result_area_edit_text_width"
         android:layout_height="@dimen/edit_text_box_height"
-        android:layout_marginEnd="@dimen/spinner_start_margin"
+        android:layout_marginEnd="@dimen/spinner_start_margin_result"
         app:layout_constraintBottom_toBottomOf="@+id/text_pressure"
         app:layout_constraintEnd_toStartOf="@+id/pressure_spinner"
         app:layout_constraintTop_toTopOf="@+id/text_pressure" />
@@ -157,7 +165,7 @@
         style="@style/editBoxStyle"
         android:layout_width="@dimen/result_area_edit_text_width"
         android:layout_height="@dimen/edit_text_box_height"
-        android:layout_marginEnd="@dimen/spinner_start_margin"
+        android:layout_marginEnd="@dimen/spinner_start_margin_result"
         app:layout_constraintBottom_toBottomOf="@+id/text_flow"
         app:layout_constraintEnd_toStartOf="@+id/flow_spinner"
         app:layout_constraintTop_toTopOf="@+id/text_flow" />
@@ -177,7 +185,7 @@
         style="@style/editBoxStyle"
         android:layout_width="@dimen/result_area_edit_text_width"
         android:layout_height="@dimen/edit_text_box_height"
-        android:layout_marginEnd="@dimen/spinner_start_margin"
+        android:layout_marginEnd="@dimen/spinner_start_margin_result"
         app:layout_constraintBottom_toBottomOf="@+id/text_motor"
         app:layout_constraintEnd_toStartOf="@+id/motor_spinner"
         app:layout_constraintTop_toTopOf="@+id/text_motor" />

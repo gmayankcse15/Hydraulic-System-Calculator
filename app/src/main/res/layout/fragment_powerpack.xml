@@ -168,7 +168,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include layout="@layout/cylinder_table_layout" />
+        <include layout="@layout/powerpack_table_layout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/powerpack_result_area"
@@ -253,6 +253,8 @@
                 android:layout_height="@dimen/edit_text_box_height"
                 style="@style/editBoxStyle"
                 android:layout_marginEnd="@dimen/spinner_start_margin"
+                android:focusable="false"
+                android:background="@drawable/edittext_box_style_grey"
                 app:layout_constraintBottom_toBottomOf="@+id/text_oil_stroke"
                 app:layout_constraintEnd_toStartOf="@id/oil_stroke_spinner"
                 app:layout_constraintTop_toTopOf="@id/text_oil_stroke" />
@@ -263,6 +265,8 @@
                 android:layout_height="@dimen/edit_text_box_height"
                 style="@style/editBoxStyle"
                 android:layout_marginEnd="@dimen/spinner_start_margin"
+                android:focusable="false"
+                android:background="@drawable/edittext_box_style_grey"
                 app:layout_constraintBottom_toBottomOf="@id/text_tank_capacity"
                 app:layout_constraintEnd_toStartOf="@id/tank_capacity_spinner"
                 app:layout_constraintTop_toTopOf="@id/text_tank_capacity" />
@@ -304,15 +308,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/powerpack_result_area">
 
-            <Button
-                android:id="@+id/calculate_button"
-                style="@style/cylinderButtonStyle"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
-                android:text="@string/calculate"
-                app:layout_constraintEnd_toStartOf="@+id/reset_button"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/save_button"
@@ -320,6 +315,7 @@
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:text="@string/save"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/share_button"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -331,8 +327,9 @@
                 android:layout_height="@dimen/button_height"
                 android:text="@string/reset"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/calculate_button"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/share_button"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <Button
                 android:id="@+id/share_button"
@@ -340,8 +337,9 @@
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:text="@string/share"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/reset_button"
                 app:layout_constraintStart_toEndOf="@id/save_button" />
 
 

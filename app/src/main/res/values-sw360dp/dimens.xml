@@ -18,7 +18,7 @@
     <dimen name="input_edittext_width">105dp</dimen>
     <dimen name="spinner_width">70dp</dimen>
     <dimen name="spinner_height">17dp</dimen>
-    <dimen name="result_area_edit_text_width">70dp</dimen>
+    <dimen name="result_area_edit_text_width">81dp</dimen>
     <dimen name="divider_height">1dp</dimen>
     <dimen name="divider_margin_bottom">9dp</dimen>
     <dimen name="edit_text_box_height">37dp</dimen>
@@ -45,5 +45,7 @@
 
     <dimen name="taglineTextSize">20dp</dimen>
     <dimen name="icon_size">25dp</dimen>
+    <dimen name="text_result_parameter_width">30dp</dimen>
+    <dimen name="spinner_start_margin_result">5dp</dimen>
 
 </resources>

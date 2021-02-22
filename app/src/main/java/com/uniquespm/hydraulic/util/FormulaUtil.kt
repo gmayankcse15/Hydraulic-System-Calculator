@@ -13,8 +13,7 @@ class FormulaUtil {
             return (boreDiameter.isNotEmpty() && boreDiameter != ".")
         }
 
-
-        fun getValidData(editText: EditText, inputSet: MutableSet<EditText>?): String {
+         fun getValidData(editText: EditText, inputSet: MutableSet<EditText>?): String {
             return if (isValid(editText.text.toString()) && inputSet?.contains(editText) == true) {
                 editText.text.toString()
             } else {
@@ -39,20 +38,20 @@ class FormulaUtil {
                 )))
             ) {
                 var bD = boreDiameter.toDouble()
-                bD = ConversionUtil.convertUnit(bD, boreUnit, LENGTH.METER)
+                bD = ConversionUtil.convertUnit(bD, boreUnit, LENGTH.CM)
                 return if (isValid(boreDiameter) && isValid(pressure)) {
                     var pR = pressure.toDouble()
                     pR = ConversionUtil.convertUnit(pR, pressureUnit, PRESSURE.BAR)
-                    var res: Double = (PI * bD * pR) / 4.0
-                    res = ConversionUtil.convertUnit(res, FORCE.TON, toForceUnit)
+                    var res: Double = (PI * bD.pow(2.0) * pR * 10.0) / 4.0
+                    res = ConversionUtil.convertUnit(res, FORCE.NEWTON, toForceUnit)
                     decimalFormat.format(res).toString()
                 } else {
                     var rD = rodDiameter.toDouble()
-                    rD = ConversionUtil.convertUnit(rD, rodUnit, LENGTH.METER)
+                    rD = ConversionUtil.convertUnit(rD, rodUnit, LENGTH.CM)
                     var fR = forceRodSide.toDouble()
-                    fR = ConversionUtil.convertUnit(fR, forceUnit, FORCE.TON)
+                    fR = ConversionUtil.convertUnit(fR, forceUnit, FORCE.NEWTON)
                     var res = (bD.pow(2.0) * fR) / (bD.pow(2.0) - rD.pow(2.0))
-                    res = ConversionUtil.convertUnit(res, FORCE.TON, toForceUnit)
+                    res = ConversionUtil.convertUnit(res, FORCE.NEWTON, toForceUnit)
                     decimalFormat.format(res).toString()
                 }
             }
@@ -72,20 +71,20 @@ class FormulaUtil {
         ) : String {
             if (isValid(boreDiameter) && isValid(rodDiameter) && ((isValid(pressure)) || isValid(forceBoreSide))) {
                 var bD = boreDiameter.toDouble()
-                bD = ConversionUtil.convertUnit(bD, boreUnit, LENGTH.METER)
+                bD = ConversionUtil.convertUnit(bD, boreUnit, LENGTH.CM)
                 var rD = rodDiameter.toDouble()
-                rD = ConversionUtil.convertUnit(rD, rodUnit, LENGTH.METER)
+                rD = ConversionUtil.convertUnit(rD, rodUnit, LENGTH.CM)
                 return if (isValid(boreDiameter) && isValid(rodDiameter) && isValid(pressure)) {
                     var pR = pressure.toDouble()
                     pR = ConversionUtil.convertUnit(pR, pressureUnit, PRESSURE.BAR)
-                    var res = (PI * (bD.pow(2.0) - (rD.pow(2.0))) * pR * 10)/4.0
-                    res = ConversionUtil.convertUnit(res, FORCE.TON, toForceUnit)
+                    var res = (PI * (bD.pow(2.0) - (rD.pow(2.0))) * pR * 10.0)/4.0
+                    res = ConversionUtil.convertUnit(res, FORCE.NEWTON, toForceUnit)
                     decimalFormat.format(res).toString()
                 } else {
                     var fB = forceBoreSide.toDouble()
-                    fB = ConversionUtil.convertUnit(fB, forceUnit, FORCE.TON)
+                    fB = ConversionUtil.convertUnit(fB, forceUnit, FORCE.NEWTON)
                     var res = ((bD.pow(2) - rD.pow(2)) * fB) / bD.pow(2.0)
-                    res = ConversionUtil.convertUnit(res, FORCE.TON, toForceUnit)
+                    res = ConversionUtil.convertUnit(res, FORCE.NEWTON, toForceUnit)
                     decimalFormat.format(res).toString()
                 }
             }
@@ -104,7 +103,7 @@ class FormulaUtil {
         ) : String {
             if(isValid(boreDiameter) && (isValid(forceBoreSide) || (isValid(rodDiameter) && isValid(forceRodSide)))) {
                 var bD = boreDiameter.toDouble()
-                bD = ConversionUtil.convertUnit(bD, boreUnit, LENGTH.METER)
+                bD = ConversionUtil.convertUnit(bD, boreUnit, LENGTH.CM)
                 return if (isValid(boreDiameter) && isValid(forceBoreSide)) {
                     var fB = forceBoreSide.toDouble()
                     fB = ConversionUtil.convertUnit(fB, forceUnit, FORCE.TON)
@@ -113,7 +112,7 @@ class FormulaUtil {
                     decimalFormat.format(res).toString()
                 } else {
                     var rD = rodDiameter.toDouble()
-                    rD = ConversionUtil.convertUnit(rD, rodUnit, LENGTH.METER)
+                    rD = ConversionUtil.convertUnit(rD, rodUnit, LENGTH.CM)
                     var fR = forceRodSide.toDouble()
                     fR = ConversionUtil.convertUnit(fR, forceUnit, FORCE.TON)
                     var res = (4.0 * fR)/(PI * (bD.pow(2.0) - rD.pow(2.0)) * 10)
@@ -197,6 +196,108 @@ class FormulaUtil {
                 res = ConversionUtil.convertUnit(res, VOLUME.MM3, toVolumeUnit)
                 return decimalFormat.format(res).toString()
             }
+            return ""
+        }
+
+        fun calculatePowerpackForceSide(
+            numCylinder: String,
+            boreString: String,
+            boreUnit: UNIT,
+            rodString: String,
+            rodUnit: UNIT,
+            pressurePressingString: String,
+            pressureUnit: UNIT,
+            flowPressingString: String,
+            flowUnit: UNIT,
+            speedPressingString: String,
+            speedUnit: UNIT,
+            motorPressingString: String,
+            motorUnit: UNIT,
+            forceUnit: UNIT
+        ): String {
+            return ""
+        }
+
+        fun calculatePowerpackPressureSide(
+            numCylinder: String,
+            boreString: String,
+            boreUnit: UNIT,
+            rodString: String,
+            rodUnit: UNIT,
+            forcePressingString: String,
+            forceUnit: UNIT,
+            flowPressingString: String,
+            flowUnit: UNIT,
+            speedPressingString: String,
+            speedUnit: UNIT,
+            motorPressingString: String,
+            motorUnit: UNIT,
+            pressureUnit: UNIT
+        ): String {
+            return ""
+        }
+
+        fun calculatePowerpackFlow(
+            numCylinder: String,
+            efficiency: String,
+            upSpeedEditText: EditText?,
+            speedUnit: UNIT,
+            upForceEditText: EditText?,
+            forceUnit: UNIT,
+            upPressureEditText: EditText?,
+            pressureUnit: UNIT,
+            upMotorEditText: EditText?,
+            motorUnit: UNIT,
+            flowUnit: UNIT
+        ): String {
+            return ""
+        }
+
+        fun calculatePowerpackSpeed(
+            numCylinder: String,
+            efficiency: String,
+            upFlowEditText: EditText?,
+            flowUnit: UNIT,
+            upForceEditText: EditText?,
+            forceUnit: UNIT,
+            upPressureEditText: EditText?,
+            pressureUnit: UNIT,
+            upMotorEditText: EditText?,
+            motorUnit: UNIT,
+            flowUnit1: UNIT
+        ): String {
+            return ""
+        }
+
+        fun calculatePowerpackMotor(
+            upPressureEditText: EditText?,
+            pressureUnit: UNIT,
+            upForceEditText: EditText?,
+            forceUnit: UNIT,
+            upFlowEditText: EditText?,
+            flowUnit: UNIT,
+            upSpeedEditText: EditText?,
+            speedUnit: UNIT
+        ): String {
+            return ""
+        }
+
+        fun calculatePowerpackOilStroke(
+            numCylinder: String,
+            boreEditText: EditText?,
+            boreUnit: UNIT,
+            strokeEditText: EditText?,
+            strokeUnit: UNIT
+        ): String {
+            return ""
+        }
+
+        fun calculateTankCapacity(
+            upFlowEditText: EditText?,
+            downFlowEditText: EditText?,
+            pressingFlowEditText: EditText?,
+            flowUnit: UNIT
+        ): String {
             return ""
         }
     }

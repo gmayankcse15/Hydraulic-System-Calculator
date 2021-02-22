@@ -11,121 +11,19 @@ class ConversionUtil {
         val volumeBaseUnit: VOLUME = VOLUME.LITRE
         val forceBaseUnit: FORCE = FORCE.TON
 
-//        fun convertUnitToBase(value: Double, unit: LENGTH): Double {
-//            return when (unit) {
-//                LENGTH.MM -> value * LENGTH.MM.factor
-//                LENGTH.CM -> value * LENGTH.CM.factor
-//                LENGTH.FEET -> value * LENGTH.FEET.factor
-//                LENGTH.INCH -> value * LENGTH.INCH.factor
-//                LENGTH.METER -> value * LENGTH.METER.factor
-//            }
-//        }
-//
-//        fun convertBaseToUnit(value: Double, unit: LENGTH): Double {
-//            return when (unit) {
-//                LENGTH.MM -> value / LENGTH.MM.factor
-//                LENGTH.CM -> value / LENGTH.CM.factor
-//                LENGTH.FEET -> value / LENGTH.FEET.factor
-//                LENGTH.INCH -> value / LENGTH.INCH.factor
-//                LENGTH.METER -> value / LENGTH.METER.factor
-//            }
-//        }
-
         fun convertUnit(fromValue: Double, fromUnit: UNIT, toUnit: UNIT): Double {
             Log.d(TAG, "convertUnit $fromValue ${fromUnit.unit} ${toUnit.unit}")
             val tmpValue = convertUnitToBase(fromValue, fromUnit)
             return convertBaseToUnit(tmpValue, toUnit)
         }
 
-//        fun convertUnitToBase(value: Double, unit: PRESSURE): Double {
-//            return when (unit) {
-//                PRESSURE.BAR -> value * PRESSURE.BAR.factor
-//                PRESSURE.ATM -> value * PRESSURE.ATM.factor
-//                PRESSURE.KGCM2 -> value * PRESSURE.KGCM2.factor
-//                PRESSURE.PASCAL -> value * PRESSURE.PASCAL.factor
-//                PRESSURE.PSI -> value * PRESSURE.PSI.factor
-//            }
-//        }
-//
-//        fun convertBaseToUnit(value: Double, unit: PRESSURE): Double {
-//            return when (unit) {
-//                PRESSURE.BAR -> value / PRESSURE.BAR.factor
-//                PRESSURE.ATM -> value / PRESSURE.ATM.factor
-//                PRESSURE.KGCM2 -> value / PRESSURE.KGCM2.factor
-//                PRESSURE.PASCAL -> value / PRESSURE.PASCAL.factor
-//                PRESSURE.PSI -> value / PRESSURE.PSI.factor
-//            }
-//        }
-//
-//        fun convertUnit(fromValue: Double, fromUnit: PRESSURE, toUnit: PRESSURE): Double {
-//            val tmpValue = convertUnitToBase(fromValue, fromUnit)
-//            return convertBaseToUnit(tmpValue, toUnit)
-//        }
-//
-//        fun convertUnitToBase(value: Double, unit: FORCE): Double {
-//            return when (unit) {
-//                FORCE.TON -> value * FORCE.TON.factor
-//                FORCE.KGF -> value * FORCE.KGF.factor
-//                FORCE.NEWTON -> value * FORCE.NEWTON.factor
-//                FORCE.POUND -> value * FORCE.POUND.factor
-//            }
-//        }
-//
-//        fun convertBaseToUnit(value: Double, unit: FORCE): Double {
-//            return when (unit) {
-//                FORCE.TON -> value / FORCE.TON.factor
-//                FORCE.KGF -> value / FORCE.KGF.factor
-//                FORCE.NEWTON -> value / FORCE.NEWTON.factor
-//                FORCE.POUND -> value / FORCE.POUND.factor
-//            }
-//        }
-//
-//        fun convertUnit(fromValue: Double, fromUnit: FORCE, toUnit: FORCE): Double {
-//            val tmpValue = convertUnitToBase(fromValue, fromUnit)
-//            return convertBaseToUnit(tmpValue, toUnit)
-//        }
-//
-//        fun convertUnitToBase(value: Double, unit: VOLUME): Double {
-//            return when (unit) {
-//                VOLUME.LITRE -> value * VOLUME.LITRE.factor
-//                VOLUME.MM3 -> value * VOLUME.MM3.factor
-//                VOLUME.CM3 -> value * VOLUME.CM3.factor
-//                VOLUME.ML -> value * VOLUME.ML.factor
-//                VOLUME.UKGallon -> value * VOLUME.UKGallon.factor
-//                VOLUME.USGallon -> value * VOLUME.USGallon.factor
-//            }
-//        }
-//
-//        fun convertBaseToUnit(value: Double, unit: VOLUME): Double {
-//            return when (unit) {
-//                VOLUME.LITRE -> value / VOLUME.LITRE.factor
-//                VOLUME.MM3 -> value / VOLUME.MM3.factor
-//                VOLUME.CM3 -> value / VOLUME.CM3.factor
-//                VOLUME.ML -> value / VOLUME.ML.factor
-//                VOLUME.UKGallon -> value / VOLUME.UKGallon.factor
-//                VOLUME.USGallon -> value / VOLUME.USGallon.factor
-//            }
-//        }
-//
-//        fun convertUnit(fromValue: Double, fromUnit: VOLUME, toUnit: VOLUME): Double {
-//            val tmpValue = convertUnitToBase(fromValue, fromUnit)
-//            return convertBaseToUnit(tmpValue, toUnit)
-//        }
-//
         fun convertUnitToBase(value: Double, unit: UNIT): Double {
         return value * unit.factor
         }
-//        }
 
         fun convertBaseToUnit(value: Double, unit: UNIT): Double {
              return value / unit.factor
         }
-
-//        fun convertUnit(fromValue: Double, fromUnit: AREA, toUnit: AREA): Double {
-//            val tmpValue = convertUnitToBase(fromValue, fromUnit)
-//            return convertBaseToUnit(tmpValue, toUnit)
-//        }
-
     }
 }
 
@@ -286,12 +184,33 @@ enum class FORCE : UNIT {
 //    HOUR("hour")
 //}
 //
-//enum class SPEED(val unit: String) : UNIT {
-//    MM_SEC("mm/sec"),
-//    M_SEC("m/sec"),
-//    M_MIN("m/min")
-//}
-//
+enum class SPEED: UNIT {
+    MM_SEC {
+        override val unit: String
+            get() = "mm/sec"
+        override val factor: Double
+            get() = 1.0
+    },
+    M_SEC {
+        override val unit: String
+            get() = "m/sec"
+        override val factor: Double
+            get() =  1000.0
+    },
+    M_MIN {
+        override val unit: String
+            get() = "m/min"
+        override val factor: Double
+            get() = 1.0/0.06
+    },
+    MM_MIN {
+        override val unit: String
+        get() = "mm/min"
+        override val factor: Double
+        get() = 1.0/60.0
+    }
+}
+
 enum class AREA : UNIT {
     M2 {
         override val unit: String
@@ -325,19 +244,54 @@ enum class AREA : UNIT {
     }
 }
 
-//enum class ENERGY(val unit: String) : UNIT {
-//    HP("H.P."),
-//    WATT("watt"),
-//    KW("kw"),
-//    W("w"),
-//    Calorie("calorie")
-//}
+enum class ENERGY : UNIT {
+    HP {
+        override val unit: String
+            get() = "hp"
+        override val factor: Double
+            get() = 746.0
+    },
+    WATT {
+        override val unit: String
+            get() = "watt"
+        override val factor: Double
+            get() = 1.0
+    },
+    KW {
+        override val unit: String
+            get() = "kw"
+        override val factor: Double
+            get() =  1000.0
 
-//enum class FLOW(val unit: String) : UNIT {
-//    L_MIN("l/min"),
-//    M3_MIN("m\u00b3/min"),
-//    FPM("fpm")
-//}
+    },
+    Calorie {
+        override val unit: String
+            get() = "Calorie"
+        override val factor: Double
+            get() = 4.18
+    }
+}
+
+enum class FLOW : UNIT {
+    L_MIN {
+        override val unit: String
+            get() = "l/min"
+        override val factor: Double
+            get() = 1.0
+    },
+    M3_MIN {
+        override val unit: String
+            get() =  "m\u00b3/min"
+        override val factor: Double
+            get() = 1000.0
+    },
+    FPM {
+        override val unit: String
+            get() = "fpm"
+        override val factor: Double
+            get() =  3.785
+    }
+}
 //
 //enum class ANGLE(val unit: String) : UNIT {
 //    RADIAN("radian"),
