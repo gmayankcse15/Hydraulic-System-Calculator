@@ -14,10 +14,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
+import android.widget.*
 import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -118,11 +115,11 @@ class PowerpackFragment : Fragment() {
                     if (up_pressure_edit_text.text.isNotEmpty()) {
                         disableEditText(up_force_edit_text)
                         inputSet?.remove(up_force_edit_text)
-                        if (up_speed_edit_text.text.isNotEmpty() || up_flow_edit_text.text.isNotEmpty()) {
+                        if ((up_speed_edit_text.text.isNotEmpty() && inputSet?.contains(up_speed_edit_text) == true) || (up_flow_edit_text.text.isNotEmpty() && inputSet?.contains(up_flow_edit_text) == true)) {
                             inputSet?.remove(up_motor_edit_text)
                             disableEditText(up_motor_edit_text)
                         }
-                        if (up_motor_edit_text.text.isNotEmpty()) {
+                        if (up_motor_edit_text.text.isNotEmpty() && inputSet?.contains(up_motor_edit_text) == true) {
                             inputSet?.remove(up_speed_edit_text)
                             inputSet?.remove(up_flow_edit_text)
                             disableEditText(up_speed_edit_text)
@@ -132,24 +129,31 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(up_force_edit_text)
                         enableEditText(up_motor_edit_text)
-                        enableEditText(up_speed_edit_text)
-                        enableEditText(up_flow_edit_text)
+
+                        if (inputSet?.contains(up_speed_edit_text) == false && inputSet?.contains(up_flow_edit_text) == false) {
+                            enableEditText(up_speed_edit_text)
+                            enableEditText(up_flow_edit_text)
+                        }
+
                         calculateResult()
+
                         inputSet?.add(up_force_edit_text)
                         inputSet?.add(up_motor_edit_text)
-                        inputSet?.add(up_speed_edit_text)
-                        inputSet?.add(up_flow_edit_text)
+                        if (inputSet?.contains(up_speed_edit_text) == false && inputSet?.contains(up_flow_edit_text) == false) {
+                            inputSet?.add(up_speed_edit_text)
+                            inputSet?.add(up_flow_edit_text)
+                        }
                     }
                 }
                 down_pressure_edit_text -> {
                     if (down_pressure_edit_text.text.isNotEmpty()) {
                         disableEditText(down_force_edit_text)
                         inputSet?.remove(down_force_edit_text)
-                        if (speed_down_edit_text.text.isNotEmpty() || down_flow_edit_text.text.isNotEmpty()) {
+                        if ((speed_down_edit_text.text.isNotEmpty() && inputSet?.contains(speed_down_edit_text) == true) || (down_flow_edit_text.text.isNotEmpty() && inputSet?.contains(down_flow_edit_text) == true)) {
                             inputSet?.remove(down_motor_edit_text)
                             disableEditText(down_motor_edit_text)
                         }
-                        if (down_motor_edit_text.text.isNotEmpty()) {
+                        if (down_motor_edit_text.text.isNotEmpty() && inputSet?.contains(down_motor_edit_text) == true) {
                             inputSet?.remove(speed_down_edit_text)
                             inputSet?.remove(down_flow_edit_text)
                             disableEditText(speed_down_edit_text)
@@ -159,24 +163,30 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(down_force_edit_text)
                         enableEditText(down_motor_edit_text)
-                        enableEditText(speed_down_edit_text)
-                        enableEditText(down_flow_edit_text)
+                        if (inputSet?.contains(speed_down_edit_text) == false && inputSet?.contains(down_flow_edit_text) == false) {
+                            enableEditText(speed_down_edit_text)
+                            enableEditText(down_flow_edit_text)
+                        }
+
                         calculateResult()
+
                         inputSet?.add(down_force_edit_text)
                         inputSet?.add(down_motor_edit_text)
-                        inputSet?.add(speed_down_edit_text)
-                        inputSet?.add(down_flow_edit_text)
+                        if (inputSet?.contains(speed_down_edit_text) == false && inputSet?.contains(down_flow_edit_text) == false) {
+                            inputSet?.add(speed_down_edit_text)
+                            inputSet?.add(down_flow_edit_text)
+                        }
                     }
                 }
                 pressure_pressing_edit_text -> {
                     if (pressure_pressing_edit_text.text.isNotEmpty()) {
                         disableEditText(pressing_force_edit_text)
                         inputSet?.remove(pressing_force_edit_text)
-                        if (speed_pressing_edit_text.text.isNotEmpty() || pressing_flow_edit_text.text.isNotEmpty()) {
+                        if ((speed_pressing_edit_text.text.isNotEmpty() && inputSet?.contains(speed_pressing_edit_text) == true) || (pressing_flow_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_flow_edit_text) == true)) {
                             inputSet?.remove(pressing_motor_edit_text)
                             disableEditText(pressing_motor_edit_text)
                         }
-                        if (pressing_motor_edit_text.text.isNotEmpty()) {
+                        if (pressing_motor_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_motor_edit_text) == true) {
                             inputSet?.remove(speed_pressing_edit_text)
                             inputSet?.remove(pressing_flow_edit_text)
                             disableEditText(speed_pressing_edit_text)
@@ -186,24 +196,28 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(pressing_force_edit_text)
                         enableEditText(pressing_motor_edit_text)
-                        enableEditText(speed_pressing_edit_text)
-                        enableEditText(pressing_flow_edit_text)
+                        if (inputSet?.contains(speed_pressing_edit_text) == false && inputSet?.contains(pressing_flow_edit_text) == false) {
+                            enableEditText(speed_pressing_edit_text)
+                            enableEditText(pressing_flow_edit_text)
+                        }
                         calculateResult()
                         inputSet?.add(pressing_force_edit_text)
                         inputSet?.add(pressing_motor_edit_text)
-                        inputSet?.add(speed_pressing_edit_text)
-                        inputSet?.add(pressing_flow_edit_text)
+                        if (inputSet?.contains(speed_pressing_edit_text) == false && inputSet?.contains(pressing_flow_edit_text) == false) {
+                            inputSet?.add(speed_pressing_edit_text)
+                            inputSet?.add(pressing_flow_edit_text)
+                        }
                     }
                 }
                 up_force_edit_text -> {
                     if (up_force_edit_text.text.isNotEmpty()) {
                         disableEditText(up_pressure_edit_text)
                         inputSet?.remove(up_pressure_edit_text)
-                        if (up_speed_edit_text.text.isNotEmpty() || up_flow_edit_text.text.isNotEmpty()) {
+                        if ((up_speed_edit_text.text.isNotEmpty() && inputSet?.contains(up_speed_edit_text) == true) || (up_flow_edit_text.text.isNotEmpty() && inputSet?.contains(up_flow_edit_text) == true)) {
                             inputSet?.remove(up_motor_edit_text)
                             disableEditText(up_motor_edit_text)
                         }
-                        if (up_motor_edit_text.text.isNotEmpty()) {
+                        if (up_motor_edit_text.text.isNotEmpty() && inputSet?.contains(up_motor_edit_text) == true) {
                             inputSet?.remove(up_speed_edit_text)
                             inputSet?.remove(up_flow_edit_text)
                             disableEditText(up_speed_edit_text)
@@ -213,24 +227,30 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(up_pressure_edit_text)
                         enableEditText(up_motor_edit_text)
-                        enableEditText(up_speed_edit_text)
-                        enableEditText(up_flow_edit_text)
+                        if (inputSet?.contains(up_speed_edit_text) == false && inputSet?.contains(up_flow_edit_text) == false) {
+                            enableEditText(up_speed_edit_text)
+                            enableEditText(up_flow_edit_text)
+                        }
+
                         calculateResult()
+
                         inputSet?.add(up_pressure_edit_text)
                         inputSet?.add(up_motor_edit_text)
-                        inputSet?.add(up_speed_edit_text)
-                        inputSet?.add(up_flow_edit_text)
+                        if (inputSet?.contains(up_speed_edit_text) == false && inputSet?.contains(up_flow_edit_text) == false) {
+                            inputSet?.add(up_speed_edit_text)
+                            inputSet?.add(up_flow_edit_text)
+                        }
                     }
                 }
                 down_force_edit_text -> {
                     if (down_force_edit_text.text.isNotEmpty()) {
                         disableEditText(down_pressure_edit_text)
                         inputSet?.remove(down_pressure_edit_text)
-                        if (speed_down_edit_text.text.isNotEmpty() || down_flow_edit_text.text.isNotEmpty()) {
+                        if ((speed_down_edit_text.text.isNotEmpty() && inputSet?.contains(speed_down_edit_text) == true) || (down_flow_edit_text.text.isNotEmpty() && inputSet?.contains(down_flow_edit_text) == true)) {
                             inputSet?.remove(down_motor_edit_text)
                             disableEditText(down_motor_edit_text)
                         }
-                        if (down_motor_edit_text.text.isNotEmpty()) {
+                        if (down_motor_edit_text.text.isNotEmpty() && inputSet?.contains(down_motor_edit_text) == true) {
                             inputSet?.remove(speed_down_edit_text)
                             inputSet?.remove(down_flow_edit_text)
                             disableEditText(speed_down_edit_text)
@@ -241,24 +261,28 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(down_pressure_edit_text)
                         enableEditText(down_motor_edit_text)
-                        enableEditText(speed_down_edit_text)
-                        enableEditText(down_flow_edit_text)
+                        if (inputSet?.contains(speed_down_edit_text) == false && inputSet?.contains(down_flow_edit_text) == false) {
+                            enableEditText(speed_down_edit_text)
+                            enableEditText(down_flow_edit_text)
+                        }
                         calculateResult()
                         inputSet?.add(down_pressure_edit_text)
                         inputSet?.add(down_motor_edit_text)
-                        inputSet?.add(speed_down_edit_text)
-                        inputSet?.add(down_flow_edit_text)
+                        if (inputSet?.contains(speed_down_edit_text) == false && inputSet?.contains(down_flow_edit_text) == false) {
+                            inputSet?.add(speed_down_edit_text)
+                            inputSet?.add(down_flow_edit_text)
+                        }
                     }
                 }
                 pressing_force_edit_text -> {
                     if (pressing_force_edit_text.text.isNotEmpty()) {
                         disableEditText(pressure_pressing_edit_text)
                         inputSet?.remove(pressure_pressing_edit_text)
-                        if (speed_pressing_edit_text.text.isNotEmpty() || pressing_flow_edit_text.text.isNotEmpty()) {
+                        if ((speed_pressing_edit_text.text.isNotEmpty() && inputSet?.contains(speed_pressing_edit_text) == true) || (pressing_flow_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_flow_edit_text) == true)) {
                             inputSet?.remove(pressing_motor_edit_text)
                             disableEditText(pressing_motor_edit_text)
                         }
-                        if (pressing_motor_edit_text.text.isNotEmpty()) {
+                        if (pressing_motor_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_motor_edit_text) == true) {
                             inputSet?.remove(speed_pressing_edit_text)
                             inputSet?.remove(pressing_flow_edit_text)
                             disableEditText(speed_pressing_edit_text)
@@ -268,24 +292,28 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(pressure_pressing_edit_text)
                         enableEditText(pressing_motor_edit_text)
-                        enableEditText(speed_pressing_edit_text)
-                        enableEditText(pressing_flow_edit_text)
+                        if (inputSet?.contains(speed_pressing_edit_text) == false && inputSet?.contains(pressing_flow_edit_text) == false) {
+                            enableEditText(speed_pressing_edit_text)
+                            enableEditText(pressing_flow_edit_text)
+                        }
                         calculateResult()
                         inputSet?.add(pressure_pressing_edit_text)
                         inputSet?.add(pressing_motor_edit_text)
-                        inputSet?.add(speed_pressing_edit_text)
-                        inputSet?.add(pressing_flow_edit_text)
+                        if (inputSet?.contains(speed_pressing_edit_text) == false && inputSet?.contains(pressing_flow_edit_text) == false) {
+                            inputSet?.add(speed_pressing_edit_text)
+                            inputSet?.add(pressing_flow_edit_text)
+                        }
                     }
                 }
                 up_speed_edit_text -> {
                     if (up_speed_edit_text.text.isNotEmpty()) {
                         disableEditText(up_flow_edit_text)
                         inputSet?.remove(up_flow_edit_text)
-                        if (up_pressure_edit_text.text.isNotEmpty() || up_force_edit_text.text.isNotEmpty()) {
+                        if ((up_pressure_edit_text.text.isNotEmpty() && inputSet?.contains(up_pressure_edit_text) == true) || (up_force_edit_text.text.isNotEmpty() && inputSet?.contains(up_force_edit_text) == true)) {
                             inputSet?.remove(up_motor_edit_text)
                             disableEditText(up_motor_edit_text)
                         }
-                        if (up_motor_edit_text.text.isNotEmpty()) {
+                        if (up_motor_edit_text.text.isNotEmpty() && inputSet?.contains(up_motor_edit_text) == true) {
                             inputSet?.remove(up_pressure_edit_text)
                             inputSet?.remove(up_force_edit_text)
                             disableEditText(up_pressure_edit_text)
@@ -295,24 +323,30 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(up_flow_edit_text)
                         enableEditText(up_motor_edit_text)
-                        enableEditText(up_pressure_edit_text)
-                        enableEditText(up_force_edit_text)
+                        if (inputSet?.contains(up_pressure_edit_text) == false && inputSet?.contains(up_force_edit_text) == false) {
+                            enableEditText(up_pressure_edit_text)
+                            enableEditText(up_force_edit_text)
+                        }
+
                         calculateResult()
+
                         inputSet?.add(up_flow_edit_text)
                         inputSet?.add(up_motor_edit_text)
-                        inputSet?.add(up_pressure_edit_text)
-                        inputSet?.add(up_force_edit_text)
+                        if (inputSet?.contains(up_pressure_edit_text) == false && inputSet?.contains(up_force_edit_text) == false) {
+                            inputSet?.add(up_pressure_edit_text)
+                            inputSet?.add(up_force_edit_text)
+                        }
                     }
                 }
                 speed_down_edit_text -> {
                     if (speed_down_edit_text.text.isNotEmpty()) {
                         disableEditText(down_flow_edit_text)
                         inputSet?.remove(down_flow_edit_text)
-                        if (down_pressure_edit_text.text.isNotEmpty() || down_force_edit_text.text.isNotEmpty()) {
+                        if ((down_pressure_edit_text.text.isNotEmpty() && inputSet?.contains(down_pressure_edit_text) == true) || (down_force_edit_text.text.isNotEmpty() && inputSet?.contains(down_force_edit_text) == true)) {
                             inputSet?.remove(down_motor_edit_text)
                             disableEditText(down_motor_edit_text)
                         }
-                        if (down_motor_edit_text.text.isNotEmpty()) {
+                        if (down_motor_edit_text.text.isNotEmpty() && inputSet?.contains(down_motor_edit_text) == true) {
                             inputSet?.remove(down_pressure_edit_text)
                             inputSet?.remove(down_force_edit_text)
                             disableEditText(down_pressure_edit_text)
@@ -322,24 +356,28 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(down_flow_edit_text)
                         enableEditText(down_motor_edit_text)
-                        enableEditText(down_pressure_edit_text)
-                        enableEditText(down_force_edit_text)
+                        if (inputSet?.contains(down_pressure_edit_text) == false && inputSet?.contains(down_force_edit_text) == false) {
+                            enableEditText(down_pressure_edit_text)
+                            enableEditText(down_force_edit_text)
+                        }
                         calculateResult()
                         inputSet?.add(down_flow_edit_text)
                         inputSet?.add(down_motor_edit_text)
-                        inputSet?.add(down_pressure_edit_text)
-                        inputSet?.add(down_force_edit_text)
+                        if (inputSet?.contains(down_pressure_edit_text) == false && inputSet?.contains(down_force_edit_text) == false) {
+                            inputSet?.add(down_pressure_edit_text)
+                            inputSet?.add(down_force_edit_text)
+                        }
                     }
                 }
                 speed_pressing_edit_text -> {
                     if (speed_pressing_edit_text.text.isNotEmpty()) {
                         disableEditText(pressing_flow_edit_text)
                         inputSet?.remove(pressing_flow_edit_text)
-                        if (pressure_pressing_edit_text.text.isNotEmpty() || pressing_force_edit_text.text.isNotEmpty()) {
+                        if ((pressure_pressing_edit_text.text.isNotEmpty() && inputSet?.contains(pressure_pressing_edit_text) == true) || (pressing_force_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_force_edit_text) == true)) {
                             inputSet?.remove(pressing_motor_edit_text)
                             disableEditText(pressing_motor_edit_text)
                         }
-                        if (pressing_motor_edit_text.text.isNotEmpty()) {
+                        if (pressing_motor_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_motor_edit_text) == true) {
                             inputSet?.remove(pressure_pressing_edit_text)
                             inputSet?.remove(pressing_force_edit_text)
                             disableEditText(pressure_pressing_edit_text)
@@ -349,24 +387,28 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(pressing_flow_edit_text)
                         enableEditText(pressing_motor_edit_text)
-                        enableEditText(pressure_pressing_edit_text)
-                        enableEditText(pressing_force_edit_text)
+                        if (inputSet?.contains(pressure_pressing_edit_text) == false && inputSet?.contains(pressing_force_edit_text) == false) {
+                            enableEditText(pressure_pressing_edit_text)
+                            enableEditText(pressing_force_edit_text)
+                        }
                         calculateResult()
                         inputSet?.add(pressing_flow_edit_text)
                         inputSet?.add(pressing_motor_edit_text)
-                        inputSet?.add(pressure_pressing_edit_text)
-                        inputSet?.add(pressing_force_edit_text)
+                        if (inputSet?.contains(pressure_pressing_edit_text) == false && inputSet?.contains(pressing_force_edit_text) == false) {
+                            inputSet?.add(pressure_pressing_edit_text)
+                            inputSet?.add(pressing_force_edit_text)
+                        }
                     }
                 }
                 up_flow_edit_text -> {
                     if (up_flow_edit_text.text.isNotEmpty()) {
                         disableEditText(up_speed_edit_text)
                         inputSet?.remove(up_speed_edit_text)
-                        if (up_pressure_edit_text.text.isNotEmpty() || up_force_edit_text.text.isNotEmpty()) {
+                        if ((up_pressure_edit_text.text.isNotEmpty() && inputSet?.contains(up_pressure_edit_text) == true) || (up_force_edit_text.text.isNotEmpty()) && inputSet?.contains(up_force_edit_text) == true) {
                             inputSet?.remove(up_motor_edit_text)
                             disableEditText(up_motor_edit_text)
                         }
-                        if (up_motor_edit_text.text.isNotEmpty()) {
+                        if (up_motor_edit_text.text.isNotEmpty() && inputSet?.contains(up_motor_edit_text) == true) {
                             inputSet?.remove(up_pressure_edit_text)
                             inputSet?.remove(up_force_edit_text)
                             disableEditText(up_pressure_edit_text)
@@ -376,24 +418,30 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(up_speed_edit_text)
                         enableEditText(up_motor_edit_text)
-                        enableEditText(up_pressure_edit_text)
-                        enableEditText(up_force_edit_text)
+
+                        if (inputSet?.contains(up_speed_edit_text) == false && inputSet?.contains(up_flow_edit_text) == false) {
+                            enableEditText(up_pressure_edit_text)
+                            enableEditText(up_force_edit_text)
+                        }
                         calculateResult()
+
                         inputSet?.add(up_speed_edit_text)
                         inputSet?.add(up_motor_edit_text)
-                        inputSet?.add(up_pressure_edit_text)
-                        inputSet?.add(up_force_edit_text)
+                        if (inputSet?.contains(up_pressure_edit_text) == false && inputSet?.contains(up_force_edit_text) == false) {
+                            inputSet?.add(up_pressure_edit_text)
+                            inputSet?.add(up_force_edit_text)
+                        }
                     }
                 }
                 down_flow_edit_text -> {
                     if (down_flow_edit_text.text.isNotEmpty()) {
-                        disableEditText(down_pressure_edit_text)
-                        inputSet?.remove(down_pressure_edit_text)
-                        if (down_pressure_edit_text.text.isNotEmpty() || down_force_edit_text.text.isNotEmpty()) {
+                        disableEditText(speed_down_edit_text)
+                        inputSet?.remove(speed_down_edit_text)
+                        if ((down_pressure_edit_text.text.isNotEmpty() && inputSet?.contains(down_pressure_edit_text) == true) || (down_force_edit_text.text.isNotEmpty() && inputSet?.contains(down_force_edit_text) == true)) {
                             inputSet?.remove(down_motor_edit_text)
                             disableEditText(down_motor_edit_text)
                         }
-                        if (down_motor_edit_text.text.isNotEmpty()) {
+                        if (down_motor_edit_text.text.isNotEmpty() && inputSet?.contains(down_motor_edit_text) == true) {
                             inputSet?.remove(down_pressure_edit_text)
                             inputSet?.remove(down_force_edit_text)
                             disableEditText(down_pressure_edit_text)
@@ -401,26 +449,30 @@ class PowerpackFragment : Fragment() {
                         }
                         calculateResult()
                     } else {
-                        enableEditText(down_pressure_edit_text)
+                        enableEditText(speed_down_edit_text)
                         enableEditText(down_motor_edit_text)
-                        enableEditText(down_pressure_edit_text)
-                        enableEditText(down_force_edit_text)
+                        if (inputSet?.contains(down_pressure_edit_text) == false && inputSet?.contains(down_force_edit_text) == false) {
+                            enableEditText(down_pressure_edit_text)
+                            enableEditText(down_force_edit_text)
+                        }
                         calculateResult()
-                        inputSet?.add(down_pressure_edit_text)
+                        inputSet?.add(speed_down_edit_text)
                         inputSet?.add(down_motor_edit_text)
-                        inputSet?.add(down_pressure_edit_text)
-                        inputSet?.add(down_force_edit_text)
+                        if (inputSet?.contains(down_pressure_edit_text) == false && inputSet?.contains(down_force_edit_text) == false) {
+                            inputSet?.add(down_pressure_edit_text)
+                            inputSet?.add(down_force_edit_text)
+                        }
                     }
                 }
                 pressing_flow_edit_text -> {
                     if (pressing_flow_edit_text.text.isNotEmpty()) {
                         disableEditText(speed_pressing_edit_text)
                         inputSet?.remove(speed_pressing_edit_text)
-                        if (pressure_pressing_edit_text.text.isNotEmpty() || pressing_force_edit_text.text.isNotEmpty()) {
+                        if ((pressure_pressing_edit_text.text.isNotEmpty() && inputSet?.contains(pressure_pressing_edit_text) == true) || (pressing_force_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_force_edit_text) == true)) {
                             inputSet?.remove(pressing_motor_edit_text)
                             disableEditText(pressing_motor_edit_text)
                         }
-                        if (pressing_motor_edit_text.text.isNotEmpty()) {
+                        if (pressing_motor_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_motor_edit_text) == true) {
                             inputSet?.remove(pressure_pressing_edit_text)
                             inputSet?.remove(pressing_force_edit_text)
                             disableEditText(pressure_pressing_edit_text)
@@ -430,18 +482,22 @@ class PowerpackFragment : Fragment() {
                     } else {
                         enableEditText(speed_pressing_edit_text)
                         enableEditText(pressing_motor_edit_text)
-                        enableEditText(pressure_pressing_edit_text)
-                        enableEditText(pressing_force_edit_text)
+                        if(inputSet?.contains(pressure_pressing_edit_text) == false && inputSet?.contains(pressing_force_edit_text) == false) {
+                            enableEditText(pressure_pressing_edit_text)
+                            enableEditText(pressing_force_edit_text)
+                        }
                         calculateResult()
                         inputSet?.add(speed_pressing_edit_text)
                         inputSet?.add(pressing_motor_edit_text)
-                        inputSet?.add(pressure_pressing_edit_text)
-                        inputSet?.add(pressing_force_edit_text)
+                        if(inputSet?.contains(pressure_pressing_edit_text) == false && inputSet?.contains(pressing_force_edit_text) == false) {
+                            inputSet?.add(pressure_pressing_edit_text)
+                            inputSet?.add(pressing_force_edit_text)
+                        }
                     }
                 }
                 up_motor_edit_text -> {
                     if (up_motor_edit_text.text.isNotEmpty()) {
-                        if (up_force_edit_text.text.isNotEmpty()) {
+                        if (up_force_edit_text.text.isNotEmpty() && inputSet?.contains(up_force_edit_text) == true) {
                             disableEditText(up_pressure_edit_text)
                             disableEditText(up_flow_edit_text)
                             disableEditText(up_speed_edit_text)
@@ -449,7 +505,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(up_flow_edit_text)
                             inputSet?.remove(up_speed_edit_text)
                         }
-                        if (up_pressure_edit_text.text.isNotEmpty()) {
+                        if (up_pressure_edit_text.text.isNotEmpty() && inputSet?.contains(up_pressure_edit_text) == true) {
                             disableEditText(up_force_edit_text)
                             disableEditText(up_flow_edit_text)
                             disableEditText(up_speed_edit_text)
@@ -458,7 +514,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(up_speed_edit_text)
 
                         }
-                        if (up_flow_edit_text.text.isNotEmpty()) {
+                        if (up_flow_edit_text.text.isNotEmpty() && inputSet?.contains(up_flow_edit_text) == true) {
                             disableEditText(up_force_edit_text)
                             disableEditText(up_pressure_edit_text)
                             disableEditText(up_speed_edit_text)
@@ -466,7 +522,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(up_pressure_edit_text)
                             inputSet?.remove(up_speed_edit_text)
                         }
-                        if (up_speed_edit_text.text.isNotEmpty()) {
+                        if (up_speed_edit_text.text.isNotEmpty() && inputSet?.contains(up_speed_edit_text) == true) {
                             disableEditText(up_force_edit_text)
                             disableEditText(up_pressure_edit_text)
                             disableEditText(up_flow_edit_text)
@@ -477,19 +533,28 @@ class PowerpackFragment : Fragment() {
                         calculateResult()
                     } else {
                         calculateResult()
-                        enableEditText(up_force_edit_text)
-                        enableEditText(up_pressure_edit_text)
-                        enableEditText(up_speed_edit_text)
-                        enableEditText(up_flow_edit_text)
-                        inputSet?.add(up_force_edit_text)
-                        inputSet?.add(up_pressure_edit_text)
-                        inputSet?.add(up_speed_edit_text)
-                        inputSet?.add(up_flow_edit_text)
+                        if (inputSet?.contains(up_force_edit_text) == false && inputSet?.contains(up_pressure_edit_text) == false) {
+                            enableEditText(up_force_edit_text)
+                            enableEditText(up_pressure_edit_text)
+                        }
+
+                        if (inputSet?.contains(up_speed_edit_text) == false && inputSet?.contains(up_flow_edit_text) == false) {
+                            enableEditText(up_speed_edit_text)
+                            enableEditText(up_flow_edit_text)
+                        }
+                        if (inputSet?.contains(up_force_edit_text) == false && inputSet?.contains(up_pressure_edit_text) == false) {
+                            inputSet?.add(up_force_edit_text)
+                            inputSet?.add(up_pressure_edit_text)
+                        }
+                        if (inputSet?.contains(up_speed_edit_text) == false && inputSet?.contains(up_flow_edit_text) == false) {
+                            inputSet?.add(up_speed_edit_text)
+                            inputSet?.add(up_flow_edit_text)
+                        }
                     }
                 }
                 down_motor_edit_text -> {
-                    if (down_motor_edit_text.text.isNotEmpty()) {
-                        if (down_force_edit_text.text.isNotEmpty()) {
+                    if (down_motor_edit_text.text.isNotEmpty() == true) {
+                        if (down_force_edit_text.text.isNotEmpty() && inputSet?.contains(down_force_edit_text) == true) {
                             disableEditText(down_pressure_edit_text)
                             disableEditText(down_flow_edit_text)
                             disableEditText(speed_down_edit_text)
@@ -497,7 +562,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(down_flow_edit_text)
                             inputSet?.remove(speed_down_edit_text)
                         }
-                        if (down_pressure_edit_text.text.isNotEmpty()) {
+                        if (down_pressure_edit_text.text.isNotEmpty() && inputSet?.contains(down_pressure_edit_text) == true) {
                             disableEditText(down_force_edit_text)
                             disableEditText(down_flow_edit_text)
                             disableEditText(speed_down_edit_text)
@@ -505,7 +570,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(down_flow_edit_text)
                             inputSet?.remove(speed_down_edit_text)
                         }
-                        if (down_flow_edit_text.text.isNotEmpty()) {
+                        if (down_flow_edit_text.text.isNotEmpty() && inputSet?.contains(down_flow_edit_text) == true) {
                             disableEditText(down_force_edit_text)
                             disableEditText(down_pressure_edit_text)
                             disableEditText(speed_down_edit_text)
@@ -513,7 +578,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(down_pressure_edit_text)
                             inputSet?.remove(speed_down_edit_text)
                         }
-                        if (speed_down_edit_text.text.isNotEmpty()) {
+                        if (speed_down_edit_text.text.isNotEmpty() && inputSet?.contains(speed_down_edit_text) == true) {
                             disableEditText(down_force_edit_text)
                             disableEditText(down_pressure_edit_text)
                             disableEditText(down_flow_edit_text)
@@ -524,19 +589,27 @@ class PowerpackFragment : Fragment() {
                         calculateResult()
                     } else {
                         calculateResult()
-                        enableEditText(down_force_edit_text)
-                        enableEditText(down_pressure_edit_text)
-                        enableEditText(speed_down_edit_text)
-                        enableEditText(down_flow_edit_text)
-                        inputSet?.add(down_force_edit_text)
-                        inputSet?.add(down_pressure_edit_text)
-                        inputSet?.add(speed_down_edit_text)
-                        inputSet?.add(down_flow_edit_text)
+                        if (inputSet?.contains(down_force_edit_text) == false && inputSet?.contains(down_pressure_edit_text) == false) {
+                            enableEditText(down_force_edit_text)
+                            enableEditText(down_pressure_edit_text)
+                        }
+                        if (inputSet?.contains(speed_down_edit_text) == false && inputSet?.contains(down_flow_edit_text) == false) {
+                            enableEditText(speed_down_edit_text)
+                            enableEditText(down_flow_edit_text)
+                        }
+                        if (inputSet?.contains(down_force_edit_text) == false && inputSet?.contains(down_pressure_edit_text) == false) {
+                            inputSet?.add(down_force_edit_text)
+                            inputSet?.add(down_pressure_edit_text)
+                        }
+                        if (inputSet?.contains(speed_down_edit_text) == false && inputSet?.contains(down_flow_edit_text) == false) {
+                            inputSet?.add(speed_down_edit_text)
+                            inputSet?.add(down_flow_edit_text)
+                        }
                     }
                 }
                 pressing_motor_edit_text -> {
-                    if (pressing_motor_edit_text.text.isNotEmpty()) {
-                        if (pressing_force_edit_text.text.isNotEmpty()) {
+                    if (pressing_motor_edit_text.text.isNotEmpty() == true) {
+                        if (pressing_force_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_force_edit_text) == true) {
                             disableEditText(pressure_pressing_edit_text)
                             disableEditText(pressing_flow_edit_text)
                             disableEditText(speed_pressing_edit_text)
@@ -544,7 +617,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(pressing_flow_edit_text)
                             inputSet?.remove(speed_pressing_edit_text)
                         }
-                        if (pressure_pressing_edit_text.text.isNotEmpty()) {
+                        if (pressure_pressing_edit_text.text.isNotEmpty() && inputSet?.contains(pressure_pressing_edit_text) == true) {
                             disableEditText(pressing_force_edit_text)
                             disableEditText(pressing_flow_edit_text)
                             disableEditText(speed_pressing_edit_text)
@@ -552,7 +625,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(pressing_flow_edit_text)
                             inputSet?.remove(speed_pressing_edit_text)
                         }
-                        if (pressing_flow_edit_text.text.isNotEmpty()) {
+                        if (pressing_flow_edit_text.text.isNotEmpty() && inputSet?.contains(pressing_flow_edit_text) == true) {
                             disableEditText(pressing_force_edit_text)
                             disableEditText(pressure_pressing_edit_text)
                             disableEditText(speed_pressing_edit_text)
@@ -560,7 +633,7 @@ class PowerpackFragment : Fragment() {
                             inputSet?.remove(pressure_pressing_edit_text)
                             inputSet?.remove(speed_pressing_edit_text)
                         }
-                        if (speed_pressing_edit_text.text.isNotEmpty()) {
+                        if (speed_pressing_edit_text.text.isNotEmpty() && inputSet?.contains(speed_pressing_edit_text) == true) {
                             disableEditText(pressing_force_edit_text)
                             disableEditText(pressure_pressing_edit_text)
                             disableEditText(pressing_flow_edit_text)
@@ -571,14 +644,22 @@ class PowerpackFragment : Fragment() {
                         calculateResult()
                     } else {
                         calculateResult()
-                        enableEditText(pressing_force_edit_text)
-                        enableEditText(pressure_pressing_edit_text)
-                        enableEditText(speed_pressing_edit_text)
-                        enableEditText(pressing_flow_edit_text)
-                        inputSet?.add(pressing_force_edit_text)
-                        inputSet?.add(pressure_pressing_edit_text)
-                        inputSet?.add(speed_pressing_edit_text)
-                        inputSet?.add(pressing_flow_edit_text)
+                        if (inputSet?.contains(pressing_force_edit_text) == false && inputSet?.contains(pressure_pressing_edit_text) == false) {
+                            enableEditText(pressing_force_edit_text)
+                            enableEditText(pressure_pressing_edit_text)
+                        }
+                        if (inputSet?.contains(speed_pressing_edit_text) == false && inputSet?.contains(pressing_flow_edit_text) == false) {
+                            enableEditText(speed_pressing_edit_text)
+                            enableEditText(pressing_flow_edit_text)
+                        }
+                        if (inputSet?.contains(pressing_force_edit_text) == false && inputSet?.contains(pressure_pressing_edit_text) == false) {
+                            inputSet?.add(pressing_force_edit_text)
+                            inputSet?.add(pressure_pressing_edit_text)
+                        }
+                        if (inputSet?.contains(speed_pressing_edit_text) == false && inputSet?.contains(pressing_flow_edit_text) == false) {
+                            inputSet?.add(speed_pressing_edit_text)
+                            inputSet?.add(pressing_flow_edit_text)
+                        }
                     }
                 }
 
@@ -679,11 +760,11 @@ class PowerpackFragment : Fragment() {
             val forcePressingString =
                 if (!inputSet.contains(pressing_force_edit_text)) "" else pressing_force_edit_text.text.toString()
             val forceUnit = force_spinner.selectedItem as UNIT
-            val flowUpString =
+            var flowUpString =
                 if (!inputSet.contains(up_flow_edit_text)) "" else up_flow_edit_text.text.toString()
-            val flowDownString =
+            var flowDownString =
                 if (!inputSet.contains(down_flow_edit_text)) "" else down_flow_edit_text.text.toString()
-            val flowPressingString =
+            var flowPressingString =
                 if (!inputSet.contains(pressing_flow_edit_text)) "" else pressing_flow_edit_text.text.toString()
             val flowUnit = flow_spinner.selectedItem as UNIT
             val speedUpString =
@@ -700,6 +781,9 @@ class PowerpackFragment : Fragment() {
             val motorPressingString =
                 if (!inputSet.contains(pressing_motor_edit_text)) "" else pressing_motor_edit_text.text.toString()
             val motorUnit = motor_spinner.selectedItem as UNIT
+
+            val tankUnit = tank_capacity_spinner.selectedItem as UNIT
+            val volOilStrokeUnit = oil_stroke_spinner.selectedItem as UNIT
 
 //        updating the reset share and copy button
             if (FormulaUtil.isValid(boreString) && FormulaUtil.isValid(rodString) && FormulaUtil.isValid(
@@ -741,8 +825,6 @@ class PowerpackFragment : Fragment() {
                     numCylinder,
                     boreString,
                     boreUnit,
-                    rodString,
-                    rodUnit,
                     pressureDownString,
                     pressureUnit,
                     flowDownString,
@@ -760,8 +842,6 @@ class PowerpackFragment : Fragment() {
                     numCylinder,
                     boreString,
                     boreUnit,
-                    rodString,
-                    rodUnit,
                     pressurePressingString,
                     pressureUnit,
                     flowPressingString,
@@ -798,8 +878,6 @@ class PowerpackFragment : Fragment() {
                     numCylinder,
                     boreString,
                     boreUnit,
-                    rodString,
-                    rodUnit,
                     forceDownString,
                     forceUnit,
                     flowDownString,
@@ -817,8 +895,6 @@ class PowerpackFragment : Fragment() {
                     numCylinder,
                     boreString,
                     boreUnit,
-                    rodString,
-                    rodUnit,
                     forcePressingString,
                     forceUnit,
                     flowPressingString,
@@ -834,14 +910,17 @@ class PowerpackFragment : Fragment() {
             setText(
                 up_flow_edit_text, FormulaUtil.calculatePowerpackFlow(
                     numCylinder,
-                    efficiency,
-                    up_speed_edit_text,
+                    boreString,
+                    boreUnit,
+                    rodString,
+                    rodUnit,
+                    speedUpString,
                     speedUnit,
-                    up_force_edit_text,
+                    forceUpString,
                     forceUnit,
-                    up_pressure_edit_text,
+                    pressureUpString,
                     pressureUnit,
-                    up_motor_edit_text,
+                    motorUpString,
                     motorUnit,
                     flowUnit
                 )
@@ -849,14 +928,15 @@ class PowerpackFragment : Fragment() {
             setText(
                 down_flow_edit_text, FormulaUtil.calculatePowerpackFlow(
                     numCylinder,
-                    efficiency,
-                    speed_down_edit_text,
+                    boreString,
+                    boreUnit,
+                    speedDownString,
                     speedUnit,
-                    down_force_edit_text,
+                    forceDownString,
                     forceUnit,
-                    down_pressure_edit_text,
+                    pressureDownString,
                     pressureUnit,
-                    down_motor_edit_text,
+                    motorDownString,
                     motorUnit,
                     flowUnit
                 )
@@ -864,14 +944,15 @@ class PowerpackFragment : Fragment() {
             setText(
                 pressing_flow_edit_text, FormulaUtil.calculatePowerpackFlow(
                     numCylinder,
-                    efficiency,
-                    speed_pressing_edit_text,
+                    boreString,
+                    boreUnit,
+                    speedPressingString,
                     speedUnit,
-                    pressing_force_edit_text,
+                    forcePressingString,
                     forceUnit,
-                    pressure_pressing_edit_text,
+                    pressurePressingString,
                     pressureUnit,
-                    pressing_motor_edit_text,
+                    motorPressingString,
                     motorUnit,
                     flowUnit
                 )
@@ -880,14 +961,17 @@ class PowerpackFragment : Fragment() {
             setText(
                 up_speed_edit_text, FormulaUtil.calculatePowerpackSpeed(
                     numCylinder,
-                    efficiency,
-                    up_flow_edit_text,
+                    boreString,
+                    boreUnit,
+                    rodString,
+                    rodUnit,
+                    flowUpString,
                     flowUnit,
-                    up_force_edit_text,
+                    forceUpString,
                     forceUnit,
-                    up_pressure_edit_text,
+                    pressureUpString,
                     pressureUnit,
-                    up_motor_edit_text,
+                    motorUpString,
                     motorUnit,
                     flowUnit
                 )
@@ -895,14 +979,15 @@ class PowerpackFragment : Fragment() {
             setText(
                 speed_down_edit_text, FormulaUtil.calculatePowerpackSpeed(
                     numCylinder,
-                    efficiency,
-                    down_flow_edit_text,
+                    boreString,
+                    boreUnit,
+                    flowDownString,
                     flowUnit,
-                    down_force_edit_text,
+                    forceDownString,
                     forceUnit,
-                    down_pressure_edit_text,
+                    pressureDownString,
                     pressureUnit,
-                    down_motor_edit_text,
+                    motorDownString,
                     motorUnit,
                     flowUnit
                 )
@@ -910,71 +995,96 @@ class PowerpackFragment : Fragment() {
             setText(
                 speed_pressing_edit_text, FormulaUtil.calculatePowerpackSpeed(
                     numCylinder,
-                    efficiency,
-                    pressing_flow_edit_text,
+                    boreString,
+                    boreUnit,
+                    flowPressingString,
                     flowUnit,
-                    pressing_force_edit_text,
+                    forcePressingString,
                     forceUnit,
-                    pressure_pressing_edit_text,
+                    pressurePressingString,
                     pressureUnit,
-                    pressing_motor_edit_text,
+                    motorPressingString,
                     motorUnit,
                     flowUnit
                 )
             )
             setText(
                 up_motor_edit_text, FormulaUtil.calculatePowerpackMotor(
-                    up_pressure_edit_text,
+                    numCylinder,
+                    boreString,
+                    boreUnit,
+                    rodString,
+                    rodUnit,
+                    pressureUpString,
                     pressureUnit,
-                    up_force_edit_text,
+                    forceUpString,
                     forceUnit,
-                    up_flow_edit_text,
+                    flowUpString,
                     flowUnit,
-                    up_speed_edit_text,
-                    speedUnit
+                    speedUpString,
+                    speedUnit,
+                    motorUnit
                 )
             )
             setText(
                 down_motor_edit_text, FormulaUtil.calculatePowerpackMotor(
-                    down_pressure_edit_text,
+                    numCylinder,
+                    boreString,
+                    boreUnit,
+                    pressureDownString,
                     pressureUnit,
-                    down_force_edit_text,
+                    forceDownString,
                     forceUnit,
-                    down_flow_edit_text,
+                    flowDownString,
                     flowUnit,
-                    up_speed_edit_text,
-                    speedUnit
+                    speedDownString,
+                    speedUnit,
+                    motorUnit
                 )
             )
             setText(
                 pressing_motor_edit_text, FormulaUtil.calculatePowerpackMotor(
-                    pressure_pressing_edit_text,
+                    numCylinder,
+                    boreString,
+                    boreUnit,
+                    pressurePressingString,
                     pressureUnit,
-                    pressing_force_edit_text,
+                    forcePressingString,
                     forceUnit,
-                    pressing_flow_edit_text,
+                    flowPressingString,
                     flowUnit,
-                    speed_pressing_edit_text,
-                    speedUnit
+                    speedPressingString,
+                    speedUnit,
+                    motorUnit
                 )
             )
 
             setText(
                 oil_stroke_edit_text, FormulaUtil.calculatePowerpackOilStroke(
                     numCylinder,
-                    bore_edit_text,
+                    boreString,
                     boreUnit,
-                    stroke_edit_text,
-                    strokeUnit
+                    strokeString,
+                    strokeUnit,
+                    volOilStrokeUnit
                 )
             )
 
+            flowUpString =
+                if (!inputSet.contains(up_flow_edit_text)) "" else up_flow_edit_text.text.toString()
+            flowDownString =
+                if (!inputSet.contains(down_flow_edit_text)) "" else down_flow_edit_text.text.toString()
+            flowPressingString =
+                if (!inputSet.contains(pressing_flow_edit_text)) "" else pressing_flow_edit_text.text.toString()
+
+
             setText(
                 tank_capacity_edit_text, FormulaUtil.calculateTankCapacity(
-                    up_flow_edit_text,
-                    down_flow_edit_text,
-                    pressing_flow_edit_text,
-                    flowUnit
+                    flowUpString,
+                    flowDownString,
+                    flowPressingString,
+                    flowUnit,
+                    tankUnit
                 )
             )
         }
@@ -1099,6 +1209,22 @@ class PowerpackFragment : Fragment() {
             pressing_motor_edit_text
         )
 
+        plus.setOnClickListener {
+            var nCyl =  cyclinder_edit_text?.text.toString().toInt()
+            nCyl += 1
+            cyclinder_edit_text.setText(nCyl.toString())
+            calculateResult()
+        }
+
+        minus.setOnClickListener {
+            var nCyl =  cyclinder_edit_text?.text.toString().toInt()
+            if (nCyl > 0) {
+                nCyl -= 1
+            }
+            cyclinder_edit_text.setText(nCyl.toString())
+            calculateResult()
+        }
+
         mEditTextTextWatcherMap = mutableMapOf()
         for(v in editTextViews) {
             v.filters = arrayOf<InputFilter>(DecimalDigitInputFilter(5, 5))
@@ -1183,7 +1309,8 @@ class PowerpackFragment : Fragment() {
                     })
                 .setPositiveButton(R.string.save_project,
                     DialogInterface.OnClickListener { dialog, id ->
-                        mSaveProjectListener.onSave(projectEditText.text.toString())
+//                        mSaveProjectListener.onSave(projectEditText.text.toString())
+                        Toast.makeText(mContext, "Not Implemented!" , Toast.LENGTH_SHORT).show()
                     })
             val alertDialog = builder.create()
             alertDialog.show()

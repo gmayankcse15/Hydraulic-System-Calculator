@@ -78,6 +78,12 @@ enum class VOLUME : UNIT {
         override val factor: Double
             get() = 0.001
     },
+    M3 {
+        override val unit: String
+            get() = "m\u00b3"
+        override val factor: Double
+            get() = 1000.0
+    },
     MM3 {
         override val unit: String
             get() = "mm\u00b3"
