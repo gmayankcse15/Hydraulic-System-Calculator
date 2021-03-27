@@ -1,5 +1,6 @@
 package com.uniquespm.hydraulic.util
 
+import android.util.Log
 import android.widget.EditText
 import androidx.loader.content.Loader
 import java.text.DecimalFormat
@@ -13,6 +14,8 @@ class FormulaUtil {
 
         const val EFFICIENCY = 0.85
 
+        const val TAG = "FormulaUtil"
+
         fun isValid(boreDiameter: String): Boolean {
             return (boreDiameter.isNotEmpty() && boreDiameter != ".")
         }
@@ -25,7 +28,7 @@ class FormulaUtil {
             }
         }
 
-        private val decimalFormat: DecimalFormat = DecimalFormat("#.#####")
+        private val decimalFormat: DecimalFormat = DecimalFormat("#.##")
 
         fun calculateForceBoreSide(
             boreDiameter: String,
@@ -249,13 +252,13 @@ class FormulaUtil {
                         var speed = speedString.toDouble()
                         speed = ConversionUtil.convertUnit(speed, speedUnit, SPEED.M_MIN)
                         flow =
-                            (speed * PI * (bD.pow(2) - bR.pow(2)) * EFFICIENCY * nCylinder) / 40.0
+                            (speed * PI * (bD.pow(2) - bR.pow(2)) * nCylinder) / 40.0
                     }
                     pressure = (motor * 600) / flow
                 }
                 force = nCylinder * PI / 4.0 * (bD.pow(2) - bR.pow(2)) * pressure * 10
                 force = ConversionUtil.convertUnit(force, FORCE.NEWTON, forceUnit)
-                return force.toString()
+                return decimalFormat.format(force).toString()
             }
             return "";
         }
@@ -295,13 +298,13 @@ class FormulaUtil {
                         var speed = speedString.toDouble()
                         speed = ConversionUtil.convertUnit(speed, speedUnit, SPEED.M_MIN)
                         flow =
-                            (speed * PI * bD.pow(2) * EFFICIENCY * nCylinder) / 40.0
+                            (speed * PI * bD.pow(2) * nCylinder) / 40.0
                     }
                     pressure = (motor * 600) / flow
                 }
                 force = nCylinder * PI / 4.0 * bD.pow(2) * pressure * 10
                 force = ConversionUtil.convertUnit(force, FORCE.NEWTON, forceUnit)
-                return force.toString()
+                return decimalFormat.format(force).toString()
             }
             return ""
         }
@@ -345,13 +348,13 @@ class FormulaUtil {
                         var speed = speedString.toDouble()
                         speed = ConversionUtil.convertUnit(speed, speedUnit, SPEED.M_MIN)
                         flow =
-                            (speed * PI * (bD.pow(2) - bR.pow(2)) * EFFICIENCY * nCylinder) / 40.0
+                            (speed * PI * (bD.pow(2) - bR.pow(2)) * nCylinder) / 40.0
                     }
                     pressure = (motor * 600) / flow
 
                 }
                 pressure = ConversionUtil.convertUnit(pressure, PRESSURE.BAR, pressureUnit)
-                return pressure.toString()
+                return decimalFormat.format(pressure).toString()
             }
             return ""
         }
@@ -391,12 +394,12 @@ class FormulaUtil {
                         var speed = speedString.toDouble()
                         speed = ConversionUtil.convertUnit(speed, speedUnit, SPEED.M_MIN)
                         flow =
-                            (speed * PI * bD.pow(2) * EFFICIENCY * nCylinder) / 40.0
+                            (speed * PI * bD.pow(2) * nCylinder) / 40.0
                     }
                     pressure = (motor * 600) / flow
                 }
                 pressure = ConversionUtil.convertUnit(pressure, PRESSURE.BAR, pressureUnit)
-                return pressure.toString()
+                return decimalFormat.format(pressure).toString()
             }
             return "";
         }
@@ -428,7 +431,7 @@ class FormulaUtil {
                 if (isValid(speedString)) {
                     var speed = speedString.toDouble()
                     speed = ConversionUtil.convertUnit(speed, speedUnit, SPEED.M_MIN)
-                    flow = (PI * (bD.pow(2) - rD.pow(2)) * speed * EFFICIENCY * nCylinder) / 40.0
+                    flow = (PI * (bD.pow(2) - rD.pow(2)) * speed * nCylinder) / 40.0
                 } else if (isValid(motorString)) {
                     var motor = motorString.toDouble()
                     motor = ConversionUtil.convertUnit(motor, motorUnit, ENERGY.KW)
@@ -444,7 +447,7 @@ class FormulaUtil {
                     flow = (motor * 600) / pressure;
                 }
                 flow = ConversionUtil.convertUnit(flow, FLOW.L_MIN, flowUnit)
-                return flow.toString()
+                return decimalFormat.format(flow).toString()
             }
             return ""
         }
@@ -472,7 +475,7 @@ class FormulaUtil {
                 if (isValid(speedString)) {
                     var speed = speedString.toDouble()
                     speed = ConversionUtil.convertUnit(speed, speedUnit, SPEED.M_MIN)
-                    flow = (PI * bD.pow(2) * speed * EFFICIENCY * nCylinder) / 40.0
+                    flow = (PI * bD.pow(2) * speed * nCylinder) / 40.0
                 } else if (isValid(motorString)) {
                     var motor = motorString.toDouble()
                     motor = ConversionUtil.convertUnit(motor, motorUnit, ENERGY.KW)
@@ -488,7 +491,7 @@ class FormulaUtil {
                     flow = (motor * 600) / pressure;
                 }
                 flow = ConversionUtil.convertUnit(flow, FLOW.L_MIN, flowUnit)
-                return flow.toString()
+                return decimalFormat.format(flow).toString()
             }
             return ""
         }
@@ -535,9 +538,9 @@ class FormulaUtil {
                     }
                     flow = (motor * 600) / pressure;
                 }
-                speed = (40.0 * flow) / (PI * (bD.pow(2) - rD.pow(2)) * EFFICIENCY * nCylinder)
+                speed = (40.0 * flow) / (PI * (bD.pow(2) - rD.pow(2)) * nCylinder)
                 speed = ConversionUtil.convertUnit(speed, SPEED.M_MIN, speedUnit)
-                return speed.toString()
+                return decimalFormat.format(speed).toString()
             }
             return ""
         }
@@ -580,9 +583,9 @@ class FormulaUtil {
                     }
                     flow = (motor * 600) / pressure;
                 }
-                speed = (40.0 * flow) / (PI * bD.pow(2) * EFFICIENCY * nCylinder)
+                speed = (40.0 * flow) / (PI * bD.pow(2) * nCylinder)
                 speed = ConversionUtil.convertUnit(speed, SPEED.M_MIN, speedUnit)
-                return speed.toString()
+                return decimalFormat.format(speed).toString()
             }
             return ""
         }
@@ -633,11 +636,12 @@ class FormulaUtil {
                 if (isValid(speedString)) {
                     var speed = speedString.toDouble()
                     speed = ConversionUtil.convertUnit(speed, speedUnit, SPEED.M_MIN)
-                    flow = (PI * (bD.pow(2) - rD.pow(2)) * speed * EFFICIENCY * nCylinder) / 40.0
+                    flow = (PI * (bD.pow(2) - rD.pow(2)) * speed * nCylinder) / 40.0
                 }
                 motor = (pressure * flow) / 600
-                motor = ConversionUtil.convertUnit(motor, motorUnit, ENERGY.KW)
-                return motor.toString()
+                Log.d(TAG, "Motor: $motor")
+                motor = ConversionUtil.convertUnit(motor, ENERGY.KW, motorUnit)
+                return decimalFormat.format(motor).toString()
             }
             return "";
         }
@@ -667,27 +671,33 @@ class FormulaUtil {
                 if (isValid(pressureString)) {
                     pressure = pressureString.toDouble()
                     pressure = ConversionUtil.convertUnit(pressure, pressureUnit, PRESSURE.BAR)
+                    Log.d(TAG, "Pressure: $pressure")
                 }
 
                 if (isValid(forceString)) {
                     var force = forceString.toDouble()
                     force = ConversionUtil.convertUnit(force, forceUnit, FORCE.NEWTON)
                     pressure = (4.0 * force) / (10.0 * nCylinder * PI * bD.pow(2))
+                    Log.d(TAG, "Pressure: $pressure")
                 }
 
                 if (isValid(flowString)) {
                     flow = flowString.toDouble()
                     flow = ConversionUtil.convertUnit(flow, flowUnit, FLOW.L_MIN)
+                    Log.d(TAG, "Flow: $flow")
                 }
 
                 if (isValid(speedString)) {
                     var speed = speedString.toDouble()
                     speed = ConversionUtil.convertUnit(speed, speedUnit, SPEED.M_MIN)
-                    flow = (PI * bD.pow(2) * speed * EFFICIENCY * nCylinder) / 40.0
+                    flow = (PI * bD.pow(2) * speed * nCylinder) / 40.0
+                    Log.d(TAG, "Flow: $flow")
                 }
                 motor = (pressure * flow) / 600
-                motor = ConversionUtil.convertUnit(motor, motorUnit, ENERGY.KW)
-                return motor.toString()
+                Log.d(TAG, "Motor: $motor")
+                motor = ConversionUtil.convertUnit(motor, ENERGY.KW, motorUnit)
+                Log.d(TAG, "Motor: $motor")
+                return decimalFormat.format(motor).toString()
             }
             return "";
         }
@@ -715,7 +725,7 @@ class FormulaUtil {
 
                 tankCapacity = tankCapacity * 4
                 tankCapacity = ConversionUtil.convertUnit(tankCapacity, VOLUME.LITRE, tankUnit)
-                return tankCapacity.toString()
+                return decimalFormat.format(tankCapacity).toString()
             }
             return ""
         }
@@ -737,7 +747,7 @@ class FormulaUtil {
                 stroke = ConversionUtil.convertUnit(stroke, strokeUnit, LENGTH.METER)
                 var volOilStroke = (PI * bD.pow(2) * stroke * nCylinder)/4.0
                 volOilStroke = ConversionUtil.convertUnit(volOilStroke, VOLUME.M3, volOilStrokeUnit)
-                return volOilStroke.toString()
+                return decimalFormat.format(volOilStroke).toString()
             }
             return ""
         }

@@ -71,6 +71,7 @@ class CylinderFragment : Fragment() {
             bore_spinner.selectedItemPosition
             val cylinder = Cylinder(
                 projectName,
+                Constants.CYLINDER,
                 getValidData(bore_edit_text, inputSet),
                 bore_spinner.selectedItemPosition,
                 getValidData(rod_edit_text, inputSet),
@@ -90,7 +91,7 @@ class CylinderFragment : Fragment() {
                 force_spinner.selectedItemPosition
                 )
             Log.d(TAG, "Cylinder $cylinder")
-            mDataRepository?.insert(cylinder)
+            mDataRepository?.insertCylinder(cylinder)
         }
 
     }
@@ -394,6 +395,12 @@ class CylinderFragment : Fragment() {
         val args: CylinderFragmentArgs by navArgs()
         mCylinderData = args.cylinderData
 
+        if (mCylinderData == null) {
+            Log.d(TAG, "Cylinder Data is null")
+        } else {
+            Log.d(TAG, "Cylinder Data is not null")
+        }
+
         val sViews = arrayOf(
             bore_spinner,
             rod_spinner,
@@ -522,27 +529,27 @@ class CylinderFragment : Fragment() {
         when (editText) {
             bore_edit_text -> if (cylinderData.mBoreDiameter.isNotEmpty()) {
                 bore_edit_text.setText(cylinderData.mBoreDiameter)
-                cylinderData.mBoreDiameter = ""
+//                cylinderData.mBoreDiameter = ""
             }
             rod_edit_text -> if (cylinderData.mRodDiameter.isNotEmpty()) {
                 rod_edit_text.setText(cylinderData.mRodDiameter)
-                cylinderData.mRodDiameter = ""
+//                cylinderData.mRodDiameter = ""
             }
             stroke_edit_text -> if (cylinderData.mStroke.isNotEmpty()) {
                 stroke_edit_text.setText(cylinderData.mStroke)
-                cylinderData.mStroke = ""
+//                cylinderData.mStroke = ""
             }
             pressure_edit_text -> if (cylinderData.mPressure.isNotEmpty()) {
                 pressure_edit_text.setText(cylinderData.mPressure)
-                cylinderData.mPressure = ""
+//                cylinderData.mPressure = ""
             }
             force_bore_side_edit_text -> if (cylinderData.mForceBoreSide.isNotEmpty()) {
                 force_bore_side_edit_text.setText(cylinderData.mForceBoreSide)
-                cylinderData.mForceBoreSide = ""
+//                cylinderData.mForceBoreSide = ""
             }
             force_edit_text -> if (cylinderData.mForceRodSide.isNotEmpty()) {
                 force_edit_text.setText(cylinderData.mForceRodSide)
-                cylinderData.mForceRodSide = ""
+//                cylinderData.mForceRodSide = ""
             }
         }
     }

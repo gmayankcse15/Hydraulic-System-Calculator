@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_nav_project_to_cardview_cylinder"
             app:destination="@id/cardview_cylinder" />
+        <action
+            android:id="@+id/action_nav_project_to_cardview_powerpack"
+            app:destination="@id/cardview_powerpack" />
     </fragment>
 
     <action
@@ -79,6 +82,12 @@
         android:id="@+id/cardview_powerpack"
         android:name="com.uniquespm.hydraulic.ui.powerpack.PowerpackFragment"
         android:label="@string/powerpack"
-        tools:layout="@layout/fragment_powerpack" />
+        tools:layout="@layout/fragment_powerpack">
+        <argument
+            android:name="powerpack_data"
+            app:argType="com.uniquespm.hydraulic.model.Powerpack"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

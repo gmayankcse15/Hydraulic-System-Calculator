@@ -4,7 +4,7 @@ import android.util.Log
 
 class ConversionUtil {
     companion object {
-        const val TAG = "ConversionUtil"
+        const val TAG = "onversionUtilC"
         val lengthBaseUnit: LENGTH = LENGTH.MM
         val pressureBaseUnit: PRESSURE = PRESSURE.BAR
         val areaBaseUnit: AREA = AREA.MM2
@@ -18,7 +18,7 @@ class ConversionUtil {
         }
 
         fun convertUnitToBase(value: Double, unit: UNIT): Double {
-        return value * unit.factor
+            return value * unit.factor
         }
 
         fun convertBaseToUnit(value: Double, unit: UNIT): Double {

@@ -24,6 +24,7 @@ import com.uniquespm.hydraulic.common.CustomSpinnerAdapter
 import com.uniquespm.hydraulic.common.DecimalDigitInputFilter
 import com.uniquespm.hydraulic.common.SaveProjectCallback
 import com.uniquespm.hydraulic.model.DataRepository
+import com.uniquespm.hydraulic.model.Powerpack
 import com.uniquespm.hydraulic.ui.cylinder.EditTextChangeListener
 import com.uniquespm.hydraulic.util.*
 import kotlinx.android.synthetic.main.fragment_cylinder.*
@@ -40,6 +41,7 @@ import kotlinx.android.synthetic.main.powerpack_table_layout.*
 import kotlinx.android.synthetic.main.powerpack_table_layout.force_spinner
 import kotlinx.android.synthetic.main.powerpack_table_layout.pressure_spinner
 import kotlinx.android.synthetic.main.powerpack_table_layout.view.*
+import java.text.Normalizer
 
 class PowerpackFragment : Fragment() {
     
@@ -55,6 +57,7 @@ class PowerpackFragment : Fragment() {
     private val unitSpeed : Array<UNIT> = arrayOf(SPEED.MM_SEC, SPEED.M_MIN)
     private val unitFlow : Array<UNIT> = arrayOf(FLOW.L_MIN, FLOW.M3_MIN, FLOW.FPM)
     private val unitEnergy: Array<UNIT> = arrayOf(ENERGY.HP, ENERGY.KW)
+    private var mPowerpackData: Powerpack? = null
 
     private val spinnerDataArray = arrayOf(
         unitLength,
@@ -79,28 +82,35 @@ class PowerpackFragment : Fragment() {
         override fun onSave(projectName: String) {
             mDataRepository = DataRepository(mContext.applicationContext)
             bore_spinner.selectedItemPosition
-//            val powerpack = powerpack(
-//                projectName,
-//                FormulaUtil.getValidData(bore_edit_text, inputSet),
-//                bore_spinner.selectedItemPosition,
-//                FormulaUtil.getValidData(rod_edit_text, inputSet),
-//                rod_spinner.selectedItemPosition,
-//                FormulaUtil.getValidData(stroke_edit_text, inputSet),
-//                stroke_spinner.selectedItemPosition,
-//                FormulaUtil.getValidData(pressure_edit_text, inputSet),
-//                pressure_spinner.selectedItemPosition,
-//                FormulaUtil.getValidData(area__bore_side_edit_text, inputSet),
-//                FormulaUtil.getValidData(area_edit_text, inputSet),
-//                area_spinner.selectedItemPosition,
-//                FormulaUtil.getValidData(volume_bore_side__edit_text, inputSet),
-//                FormulaUtil.getValidData(volume_edit_text, inputSet),
-//                volume_spinner.selectedItemPosition,
-//                FormulaUtil.getValidData(force_bore_side_edit_text, inputSet),
-//                FormulaUtil.getValidData(force_edit_text, inputSet),
-//                force_spinner.selectedItemPosition
-//            )
-//            Log.d(powerpackFragment.TAG, "powerpack $powerpack")
-//            mDataRepository?.insert(powerpack)
+            val powerpack = Powerpack(
+                projectName,
+                Constants.POWERPACK,
+                cyclinder_edit_text.text.toString().toInt(),
+                FormulaUtil.getValidData(bore_edit_text, inputSet),
+                bore_spinner.selectedItemPosition,
+                FormulaUtil.getValidData(rod_edit_text, inputSet),
+                rod_spinner.selectedItemPosition,
+                FormulaUtil.getValidData(stroke_edit_text, inputSet),
+                stroke_spinner.selectedItemPosition,
+                FormulaUtil.getValidData(up_force_edit_text, inputSet),
+                FormulaUtil.getValidData(down_force_edit_text, inputSet),
+                FormulaUtil.getValidData(pressing_force_edit_text, inputSet),
+                force_spinner.selectedItemPosition,
+                FormulaUtil.getValidData(up_speed_edit_text, inputSet),
+                FormulaUtil.getValidData(speed_down_edit_text, inputSet),
+                FormulaUtil.getValidData(speed_down_edit_text, inputSet),
+                speed_spinner.selectedItemPosition,
+                FormulaUtil.getValidData(up_flow_edit_text, inputSet),
+                FormulaUtil.getValidData(down_flow_edit_text, inputSet),
+                FormulaUtil.getValidData(pressing_flow_edit_text, inputSet),
+                flow_spinner.selectedItemPosition,
+                FormulaUtil.getValidData(up_motor_edit_text, inputSet),
+                FormulaUtil.getValidData(down_motor_edit_text, inputSet),
+                FormulaUtil.getValidData(pressing_motor_edit_text, inputSet),
+                motor_spinner.selectedItemPosition
+            )
+            Log.d(TAG, "powerpack $powerpack")
+            mDataRepository?.insertPowerpack(powerpack)
         }
 
     }
@@ -1070,12 +1080,9 @@ class PowerpackFragment : Fragment() {
                 )
             )
 
-            flowUpString =
-                if (!inputSet.contains(up_flow_edit_text)) "" else up_flow_edit_text.text.toString()
-            flowDownString =
-                if (!inputSet.contains(down_flow_edit_text)) "" else down_flow_edit_text.text.toString()
-            flowPressingString =
-                if (!inputSet.contains(pressing_flow_edit_text)) "" else pressing_flow_edit_text.text.toString()
+            flowUpString = up_flow_edit_text.text.toString()
+            flowDownString = down_flow_edit_text.text.toString()
+            flowPressingString =  pressing_flow_edit_text.text.toString()
 
 
             setText(
@@ -1114,9 +1121,9 @@ class PowerpackFragment : Fragment() {
                             editText.setText(dec.format(res).toString())
                         }
                     } else {
-//                        mpowerpackData?.let {
-//                            updateEditText(it, editText)
-//                        }
+                        mPowerpackData?.let {
+                            updateEditText(it, editText)
+                        }
                     }
                 }
             }
@@ -1150,8 +1157,8 @@ class PowerpackFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val args: powerpackFragmentArgs by navArgs()
-//        mpowerpackData = args.powerpackData
+        val args: PowerpackFragmentArgs by navArgs()
+        mPowerpackData = args.powerpackData
 
         val sViews = arrayOf(
             bore_spinner,
@@ -1273,18 +1280,18 @@ class PowerpackFragment : Fragment() {
             sViews[i].onItemSelectedListener = spinnerItemSelectListener
         }
 
-//        mpowerpackData?.let {powerpackData ->
-//
-//            bore_spinner.setSelection(powerpackData.mBoreDiameterUnit)
-//            rod_spinner.setSelection(powerpackData.mRodDiameterUnit)
-//            stroke_spinner.setSelection(powerpackData.mStrokeUnit)
-//            pressure_spinner.setSelection(powerpackData.mPressureUnit)
-//            area_spinner.setSelection(powerpackData.mAreaSideUnit)
-//            volume_spinner.setSelection(powerpackData.mVolumeSideUnit)
-//            force_spinner.setSelection(powerpackData.mForceSideUnit)
-//
-////            updateEditText(powerpackData)
-//        }
+        mPowerpackData?.let {powerpackData ->
+
+            bore_spinner.setSelection(powerpackData.mBoreDiameterUnit)
+            rod_spinner.setSelection(powerpackData.mRodDiameterUnit)
+            stroke_spinner.setSelection(powerpackData.mStrokeUnit)
+            pressure_spinner.setSelection(powerpackData.mPressureUnit)
+            force_spinner.setSelection(powerpackData.mForceUnit)
+            speed_spinner.setSelection(powerpackData.mSpeedUnit)
+            flow_spinner.setSelection(powerpackData.mFlowUnit)
+
+//            updateEditText(powerpackData)
+        }
 
         enableButton(reset_button)
         reset_button.setOnClickListener{
@@ -1309,8 +1316,8 @@ class PowerpackFragment : Fragment() {
                     })
                 .setPositiveButton(R.string.save_project,
                     DialogInterface.OnClickListener { dialog, id ->
-//                        mSaveProjectListener.onSave(projectEditText.text.toString())
-                        Toast.makeText(mContext, "Not Implemented!" , Toast.LENGTH_SHORT).show()
+                        mSaveProjectListener.onSave(projectEditText.text.toString())
+//                        Toast.makeText(mContext, "Not Implemented!" , Toast.LENGTH_SHORT).show()
                     })
             val alertDialog = builder.create()
             alertDialog.show()
@@ -1334,32 +1341,84 @@ class PowerpackFragment : Fragment() {
         }
     }
 
-//    private fun updateEditText(powerpackData: powerpack, editText: EditText) {
-//        when (editText) {
-//            bore_edit_text -> if (powerpackData.mBoreDiameter.isNotEmpty()) {
-//                bore_edit_text.setText(powerpackData.mBoreDiameter)
+    private fun updateEditText(powerpackData: Powerpack, editText: EditText) {
+        when (editText) {
+            cyclinder_edit_text -> {
+                cyclinder_edit_text.setText(powerpackData.mNumCylinder)
+            }
+            bore_edit_text -> if (powerpackData.mBoreDiameter.isNotEmpty()) {
+                bore_edit_text.setText(powerpackData.mBoreDiameter)
 //                powerpackData.mBoreDiameter = ""
-//            }
-//            rod_edit_text -> if (powerpackData.mRodDiameter.isNotEmpty()) {
-//                rod_edit_text.setText(powerpackData.mRodDiameter)
+            }
+            rod_edit_text -> if (powerpackData.mRodDiameter.isNotEmpty()) {
+                rod_edit_text.setText(powerpackData.mRodDiameter)
 //                powerpackData.mRodDiameter = ""
-//            }
-//            stroke_edit_text -> if (powerpackData.mStroke.isNotEmpty()) {
-//                stroke_edit_text.setText(powerpackData.mStroke)
+            }
+            stroke_edit_text -> if (powerpackData.mStroke.isNotEmpty()) {
+                stroke_edit_text.setText(powerpackData.mStroke)
 //                powerpackData.mStroke = ""
-//            }
-//            pressure_edit_text -> if (powerpackData.mPressure.isNotEmpty()) {
-//                pressure_edit_text.setText(powerpackData.mPressure)
-//                powerpackData.mPressure = ""
-//            }
-//            force_bore_side_edit_text -> if (powerpackData.mForceBoreSide.isNotEmpty()) {
-//                force_bore_side_edit_text.setText(powerpackData.mForceBoreSide)
-//                powerpackData.mForceBoreSide = ""
-//            }
-//            force_edit_text -> if (powerpackData.mForceRodSide.isNotEmpty()) {
-//                force_edit_text.setText(powerpackData.mForceRodSide)
+            }
+            up_force_edit_text -> if (powerpackData.mUpForce.isNotEmpty()) {
+                up_force_edit_text.setText(powerpackData.mUpForce)
 //                powerpackData.mForceRodSide = ""
-//            }
-//        }
-//    }
+            }
+            down_force_edit_text -> if (powerpackData.mDownForce.isNotEmpty()) {
+                down_force_edit_text.setText(powerpackData.mDownForce)
+//                powerpackData.mForceRodSide = ""
+            }
+            pressing_force_edit_text -> if (powerpackData.mPressingForce.isNotEmpty()) {
+                pressing_force_edit_text.setText(powerpackData.mPressingForce)
+//                powerpackData.mForceRodSide = ""
+            }
+            up_speed_edit_text -> if (powerpackData.mUpSpeed.isNotEmpty()) {
+                up_speed_edit_text.setText(powerpackData.mUpSpeed)
+//                powerpackData.mForceRodSide = ""
+            }
+            speed_down_edit_text -> if (powerpackData.mDownSpeed.isNotEmpty()) {
+                speed_down_edit_text.setText(powerpackData.mDownSpeed)
+//                powerpackData.mForceRodSide = ""
+            }
+            speed_pressing_edit_text -> if (powerpackData.mPressingSpeed.isNotEmpty()) {
+                speed_pressing_edit_text.setText(powerpackData.mPressingSpeed)
+//                powerpackData.mForceRodSide = ""
+            }
+            up_pressure_edit_text -> if (powerpackData.mUpPressure.isNotEmpty()) {
+                up_pressure_edit_text.setText(powerpackData.mUpPressure)
+//                powerpackData.mForceRodSide = ""
+            }
+            down_pressure_edit_text -> if (powerpackData.mDownPressure.isNotEmpty()) {
+                down_pressure_edit_text.setText(powerpackData.mDownPressure)
+//                powerpackData.mForceRodSide = ""
+            }
+            pressure_pressing_edit_text -> if (powerpackData.mPressingPressure.isNotEmpty()) {
+                pressure_pressing_edit_text.setText(powerpackData.mPressingPressure)
+//                powerpackData.mForceRodSide = ""
+            }
+            up_flow_edit_text -> if (powerpackData.mUpFlow.isNotEmpty()) {
+                up_flow_edit_text.setText(powerpackData.mUpFlow)
+//                powerpackData.mForceRodSide = ""
+            }
+            down_flow_edit_text -> if (powerpackData.mDownFlow.isNotEmpty()) {
+                down_flow_edit_text.setText(powerpackData.mDownFlow)
+//                powerpackData.mForceRodSide = ""
+            }
+            pressing_flow_edit_text -> if (powerpackData.mPressingFlow.isNotEmpty()) {
+                pressing_flow_edit_text.setText(powerpackData.mPressingFlow)
+//                powerpackData.mForceRodSide = ""
+            }
+            up_motor_edit_text -> if (powerpackData.mUpMotor.isNotEmpty()) {
+                up_motor_edit_text.setText(powerpackData.mUpMotor)
+//                powerpackData.mForceRodSide = ""
+            }
+            down_motor_edit_text -> if (powerpackData.mDownMotor.isNotEmpty()) {
+                down_motor_edit_text.setText(powerpackData.mDownMotor)
+//                powerpackData.mForceRodSide = ""
+            }
+            pressing_motor_edit_text -> if (powerpackData.mPressingMotor.isNotEmpty()) {
+                pressing_motor_edit_text.setText(powerpackData.mPressingMotor)
+//                powerpackData.mForceRodSide = ""
+            }
+
+        }
+    }
 }
