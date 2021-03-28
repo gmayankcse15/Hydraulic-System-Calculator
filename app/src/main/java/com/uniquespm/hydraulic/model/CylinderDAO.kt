@@ -6,15 +6,13 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface HydraulicSystemDAO {
+interface CylinderDAO {
     @Insert
-    fun insertCylinder(cylinder: Cylinder)
-
-    fun insertPowerpack(powerpack: Powerpack)
+    fun insert(cylinder: Cylinder)
 
     @Query("DELETE FROM cylinder_table")
     fun deleteAll();
 
     @Query("SELECT * FROM cylinder_table ORDER BY _id DESC")
-    fun getAllHydraulicProjects(): LiveData<List<HydraulicSystem>>
+    fun getAllCylinderProjects(): LiveData<List<Cylinder>>
 }

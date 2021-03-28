@@ -12,21 +12,41 @@ import com.uniquespm.hydraulic.R
 import com.uniquespm.hydraulic.model.Cylinder
 import com.uniquespm.hydraulic.model.HydraulicSystem
 import com.uniquespm.hydraulic.model.Powerpack
+import com.uniquespm.hydraulic.util.Constants
 import com.uniquespm.hydraulic.util.Constants.Companion.CYLINDER
 import com.uniquespm.hydraulic.util.Constants.Companion.POWERPACK
 
 class ProjectListAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var mProjectList: List<HydraulicSystem> = ArrayList()
+    private var mProjectList: ArrayList<HydraulicSystem> = ArrayList()
+    private var mCylinderProject : List<HydraulicSystem> = ArrayList()
+    private var mPowerpackProject: List<HydraulicSystem> = ArrayList()
+
 
     companion object {
         private const val TAG = "FormulaListAdapter"
     }
 
-    fun updateProject(projectList: List<HydraulicSystem>) {
-        mProjectList = projectList
+    fun updatePowerpackProject(projectList: List<HydraulicSystem>) {
+        mPowerpackProject = projectList
+        mProjectList = ArrayList()
+        mProjectList.addAll(mCylinderProject)
+        mProjectList.addAll(mPowerpackProject)
         notifyDataSetChanged()
     }
+
+    fun updateCylinderProject(projectList: List<HydraulicSystem>) {
+        mCylinderProject = projectList
+        mProjectList  = ArrayList()
+        mProjectList.addAll(mCylinderProject)
+        mProjectList.addAll(mPowerpackProject)
+        notifyDataSetChanged()
+    }
+
+//    fun updateProject(projectList: List<HydraulicSystem>) {
+//        mProjectList.addAll(projectList)
+//        notifyDataSetChanged()
+//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.project_list_item, parent, false)
@@ -45,7 +65,6 @@ class ProjectListAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerV
                 val action = ProjectFragmentDirections.actionNavProjectToCardviewPowerpack().setPowerpackData(mProjectList[position] as Powerpack)
                 it.findNavController().navigate(action)
             }
-
         }
     }
 
@@ -55,12 +74,15 @@ class ProjectListAdapter(val mContext: Context) : RecyclerView.Adapter<RecyclerV
 
 class ProjectViewHolder(val context: Context, view: View) : RecyclerView.ViewHolder(view) {
     val projectTextView: TextView
+    val projectTypeTextView: TextView
 
     init {
         projectTextView = view.findViewById(R.id.project_name)
+        projectTypeTextView = view.findViewById(R.id.project_type)
     }
 
     fun setAdapterData(system: HydraulicSystem) {
         projectTextView.text = system.mProjectName
+        projectTypeTextView.text = if(system.mProjectType == 0) "Cylinder" else "Powerpack"
     }
 }

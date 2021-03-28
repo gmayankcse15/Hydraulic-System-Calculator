@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 
 @Database(entities = arrayOf(Cylinder::class, Powerpack::class), version = 4, exportSchema = false)
 abstract class CommonRoomDatabase : RoomDatabase() {
-    abstract val hydraulicSystemDAO : HydraulicSystemDAO
-//    abstract val powerpackDAO: PowerpackDAO
+    abstract val cylinderDAO : CylinderDAO
+    abstract val powerpackDAO: PowerpackDAO
     companion object {
 
         @Volatile

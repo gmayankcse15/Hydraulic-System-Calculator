@@ -6,18 +6,23 @@ import androidx.lifecycle.LiveData
 import com.uniquespm.hydraulic.model.Cylinder
 import com.uniquespm.hydraulic.model.DataRepository
 import com.uniquespm.hydraulic.model.HydraulicSystem
+import com.uniquespm.hydraulic.model.Powerpack
 
 class ProjectViewModel(application: Application) : AndroidViewModel(application) {
 
     private val mRepository: DataRepository
-    private val mAllProjects: LiveData<List<HydraulicSystem>>
+    private val mPowerpackProjectList: LiveData<List<Powerpack>>
+    private val mCylinderProjectList : LiveData<List<Cylinder>>
 
     init {
         mRepository = DataRepository(application)
-        mAllProjects = mRepository.getAllCylinderProjects()
+        mCylinderProjectList = mRepository.getAllCylinderProjects()
+        mPowerpackProjectList = mRepository.getAllPowerpackProjects()
     }
 
-    fun getAllProjects() : LiveData<List<Cylinder>> =  mAllProjects
+    fun getCylinderProjects() : LiveData<List<Cylinder>> =  mCylinderProjectList
+
+    fun getPowerpackProjects() : LiveData<List<Powerpack>> = mPowerpackProjectList
 
     fun insert(cylinder: Cylinder)  {
         mRepository.insertCylinder(cylinder)

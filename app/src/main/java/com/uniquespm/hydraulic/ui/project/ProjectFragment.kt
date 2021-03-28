@@ -34,8 +34,11 @@ class ProjectFragment : Fragment() {
     ): View? {
         projectViewModel = ViewModelProvider(this).get(ProjectViewModel::class.java)
         mProjectListAdapter = ProjectListAdapter(mContext)
-        projectViewModel.getAllProjects().observe(this.viewLifecycleOwner, Observer {
-            it?.let { mProjectListAdapter.updateProject(it) }
+        projectViewModel.getCylinderProjects().observe(this.viewLifecycleOwner, Observer {
+            it?.let { mProjectListAdapter.updateCylinderProject(it) }
+        })
+        projectViewModel.getPowerpackProjects().observe(this.viewLifecycleOwner, Observer {
+            it?.let{ mProjectListAdapter.updatePowerpackProject(it)}
         })
         val root = inflater.inflate(R.layout.fragment_project, container, false)
         return root

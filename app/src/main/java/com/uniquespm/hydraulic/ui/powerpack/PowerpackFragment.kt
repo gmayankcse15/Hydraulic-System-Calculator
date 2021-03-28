@@ -1225,7 +1225,7 @@ class PowerpackFragment : Fragment() {
 
         minus.setOnClickListener {
             var nCyl =  cyclinder_edit_text?.text.toString().toInt()
-            if (nCyl > 0) {
+            if (nCyl > 1) {
                 nCyl -= 1
             }
             cyclinder_edit_text.setText(nCyl.toString())
@@ -1290,7 +1290,7 @@ class PowerpackFragment : Fragment() {
             speed_spinner.setSelection(powerpackData.mSpeedUnit)
             flow_spinner.setSelection(powerpackData.mFlowUnit)
 
-//            updateEditText(powerpackData)
+            cyclinder_edit_text.text = powerpackData.mNumCylinder.toString()
         }
 
         enableButton(reset_button)
@@ -1343,9 +1343,6 @@ class PowerpackFragment : Fragment() {
 
     private fun updateEditText(powerpackData: Powerpack, editText: EditText) {
         when (editText) {
-            cyclinder_edit_text -> {
-                cyclinder_edit_text.setText(powerpackData.mNumCylinder)
-            }
             bore_edit_text -> if (powerpackData.mBoreDiameter.isNotEmpty()) {
                 bore_edit_text.setText(powerpackData.mBoreDiameter)
 //                powerpackData.mBoreDiameter = ""
@@ -1360,63 +1357,63 @@ class PowerpackFragment : Fragment() {
             }
             up_force_edit_text -> if (powerpackData.mUpForce.isNotEmpty()) {
                 up_force_edit_text.setText(powerpackData.mUpForce)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mUpForce = ""
             }
             down_force_edit_text -> if (powerpackData.mDownForce.isNotEmpty()) {
                 down_force_edit_text.setText(powerpackData.mDownForce)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mDownForce = ""
             }
             pressing_force_edit_text -> if (powerpackData.mPressingForce.isNotEmpty()) {
                 pressing_force_edit_text.setText(powerpackData.mPressingForce)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mPressingForce = ""
             }
             up_speed_edit_text -> if (powerpackData.mUpSpeed.isNotEmpty()) {
                 up_speed_edit_text.setText(powerpackData.mUpSpeed)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mUpSpeed = ""
             }
             speed_down_edit_text -> if (powerpackData.mDownSpeed.isNotEmpty()) {
                 speed_down_edit_text.setText(powerpackData.mDownSpeed)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mDownSpeed = ""
             }
             speed_pressing_edit_text -> if (powerpackData.mPressingSpeed.isNotEmpty()) {
                 speed_pressing_edit_text.setText(powerpackData.mPressingSpeed)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mPressingSpeed = ""
             }
             up_pressure_edit_text -> if (powerpackData.mUpPressure.isNotEmpty()) {
                 up_pressure_edit_text.setText(powerpackData.mUpPressure)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mUpPressure = ""
             }
             down_pressure_edit_text -> if (powerpackData.mDownPressure.isNotEmpty()) {
                 down_pressure_edit_text.setText(powerpackData.mDownPressure)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mDownPressure = ""
             }
             pressure_pressing_edit_text -> if (powerpackData.mPressingPressure.isNotEmpty()) {
                 pressure_pressing_edit_text.setText(powerpackData.mPressingPressure)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mPressingPressure = ""
             }
             up_flow_edit_text -> if (powerpackData.mUpFlow.isNotEmpty()) {
                 up_flow_edit_text.setText(powerpackData.mUpFlow)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mUpFlow = ""
             }
             down_flow_edit_text -> if (powerpackData.mDownFlow.isNotEmpty()) {
                 down_flow_edit_text.setText(powerpackData.mDownFlow)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mDownFlow = ""
             }
             pressing_flow_edit_text -> if (powerpackData.mPressingFlow.isNotEmpty()) {
                 pressing_flow_edit_text.setText(powerpackData.mPressingFlow)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mPressingFlow = ""
             }
             up_motor_edit_text -> if (powerpackData.mUpMotor.isNotEmpty()) {
                 up_motor_edit_text.setText(powerpackData.mUpMotor)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mUpMotor = ""
             }
             down_motor_edit_text -> if (powerpackData.mDownMotor.isNotEmpty()) {
                 down_motor_edit_text.setText(powerpackData.mDownMotor)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mDownMotor = ""
             }
             pressing_motor_edit_text -> if (powerpackData.mPressingMotor.isNotEmpty()) {
                 pressing_motor_edit_text.setText(powerpackData.mPressingMotor)
-//                powerpackData.mForceRodSide = ""
+//                powerpackData.mPressingMotor = ""
             }
 
         }

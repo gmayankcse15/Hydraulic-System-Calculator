@@ -6,17 +6,17 @@ import androidx.lifecycle.LiveData
 
 class DataRepository(application: Context) {
 
-    var  mHydraulicSystemDAO : HydraulicSystemDAO
-    var  mAllProjects :LiveData<List<HydraulicSystem>>
+    var  mCylinderDAO : CylinderDAO
+    var  mAllCylinderProjects :LiveData<List<Cylinder>>
 
     var mPowerpackDAO: PowerpackDAO
-    var mAllProjectList: List <HydraulicSystem>
+    var mAllPowerpackProjects: LiveData<List<Powerpack>>
 
 
     init {
         val db: CommonRoomDatabase = CommonRoomDatabase.getInstance(application)
-        mHydraulicSystemDAO = db.cylinderDAO
-        mHydraulicSystemDAO.getAllCylinderProjects()
+        mCylinderDAO = db.cylinderDAO
+        mAllCylinderProjects = mCylinderDAO.getAllCylinderProjects()
         mPowerpackDAO = db.powerpackDAO
         mAllPowerpackProjects = mPowerpackDAO.getAllPowerpackProjects()
     }
@@ -30,7 +30,7 @@ class DataRepository(application: Context) {
     }
 
     fun insertCylinder(cylinder: Cylinder) {
-        insertAsyncTaskCylinder(mHydraulicSystemDAO).execute(cylinder)
+        insertAsyncTaskCylinder(mCylinderDAO).execute(cylinder)
     }
 
     fun insertPowerpack(powerpack: Powerpack) {
@@ -39,9 +39,9 @@ class DataRepository(application: Context) {
 
     companion object {
 
-        class insertAsyncTaskCylinder(private val mAsyncHydraulicSystemDao: HydraulicSystemDAO) : AsyncTask<Cylinder, Void, Int>() {
+        class insertAsyncTaskCylinder(private val mAsyncCylinderDao: CylinderDAO) : AsyncTask<Cylinder, Void, Int>() {
             override fun doInBackground(vararg params: Cylinder?): Int {
-                mAsyncHydraulicSystemDao.insert(params[0]!!)
+                mAsyncCylinderDao.insert(params[0]!!)
                 return 0
             }
         }
