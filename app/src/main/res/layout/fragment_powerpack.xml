@@ -336,7 +336,7 @@
                 style="@style/cylinderButtonStyle"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
-                android:text="@string/share"
+                android:text="@string/copy"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/reset_button"

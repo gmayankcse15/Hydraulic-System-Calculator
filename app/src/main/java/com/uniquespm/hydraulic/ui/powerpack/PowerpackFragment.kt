@@ -1,6 +1,8 @@
 package com.uniquespm.hydraulic.ui.powerpack
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.Configuration
@@ -27,19 +29,25 @@ import com.uniquespm.hydraulic.model.DataRepository
 import com.uniquespm.hydraulic.model.Powerpack
 import com.uniquespm.hydraulic.ui.cylinder.EditTextChangeListener
 import com.uniquespm.hydraulic.util.*
-import kotlinx.android.synthetic.main.fragment_cylinder.*
+import kotlinx.android.synthetic.main.convertor_list_item.view.*
 import kotlinx.android.synthetic.main.fragment_powerpack.*
 import kotlinx.android.synthetic.main.fragment_powerpack.bore_edit_text
 import kotlinx.android.synthetic.main.fragment_powerpack.bore_spinner
+import kotlinx.android.synthetic.main.fragment_powerpack.reset_button
 import kotlinx.android.synthetic.main.fragment_powerpack.rod_edit_text
 import kotlinx.android.synthetic.main.fragment_powerpack.rod_spinner
 import kotlinx.android.synthetic.main.fragment_powerpack.save_button
 import kotlinx.android.synthetic.main.fragment_powerpack.share_button
 import kotlinx.android.synthetic.main.fragment_powerpack.stroke_edit_text
 import kotlinx.android.synthetic.main.fragment_powerpack.stroke_spinner
+import kotlinx.android.synthetic.main.fragment_powerpack.text_bore_diameter
+import kotlinx.android.synthetic.main.fragment_powerpack.text_rod_diameter
+import kotlinx.android.synthetic.main.fragment_powerpack.text_stroke
 import kotlinx.android.synthetic.main.powerpack_table_layout.*
 import kotlinx.android.synthetic.main.powerpack_table_layout.force_spinner
 import kotlinx.android.synthetic.main.powerpack_table_layout.pressure_spinner
+import kotlinx.android.synthetic.main.powerpack_table_layout.text_force
+import kotlinx.android.synthetic.main.powerpack_table_layout.text_pressure
 import kotlinx.android.synthetic.main.powerpack_table_layout.view.*
 import java.text.Normalizer
 
@@ -1300,6 +1308,41 @@ class PowerpackFragment : Fragment() {
                     editText.setText("")
                 }
             }
+        }
+
+        fun constructData() : String {
+            var s: StringBuilder  = StringBuilder()
+            s.append(text_numcylinder.text.toString()).append(" : ").append(cyclinder_edit_text.text.toString()).append('\n')
+            s.append(text_bore_diameter.text.toString()).append(" : ").append(bore_edit_text.text.toString()).append((bore_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_rod_diameter.text.toString()).append(" : ").append(rod_edit_text.text.toString()).append((rod_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_stroke.text.toString()).append(" : ").append(stroke_edit_text.text.toString()).append((stroke_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_up.text.toString()).append('\n')
+            s.append(text_force.text.toString()).append(" : ").append(up_force_edit_text.text.toString()).append((force_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_pressure.text.toString()).append(" : ").append(up_pressure_edit_text.text.toString()).append((pressure_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_speed.text.toString()).append(" : ").append(up_speed_edit_text.text.toString()).append((speed_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_flow.text.toString()).append(" : ").append(up_flow_edit_text.text.toString()).append((flow_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_motor.text.toString()).append(" : ").append(up_motor_edit_text.text.toString()).append((motor_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_down.text.toString()).append('\n')
+            s.append(text_force.text.toString()).append(" : ").append(down_force_edit_text.text.toString()).append((force_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_pressure.text.toString()).append(" : ").append(down_pressure_edit_text.text.toString()).append((pressure_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_speed.text.toString()).append(" : ").append(speed_down_edit_text.text.toString()).append((speed_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_flow.text.toString()).append(" : ").append(down_flow_edit_text.text.toString()).append((flow_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_motor.text.toString()).append(" : ").append(down_motor_edit_text.text.toString()).append((motor_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_pressing.text.toString()).append('\n')
+            s.append(text_force.text.toString()).append(" : ").append(pressing_force_edit_text.text.toString()).append((force_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_pressure.text.toString()).append(" : ").append(pressure_pressing_edit_text.text.toString()).append((pressure_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_speed.text.toString()).append(" : ").append(speed_pressing_edit_text.text.toString()).append((speed_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_flow.text.toString()).append(" : ").append(pressing_flow_edit_text.text.toString()).append((flow_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_motor.text.toString()).append(" : ").append(pressing_motor_edit_text.text.toString()).append((motor_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_oil_stroke.text.toString()).append(" : ").append(oil_stroke_edit_text.text.toString()).append((oil_stroke_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_tank_capacity.text.toString()).append(" : ").append(tank_capacity_edit_text.text.toString()).append((tank_capacity_spinner.selectedItem as UNIT).unit).append('\n')
+            return s.toString()
+        }
+
+        share_button.setOnClickListener {
+            val clipboard = mContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip : ClipData = ClipData.newPlainText("simple text", constructData())
+            clipboard.setPrimaryClip(clip)
         }
 
 

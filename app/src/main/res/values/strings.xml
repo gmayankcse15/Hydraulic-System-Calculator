@@ -39,6 +39,7 @@
     <string name="save">Save</string>
     <string name="reset">Reset</string>
     <string name="share">Share</string>
+    <string name="copy">Copy</string>
     <string name="bore_side">Bore Side</string>
     <string name="rod_side">Rod Side</string>
     <string name="num_cylinder">Number of Cylinders</string>
@@ -55,4 +56,8 @@
     <string name="tagline">Unique SPM Solutions and Engineering incorporated in the year 2008 as a leading ISO-9001-2008 Certified Company engaged in manufacturing varied range of Hydraulic products including: Broaching Machines and Hydraulic Presses.</string>
     <string name="save_project">Save Project</string>
     <string name="cancel_text">Cancel</string>
+    <string name="privacyNotice">The results of this application are based on standard Hydraulic System Calculation Formulas. Although every effort has been made to ensure the accuracy of the information within this application, it is your responsibility to verify the accuracy of any and all data represented.
+    \n\nUnique SPM Solutions and Engineering makes no representations or warranties of any kind, expressed or implied, of the completeness, accuracy, reliability or suitability of the information provided by this application. Any reliance placed on the information obtained through this application is strictly at your own risk
+    \n\nThis information provided is in compliance with ISO 3320, ISO 3321 and ISO 4393</string>
+    <string name="Disclamer">Disclamer</string>
 </resources>

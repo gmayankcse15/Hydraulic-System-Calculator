@@ -147,6 +147,7 @@ class FormulaUtil {
                 bD = ConversionUtil.convertUnit(bD, boreUnit, LENGTH.MM)
                 var res = (PI * bD.pow(2.0)) / 4.0
                 res = ConversionUtil.convertUnit(res, AREA.MM2, toAreaUnit)
+                Log.d(TAG, "Area BoreSide: $res")
                 return decimalFormat.format(res).toString()
             }
             return ""

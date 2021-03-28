@@ -15,7 +15,7 @@ class PrivacyFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_formula, container, false)
+        val root = inflater.inflate(R.layout.fragment_privacy, container, false)
 //        val textView: TextView = root.findViewById(R.id.text_contactus)
         return root
     }

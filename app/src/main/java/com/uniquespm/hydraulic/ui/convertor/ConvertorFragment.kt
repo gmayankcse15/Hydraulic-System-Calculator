@@ -9,24 +9,47 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uniquespm.hydraulic.R
+import com.uniquespm.hydraulic.util.*
 
 class ConvertorFragment : Fragment() {
 
     private lateinit var mConvetorList: RecyclerView
     private val list: Array<String> = arrayOf("Length", "Volume", "Mass", "Pressure", "Force", "Temperature", "Time", "Speed", "Area", "Energy", "Flow", "Angle")
-    private val unitList: Array<Array<String>> = arrayOf(
-        arrayOf("mm", "cm", "meter", "inch", "feet"),
-        arrayOf("litre", "ml", "mm\u00b3", "cm\u00b3", "m\u00b3", "us gallon", "uk gallon"),
-        arrayOf("kg", "gram", "tons", "mg", "pound"),
-        arrayOf("bar", "pascal", "psi", "atm", "kg/cm\u00b2"),
-        arrayOf("ton", "newton", "kgf", "pound"),
-        arrayOf("C\u00b0", "F\u00b0", "K\u00b0"),
-        arrayOf("sec", "min", "sec", "hour"),
-        arrayOf("mm/sec", "m/sec", "mm/min", "m/min"),
-        arrayOf("m\u00b2", "mm\u00b2", "cm\u00b2", "ft\u00b2", "inch\u00b2"),
-        arrayOf("H.P.", "watt", "kw", "w", "calorie"),
-        arrayOf("l/min", "m\u00b3/min", "gpm", "l/min"),
-        arrayOf("radian", "degree", "minute", "second"))
+    private val unitList: ArrayList<Array<UNIT>> = ArrayList()
+
+    init {
+        unitList.add(arrayOf(LENGTH.MM, LENGTH.CM, LENGTH.METER, LENGTH.INCH, LENGTH.FEET))
+        unitList.add(
+            arrayOf(
+                VOLUME.LITRE,
+                VOLUME.ML,
+                VOLUME.MM3,
+                VOLUME.CM3,
+                VOLUME.M3,
+                VOLUME.USGallon,
+                VOLUME.UKGallon
+            )
+        )
+        unitList.add(arrayOf(MASS.KG, MASS.GRAM, MASS.TONS, MASS.MG, MASS.POUND))
+        unitList.add(
+            arrayOf(
+                PRESSURE.BAR,
+                PRESSURE.PASCAL,
+                PRESSURE.PSI,
+                PRESSURE.ATM,
+                PRESSURE.KGCM2
+            )
+        )
+        unitList.add(arrayOf(FORCE.TON, FORCE.NEWTON, FORCE.KGF, FORCE.POUND))
+        unitList.add(arrayOf(TEMPERATURE.CO, TEMPERATURE.FO, TEMPERATURE.KO))
+        unitList.add(arrayOf(TIME.SEC, TIME.MIN, TIME.HOUR))
+        unitList.add(arrayOf(SPEED.MM_SEC, SPEED.M_SEC, SPEED.MM_MIN, SPEED.M_MIN))
+        unitList.add(arrayOf(AREA.M2, AREA.MM2, AREA.CM2, AREA.FT2, AREA.INCH2))
+        unitList.add(arrayOf(ENERGY.HP, ENERGY.WATT, ENERGY.KW, ENERGY.Calorie))
+        unitList.add(arrayOf(FLOW.L_MIN, FLOW.M3_MIN, FLOW.FPM))
+        unitList.add(arrayOf(ANGLE.RADIAN, ANGLE.DEGREE, ANGLE.MINUTE, ANGLE.SECOND))
+    }
+
     private lateinit var mContext: Context
 
     override fun onCreateView(

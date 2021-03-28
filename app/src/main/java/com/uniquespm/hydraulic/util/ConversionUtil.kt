@@ -109,15 +109,40 @@ enum class VOLUME : UNIT {
             get() = 4.546
     }
 }
-//
-//enum class MASS(val unit: String) : UNIT {
-//    KG("kg"),
-//    GRAM("gram"),
-//    TONS("tons"),
-//    MG("mg"),
-//    POUND("pound")
-//}
-//
+
+enum class MASS : UNIT {
+    KG {
+        override val unit: String
+            get() = "kg"
+        override val factor: Double
+            get() =  1.0
+    },
+    GRAM {
+        override val unit: String
+            get() = "gram"
+        override val factor: Double
+            get() =  0.001
+    },
+    TONS {
+        override val unit: String
+            get() = "tons"
+        override val factor: Double
+            get() = 1000.0
+    },
+    MG {
+        override val unit: String
+            get() = "mg"
+        override val factor: Double
+            get() = 0.000001
+    },
+    POUND {
+        override val unit: String
+            get() = "pound"
+        override val factor: Double
+            get() = 1.0/2.2
+    }
+}
+
 enum class PRESSURE : UNIT {
     BAR {
         override val unit: String
@@ -178,18 +203,48 @@ enum class FORCE : UNIT {
     }
 }
 
-//enum class TEMPERATURE(val unit: String) : UNIT {
-//    CO("C\u00b0"),
-//    FO("F\u00b0"),
-//    KO("K\u00b0")
-//}
-//
-//enum class TIME(val unit: String) : UNIT {
-//    SEC("sec"),
-//    MIN("min"),
-//    HOUR("hour")
-//}
-//
+enum class TEMPERATURE : UNIT {
+    CO {
+        override val unit: String
+            get() = "C\u00b0"
+        override val factor: Double
+            get() = 1.0
+    },
+    FO {
+        override val unit: String
+            get() = "F\u00b0"
+        override val factor: Double
+            get() = 1.0/32.0
+    },
+    KO {
+        override val unit: String
+            get() = "K\u00b0"
+        override val factor: Double
+            get() = 1.0/273.15
+    }
+}
+
+enum class TIME : UNIT {
+    SEC {
+        override val unit: String
+            get() = "sec"
+        override val factor: Double
+            get() = 1.0
+    },
+    MIN {
+        override val unit: String
+            get() = "min"
+        override val factor: Double
+            get() = 60.0
+        },
+    HOUR {
+        override val unit: String
+            get() = "hour"
+        override val factor: Double
+            get() = 3600.0
+    }
+}
+
 enum class SPEED: UNIT {
     MM_SEC {
         override val unit: String
@@ -298,15 +353,31 @@ enum class FLOW : UNIT {
             get() =  3.785
     }
 }
-//
-//enum class ANGLE(val unit: String) : UNIT {
-//    RADIAN("radian"),
-//    DEGREE("degree"),
-//    MINUTE("minute"),
-//    SECOND("second")
-//}
 
-//fun main () {
-//    val d = ConversionUtil.convertUnit(1.0, LENGTH.METER, LENGTH.CM)
-//    print("value $d")
-//}
+enum class ANGLE : UNIT {
+    RADIAN {
+        override val unit: String
+            get() = "radian"
+        override val factor: Double
+            get() = 57.29
+    },
+    DEGREE {
+        override val unit: String
+            get() = "degree"
+        override val factor: Double
+            get() = 1.0
+    },
+    MINUTE {
+        override val unit: String
+            get() = "minute"
+        override val factor: Double
+            get() = 1.0/60.0
+    },
+    SECOND {
+        override val unit: String
+            get() = "second"
+        override val factor: Double
+            get() = 1.0/3600.0
+    }
+}
+

@@ -1,6 +1,8 @@
 package com.uniquespm.hydraulic.ui.cylinder
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.res.Configuration
@@ -27,11 +29,21 @@ import com.uniquespm.hydraulic.common.DecimalDigitInputFilter
 import com.uniquespm.hydraulic.common.SaveProjectCallback
 import com.uniquespm.hydraulic.model.Cylinder
 import com.uniquespm.hydraulic.model.DataRepository
-import com.uniquespm.hydraulic.ui.project.ProjectFragmentDirections
 import com.uniquespm.hydraulic.util.*
 import com.uniquespm.hydraulic.util.FormulaUtil.Companion.getValidData
 import com.uniquespm.hydraulic.util.FormulaUtil.Companion.isValid
 import kotlinx.android.synthetic.main.fragment_cylinder.*
+import kotlinx.android.synthetic.main.fragment_cylinder.bore_edit_text
+import kotlinx.android.synthetic.main.fragment_cylinder.bore_spinner
+import kotlinx.android.synthetic.main.fragment_cylinder.force_spinner
+import kotlinx.android.synthetic.main.fragment_cylinder.pressure_spinner
+import kotlinx.android.synthetic.main.fragment_cylinder.reset_button
+import kotlinx.android.synthetic.main.fragment_cylinder.rod_edit_text
+import kotlinx.android.synthetic.main.fragment_cylinder.rod_spinner
+import kotlinx.android.synthetic.main.fragment_cylinder.save_button
+import kotlinx.android.synthetic.main.fragment_cylinder.share_button
+import kotlinx.android.synthetic.main.fragment_cylinder.stroke_edit_text
+import kotlinx.android.synthetic.main.fragment_cylinder.stroke_spinner
 
 
 class CylinderFragment : Fragment() {
@@ -352,7 +364,7 @@ class CylinderFragment : Fragment() {
                                 it[parent.id]!!,
                                 selectedItem
                             )
-                            val dec = DecimalFormat("#.#####")
+                            val dec = DecimalFormat("#.##")
                             editText.setText(dec.format(res).toString())
                         }
                     } else {
@@ -454,13 +466,13 @@ class CylinderFragment : Fragment() {
         )
 
         mSpinnerIdCurrentUnitMap = mutableMapOf(
-            bore_spinner.id to LENGTH.MM,
-            rod_spinner.id to LENGTH.MM,
-            stroke_spinner.id to LENGTH.MM,
-            pressure_spinner.id to PRESSURE.BAR,
-            area_spinner.id to AREA.M2,
-            volume_spinner.id to VOLUME.LITRE,
-            force_spinner.id to FORCE.TON
+            bore_spinner.id to unitLength[0],
+            rod_spinner.id to unitLength[0],
+            stroke_spinner.id to unitLength[0],
+            pressure_spinner.id to unitPressure[0],
+            area_spinner.id to unitArea[0],
+            volume_spinner.id to unitVolume[0],
+            force_spinner.id to unitForce[0]
         )
 
         for (i in sViews.indices) {
@@ -486,6 +498,46 @@ class CylinderFragment : Fragment() {
             force_spinner.setSelection(cylinderData.mForceSideUnit)
 
 //            updateEditText(cylinderData)
+        }
+
+        enableButton(reset_button)
+        reset_button.setOnClickListener{
+            for (editText in editTextViews) {
+                if (inputSet?.contains(editText) == true) {
+                    editText.setText("")
+                }
+            }
+        }
+
+        fun constructData() : String {
+            var s: StringBuilder = StringBuilder()
+            s.append(text_bore_diameter.text.toString()).append(" : ")
+                .append(bore_edit_text.text.toString())
+                .append((bore_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_rod_diameter.text.toString()).append(" : ")
+                .append(rod_edit_text.text.toString())
+                .append((rod_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_stroke.text.toString()).append(" : ")
+                .append(stroke_edit_text.text.toString())
+                .append((stroke_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_pressure.text.toString()).append(" : ").append(pressure_edit_text.text.toString()).append((pressure_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_bore_side.text.toString()).append('\n')
+            s.append(text_area.text.toString()).append(" : ").append(area__bore_side_edit_text.text.toString()).append((area_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_volume.text.toString()).append(" : ").append(volume_bore_side__edit_text.text.toString()).append((volume_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_force.text.toString()).append(" : ").append(force_bore_side_edit_text.text.toString()).append((force_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_rod_side.text.toString()).append('\n')
+            s.append(text_area.text.toString()).append(" : ").append(area_edit_text.text.toString()).append((area_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_volume.text.toString()).append(" : ").append(volume_edit_text.text.toString()).append((volume_spinner.selectedItem as UNIT).unit).append('\n')
+            s.append(text_force.text.toString()).append(" : ").append(force_edit_text.text.toString()).append((force_spinner.selectedItem as UNIT).unit).append('\n')
+            return s.toString()
+        }
+
+
+
+            share_button.setOnClickListener {
+            val clipboard = mContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip : ClipData = ClipData.newPlainText("simple text", constructData())
+            clipboard.setPrimaryClip(clip)
         }
 
         save_button.setOnClickListener{
