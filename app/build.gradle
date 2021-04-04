@@ -54,6 +54,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'io.github.kexanie.library:MathView:0.0.6'
     kapt "android.arch.lifecycle:compiler:2.2.0"
 
     implementation "android.arch.persistence.room:runtime:2.2.6"

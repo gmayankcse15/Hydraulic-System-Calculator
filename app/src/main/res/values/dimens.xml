@@ -29,7 +29,7 @@
     <dimen name="up_down_pressing_end_margin">1dp</dimen>
     <dimen name="pump_efficiency_edittext_width">47dp</dimen>
     <dimen name="motor_rpm_edittext_width">47dp</dimen>
-    <dimen name="Convertor_title">16dp</dimen>
+    <dimen name="Convertor_title">12dp</dimen>
     <dimen name="spinner_item_textsize">12dp</dimen>
     <dimen name="button_text_size">12dp</dimen>
     <dimen name="convertor_detail_height">156dp</dimen>
@@ -49,5 +49,6 @@
     <dimen name="button_width">100dp</dimen>
     <dimen name="text_result_parameter_width">48dp</dimen>
     <dimen name="spinner_start_margin_result">5dp</dimen>
+    <dimen name="formula_top_margin">40dp</dimen>
 
 </resources>

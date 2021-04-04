@@ -18,15 +18,15 @@ class FormulaFragment : Fragment() {
     private lateinit var mContext: Context;
     private lateinit var mFormulaList: RecyclerView
     private val formulaList: Array<Array<String>> = arrayOf(
-        arrayOf("Area"),
-        arrayOf("Volume"),
-        arrayOf("Pressure"),
-        arrayOf("Flow Rate"),
-        arrayOf("Power"),
-        arrayOf("Torque"),
-        arrayOf("Force"),
-        arrayOf("Velocity"),
-        arrayOf("Burst Pressure")
+        arrayOf("Area\n(Circle)", "$$\\scriptsize \\frac{\\pi \\times D^2}{4}$$", "D -> Diameter"),
+        arrayOf("Volume\n(Cylinder)", "\$\$\\scriptsize \\frac{\\pi \\times D^2 \\times L}{4}\$\$", "D -> Diameter\nL -> Length"),
+        arrayOf("Pressure", "\$\$\\scriptsize P = \\frac{F}{A}\$\$", "P -> Pressure\nF -> Force\nA -> Area"),
+        arrayOf("Flow Rate", "\$\$\\scriptsize A \\times V \\times e\$\$", "Q -> Flow\nA -> Area\nV -> Velocity\ne -> Mechanical +\nVolumetric\nEfficiency"),
+        arrayOf("Power", "\$\$\\scriptsize E = Q \\times P\$\$", "E -> Power\nQ -> Flow rate\nP -> Pressure"),
+        arrayOf("Torque", "\$\$\\scriptsize T = \\frac{E}{R}\$\$", "T -> Torque\nE -> Power\nR -> Rounds Per Minute"),
+        arrayOf("Force", "\$\$\\scriptsize F = P \\times A\$\$", "F -> Force\nP -> Pressure\nA -> Area"),
+        arrayOf("Velocity", "\$\$\\scriptsize V = \\frac{Q}{A}\$\$", "V -> Velocity\nQ -> Flow Rate\nA -> Area"),
+        arrayOf("Burst\nPressure", "\$\$\\scriptsize Bp = \\frac{2 \\times T.S. \\times t}{o.d}\$\$", "Bp -> Burst Pressure\nof Pipe\nT.S. -> Tensile Strength\nt -> Thickness \nof Pipe\no.d -> Outer Dia")
     )
     override fun onCreateView(
             inflater: LayoutInflater,
